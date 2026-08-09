@@ -1011,7 +1011,7 @@ a.announce-item.interactive:hover .x-icon { color: var(--purple); }
   padding: 30px 0 6px;
 }
 
-.model-hero h1 { max-width: 760px; }
+.model-hero h1 { max-width: 760px; font-size: clamp(1.5rem, 3vw, 2.15rem); }
 .model-hero .lede { max-width: 620px; margin-top: 8px; }
 
 .calc-badge {
