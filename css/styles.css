@@ -146,6 +146,19 @@ p { color: var(--dim); font-size: 0.95rem; }
   letter-spacing: -0.02em;
 }
 
+.brand-tag {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--faint);
+  padding-left: 10px;
+  border-left: 1px solid var(--border-soft);
+  white-space: nowrap;
+}
+
+@media (max-width: 640px) {
+  .brand-tag { display: none; }
+}
+
 .last-updated {
   font-size: 0.7rem;
   font-weight: 600;
