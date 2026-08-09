@@ -556,7 +556,7 @@
     </div>
 
     <div class="panel scenario-note reveal">
-      <strong>Why these defaults:</strong> they mirror a public back-of-envelope breakdown: BTC $375M + Institutional $500M + Exchanges $500M + Fintech $300M + Agents $100M, that the source thread rounds to <strong>"around $2 billion RWA TVL… and that's just the beginning… this can very quickly get into the 10s of billions."</strong> Every field below is yours to change.
+      <strong>Why these defaults:</strong> these are illustrative starting assumptions across all five distribution channels, not a forecast. Every field below is yours to change to model your own scenario.
     </div>
   </section>
 
@@ -621,7 +621,7 @@
   <section>
     <div class="section-title reveal">
       <h2>Model each revenue stream</h2>
-      <div class="sub">Defaults reproduce the source thread's five-channel scenario, every field is editable, order-of-magnitude placeholders throughout</div>
+      <div class="sub">Illustrative default assumptions across all five channels, every field is editable, order-of-magnitude placeholders throughout</div>
       <button type="button" id="resetScenarioBtn" class="btn-reset">↺ Reset to default scenario</button>
     </div>
 
@@ -644,10 +644,10 @@
         <div class="field-hint">= 3,900,000 BTC across institutions, wBTC and accredited clients at an assumed $100K/BTC. Only a fraction needs to move through IXS to matter.</div>
 
         <div class="field">
-          <label for="btc_adoptionPct">Adoption: % of that BTC deployed <span class="val" id="btc_adoptionPctVal">1.06</span>%</label>
-          <input type="range" id="btc_adoptionPct" min="0" max="20" step="0.01" value="1.06">
+          <label for="btc_adoptionPct">Adoption: % of that BTC deployed <span class="val" id="btc_adoptionPctVal">0.50</span>%</label>
+          <input type="range" id="btc_adoptionPct" min="0" max="20" step="0.01" value="0.50">
         </div>
-        <div class="field-hint">1.06% ≈ 5,000 BTC, the exact illustrative figure used in the source thread.</div>
+        <div class="field-hint">0.50% ≈ 1,950 BTC of the available pool deployed through IXS.</div>
 
         <div class="field two-col">
           <div>
@@ -692,9 +692,9 @@
 
         <div class="field">
           <label for="vaults_tvl">Deployed institutional TVL (millions of USD)</label>
-          <input type="text" inputmode="numeric" id="vaults_tvl" value="500">
+          <input type="text" inputmode="numeric" id="vaults_tvl" value="1,000">
         </div>
-        <div class="field-hint">Asset managers → IXS infrastructure → distribution. Thread scenario: $500M from this channel alone.</div>
+        <div class="field-hint">Asset managers → IXS infrastructure → distribution.</div>
 
         <div class="field">
           <label for="vaults_feePct">Vault fee / yield spread <span class="val" id="vaults_feePctVal">0.75</span>%</label>
@@ -729,9 +729,9 @@
 
         <div class="field">
           <label for="exch_volume">Deployed volume via exchanges (millions of USD)</label>
-          <input type="text" inputmode="numeric" id="exch_volume" value="500">
+          <input type="text" inputmode="numeric" id="exch_volume" value="1,000">
         </div>
-        <div class="field-hint">In advanced talks with multiple major exchanges so users can deploy holdings into IXS vaults; Unionchain tech runs on IXS. Thread scenario: $500M.</div>
+        <div class="field-hint">In advanced talks with multiple major exchanges so users can deploy holdings into IXS vaults; Unionchain tech runs on IXS.</div>
 
         <div class="field">
           <label for="exch_feePct">Fee on deployed volume <span class="val" id="exch_feePctVal">0.75</span>%</label>
@@ -771,8 +771,8 @@
         <div class="field-hint">LINE (the "WhatsApp of Asia," 180M users) is the flagship named integration; this represents blended reach across the broader super-app/fintech/PayFi category.</div>
 
         <div class="field">
-          <label for="line_adoptionPct">Adoption: % of users depositing <span class="val" id="line_adoptionPctVal">1.11</span>%</label>
-          <input type="range" id="line_adoptionPct" min="0" max="3" step="0.01" value="1.11">
+          <label for="line_adoptionPct">Adoption: % of users depositing <span class="val" id="line_adoptionPctVal">1.50</span>%</label>
+          <input type="range" id="line_adoptionPct" min="0" max="3" step="0.01" value="1.50">
         </div>
 
         <div class="field two-col">
@@ -814,9 +814,9 @@
 
         <div class="field">
           <label for="agents_tvl">Deployed agent-vault TVL (millions of USD)</label>
-          <input type="text" inputmode="numeric" id="agents_tvl" value="100">
+          <input type="text" inputmode="numeric" id="agents_tvl" value="1,000">
         </div>
-        <div class="field-hint">Agents already hold wallets and interact with DeFi. Agentic Vaults give them the same institutional RWA infrastructure as human capital. Thread scenario: $100M.</div>
+        <div class="field-hint">Agents already hold wallets and interact with DeFi. Agentic Vaults give them the same institutional RWA infrastructure as human capital.</div>
 
         <div class="field">
           <label for="agents_feePct">Vault fee / yield spread <span class="val" id="agents_feePctVal">0.75</span>%</label>
