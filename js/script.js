@@ -6,8 +6,26 @@
 document.addEventListener('DOMContentLoaded', () => {
   initReveal();
   initTabs();
+  initThemeToggle();
   initBuybackBurnModel();
 });
+
+// ---------- Dark mode toggle ----------
+// The initial theme is set synchronously in <head> (before first paint) to
+// avoid a flash. This just wires up the button to flip + persist it.
+
+function initThemeToggle() {
+  const root = document.documentElement;
+  const btn = document.getElementById('themeToggle');
+  if (!btn) return;
+
+  btn.addEventListener('click', () => {
+    const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    try { localStorage.setItem('ixs-theme', next); } catch (e) {}
+    document.dispatchEvent(new CustomEvent('ixs-themechange', { detail: { theme: next } }));
+  });
+}
 
 // ---------- Scroll reveal ----------
 
@@ -250,6 +268,12 @@ function initBuybackBurnModel() {
     updateChart(streams);
   }
 
+  // Read live CSS custom properties so the chart follows the current
+  // light/dark theme instead of baking in fixed hex colors.
+  function cssVar(name) {
+    return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+  }
+
   function updateChart(streams) {
     const canvas = $('streamChart');
     if (!canvas || typeof Chart === 'undefined') return;
@@ -264,26 +288,30 @@ function initBuybackBurnModel() {
         {
           label: 'Buyback (USD)',
           data: buybackData,
-          backgroundColor: '#8b7bff',
+          backgroundColor: cssVar('--purple') || '#8b7bff',
           borderRadius: 6,
         },
         {
           label: 'Burn (USD)',
           data: burnData,
-          backgroundColor: '#d9600f',
+          backgroundColor: cssVar('--orange') || '#d9600f',
           borderRadius: 6,
         },
       ],
     };
 
+    const inkColor = cssVar('--ink') || '#14141c';
+    const dimColor = cssVar('--dim') || '#52525f';
+    const gridColor = cssVar('--border-soft') || '#dedee8';
+
     const options = {
       responsive: true,
       plugins: {
-        legend: { position: 'bottom', labels: { color: '#14141c', font: { size: 11 } } },
+        legend: { position: 'bottom', labels: { color: inkColor, font: { size: 11 } } },
       },
       scales: {
-        x: { stacked: true, ticks: { color: '#52525f', font: { size: 11 } }, grid: { display: false } },
-        y: { stacked: true, ticks: { color: '#52525f' }, grid: { color: '#dedee8' } },
+        x: { stacked: true, ticks: { color: dimColor, font: { size: 11 } }, grid: { display: false } },
+        y: { stacked: true, ticks: { color: dimColor }, grid: { color: gridColor } },
       },
     };
 
@@ -295,6 +323,9 @@ function initBuybackBurnModel() {
       chart = new Chart(ctx, { type: 'bar', data, options });
     }
   }
+
+  // Repaint the chart (and re-read every color) whenever the theme flips.
+  document.addEventListener('ixs-themechange', recalcAll);
 
   recalcAll();
 }
