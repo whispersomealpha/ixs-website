@@ -338,7 +338,7 @@ function initBuybackBurnModel() {
           borderRadius: 6,
         },
         {
-          label: 'Burn (USD)',
+          label: 'Buyback & Burn (USD)',
           data: burnData,
           backgroundColor: cssVar('--orange') || '#d9600f',
           borderRadius: 6,
