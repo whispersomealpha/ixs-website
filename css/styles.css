@@ -271,6 +271,9 @@ p { color: var(--dim); font-size: 0.95rem; }
 
 .logo-row { display: flex; gap: 8px; flex-wrap: wrap; }
 .logo-chip-sm {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
   padding: 5px 10px;
   border: 1px solid var(--border-soft);
   border-radius: 8px;
@@ -279,6 +282,19 @@ p { color: var(--dim); font-size: 0.95rem; }
   color: var(--dim);
   background: var(--bg);
 }
+
+a.logo-chip-sm.interactive {
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease, color 0.15s ease, transform 0.15s ease;
+}
+a.logo-chip-sm.interactive:hover {
+  border-color: var(--purple);
+  background: var(--purple-soft);
+  color: var(--purple);
+  transform: translateY(-1px);
+}
+.logo-chip-sm .x-icon { font-size: 0.68rem; color: var(--faint); font-weight: 700; }
+a.logo-chip-sm.interactive:hover .x-icon { color: var(--purple); }
 
 .advisor-row { display: flex; flex-direction: column; gap: 10px; }
 .advisor {
