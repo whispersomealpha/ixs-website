@@ -4,229 +4,370 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>IXS — The Licensed Layer 0 API for RWA</title>
-<meta name="description" content="IXS is the compliant rails, infrastructure and distribution layer that lets anyone — apps, exchanges, companies or AI agents — offer institutional-grade RWA products.">
+<meta name="description" content="IXS is the compliant rails, infrastructure and distribution layer that lets anyone — apps, exchanges, companies or AI agents — offer institutional-grade RWA products to their users. Licensed. Compliant. Institutional Grade.">
 <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
 
-<nav class="nav">
-  <div class="nav-inner">
-    <a href="index.html" class="brand">
-      <span class="brand-mark">
-        <svg viewBox="0 0 24 24" fill="none"><path d="M4 6h16L10 12h10L6 18h12" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </span>
-      <span>IXS<span class="brand-tag">The Stripe of RWA</span></span>
-    </a>
-    <div class="nav-links">
-      <a href="index.html">Home</a>
-      <a href="about.html">About</a>
-      <a href="how-it-works.html">How It Works</a>
-      <a href="partnerships.html">Partnerships</a>
-      <a href="tokenomics.html">Tokenomics</a>
+<!-- TOP BAR (menu/tabs to be added here later) -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <svg class="brand-mark" viewBox="0 0 40 40" fill="none">
+        <path d="M5 10h30L20 20h15L12 30h15" stroke="#14141c" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span class="brand-word">IXS</span>
     </div>
-    <a href="https://www.ixs.finance" target="_blank" rel="noopener" class="nav-cta">ixs.finance ↗</a>
-    <button class="nav-toggle" aria-label="Toggle menu">☰</button>
+    <div style="display:flex; align-items:center; gap:10px;">
+      <span class="ticker-badge">$IXS</span>
+      <a href="https://www.ixs.finance" target="_blank" rel="noopener" class="topbar-link">ixs.finance ↗</a>
+    </div>
   </div>
-</nav>
+</div>
 
-<!-- HERO -->
-<header class="hero container">
-  <div class="badge-row reveal in">
-    <span class="pill on-purple">Licensed</span>
-    <span class="pill on-blue">Compliant</span>
-    <span class="pill on-green">Institutional Grade</span>
-  </div>
-  <h1 class="reveal in">The Licensed Layer&nbsp;0 API for <span class="gradient-text">Real World Assets</span></h1>
-  <p class="lede reveal in">IXS is the compliant rails, infrastructure and distribution layer that lets anyone — apps, exchanges, companies, or AI agents — offer institutional-grade RWA products to their users. Plug in. Offer RWA. Scale.</p>
-  <div class="btn-row reveal in">
-    <a href="how-it-works.html" class="btn btn-primary">See how it works</a>
-    <a href="partnerships.html" class="btn btn-outline">Explore partnerships</a>
-  </div>
+<div class="container">
 
-  <div class="stat-strip reveal">
-    <div class="stat">
-      <div class="num" data-count="1500">1,500+</div>
-      <div class="label">Institutional clients reached via BitGo co-marketing</div>
-    </div>
-    <div class="stat">
-      <div class="num" data-count="180">180M</div>
-      <div class="label">LINE users in Asia via Unionchain distribution</div>
-    </div>
-    <div class="stat">
-      <div class="num" data-count="25">25M</div>
-      <div class="label">KYC'd users via Unionchain / CEX joint venture</div>
-    </div>
-    <div class="stat">
-      <div class="num">20%</div>
-      <div class="label">Of protocol fees used for $IXS buyback &amp; burn</div>
-    </div>
-  </div>
-</header>
-
-<!-- WHAT IS IXS -->
-<section>
-  <div class="container">
-    <div class="split">
-      <div class="reveal">
-        <span class="eyebrow">What is IXS?</span>
-        <h2>A licensed Layer 0 API that bypasses years of legal, compliance and infrastructure setup</h2>
-        <p class="lede">So anyone — apps, exchanges, companies, or AI agents — can offer institutional-grade RWA products. IXS has been building tokenized RWA infrastructure since 2018, and now packages that groundwork into a single pluggable API.</p>
-        <ul class="check-list" style="margin-top:28px;">
-          <li>Full legal, compliance and infrastructure already in place</li>
-          <li>Built with top-tier custody and partners that institutions trust</li>
-          <li>Plug in once, access global distribution across apps, exchanges and AI agents</li>
-          <li>Access high-quality RWA products from the world's leading institutions</li>
-        </ul>
+  <!-- ============ ROW 1 — HEADER / WHAT IS IXS ============ -->
+  <section id="overview">
+    <div class="hero-grid">
+      <div class="hero-left reveal">
+        <svg class="brand-mark" viewBox="0 0 40 40" fill="none" style="width:52px; height:52px;">
+          <path d="M5 10h30L20 20h15L12 30h15" stroke="#14141c" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <h1>THE LICENSED LAYER 0 API FOR RWA</h1>
+        <div class="kicker">THE STRIPE OF RWA</div>
+        <p class="lede">The compliant rails, infrastructure and distribution layer that lets anyone (or an AI agent) — apps, exchanges, companies — offer institutional grade RWA products to their users.</p>
+        <div class="badge-row">
+          <span class="badge">✅ Licensed</span>
+          <span class="badge">✅ Compliant</span>
+          <span class="badge">✅ Institutional Grade</span>
+        </div>
       </div>
-      <div class="reveal">
-        <div class="card">
-          <h3 style="margin-bottom:18px;">Founded by experts, backed by leaders</h3>
-          <div class="dash-list">
-            <li><strong style="color:var(--text)">Founded by experts</strong> in finance, legal and compliance, with all required licenses to operate in RWA</li>
-            <li><strong style="color:var(--text)">Backed by top investors</strong> including Coinbase Ventures, UOB Venture Management, and others</li>
-            <li><strong style="color:var(--text)">Advised by industry leaders</strong> including Gabriel Abed (Chairman of the Board, Binance) and Balaji Srinivasan (former CTO, Coinbase)</li>
+
+      <div class="what-is-box reveal">
+        <div class="head-row">
+          <h3>What is IXS?</h3>
+          <span class="mini-mark">
+            <svg viewBox="0 0 40 40" fill="none"><path d="M5 10h30L20 20h15L12 30h15" stroke="#14141c" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </div>
+        <p>IXS is a licensed Layer 0 API that bypasses years of legal, compliance and infrastructure setup — so anyone (apps, exchanges, companies, or AI agents) can offer institutional grade RWA products to their users.</p>
+        <div class="tagline">Licensed. Compliant. Institutional Grade.<br>Plug in. Offer RWA. Scale.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ROW 2 — FOUNDED / BACKED / ADVISED ============ -->
+  <section id="credibility">
+    <div class="cred-grid">
+      <div class="cred-box reveal">
+        <div class="label"><span class="ic">🛡️</span> Founded by Experts</div>
+        <p style="font-size:0.82rem;">In finance, legal, compliance — with all required licenses to operate in RWA.</p>
+      </div>
+      <div class="cred-box reveal">
+        <div class="label"><span class="ic">💼</span> Backed by Top Investors</div>
+        <div class="logo-row">
+          <span class="logo-chip-sm">Coinbase Ventures</span>
+          <span class="logo-chip-sm">UOB Venture Management</span>
+          <span class="logo-chip-sm">& others</span>
+        </div>
+      </div>
+      <div class="cred-box reveal">
+        <div class="label"><span class="ic">🎓</span> Advised by Industry Leaders</div>
+        <div class="advisor-row">
+          <div class="advisor">
+            <div class="avatar">GA</div>
+            <div>
+              <div class="name">Gabriel Abed</div>
+              <div class="role">Chairman of the Board, Binance</div>
+            </div>
+          </div>
+          <div class="advisor">
+            <div class="avatar">BS</div>
+            <div>
+              <div class="name">Balaji Srinivasan</div>
+              <div class="role">Former CTO, Coinbase</div>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- VALUE PROP -->
-<section class="tight" style="background:var(--bg-alt);">
-  <div class="container">
-    <div class="section-head center reveal">
-      <span class="eyebrow" style="justify-content:center;">The IXS value proposition</span>
-      <h2>Why builders, exchanges and AI agents plug into IXS</h2>
+  <!-- ============ ROW 3 — TIMELINE ============ -->
+  <section id="timeline">
+    <div class="panel timeline-panel reveal">
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="ic">🚀</div>
+          <div class="tl-dot"></div>
+          <div class="phase">Late 2021</div>
+          <div class="period">ICO</div>
+          <p>IXSwap concept — RWA AMM + Launchpad to validate their tech.</p>
+        </div>
+        <div class="tl-item">
+          <div class="ic">🐻</div>
+          <div class="tl-dot"></div>
+          <div class="phase">2021 – 2024</div>
+          <div class="period">Survived 2 Bear Markets</div>
+          <p>Reached $100–130M MC twice during RWA/DeFi seasons before correcting in subsequent bear markets.</p>
+        </div>
+        <div class="tl-item">
+          <div class="ic">🏛️</div>
+          <div class="tl-dot"></div>
+          <div class="phase">Early 2025</div>
+          <div class="period">New Regulatory Era</div>
+          <p>With Trump in office and a pro-crypto SEC, IXS pivoted into a larger institutional vision as the doors opened.</p>
+        </div>
+        <div class="tl-item">
+          <div class="ic">🗂️</div>
+          <div class="tl-dot"></div>
+          <div class="phase">2025 – 2026</div>
+          <div class="period">Building the Infrastructure</div>
+          <p>IXS developed a licensed Layer 0 API for RWA — legal, compliant rails so anyone (or an AI agent) can offer RWA products without years of setup.</p>
+        </div>
+        <div class="tl-item">
+          <div class="ic">📈</div>
+          <div class="tl-dot"></div>
+          <div class="phase">2026 & Beyond</div>
+          <div class="period">Expansion & Adoption</div>
+          <p>Rolling out across major chains, exchanges, institutions and AI ecosystems.</p>
+        </div>
+      </div>
     </div>
-    <div class="grid grid-4 reveal">
-      <div class="card">
-        <div class="card-icon">🛡️</div>
-        <h3>Licensed &amp; compliant rails</h3>
-        <p>Full legal, compliance and infrastructure setup already in place — no need to build it yourself.</p>
-      </div>
-      <div class="card">
-        <div class="card-icon">🏦</div>
-        <h3>Institutional grade</h3>
-        <p>Built with top-tier custody and partners that institutions already trust and rely on.</p>
-      </div>
-      <div class="card">
-        <div class="card-icon">🌐</div>
-        <h3>Distribution at scale</h3>
-        <p>Plug in once, access global distribution across apps, exchanges and AI ecosystems.</p>
-      </div>
-      <div class="card">
-        <div class="card-icon">💹</div>
-        <h3>Products that earn</h3>
-        <p>Access to high-quality RWA products — bonds, treasuries, private credit — from leading institutions.</p>
-      </div>
-    </div>
-  </div>
-</section>
+  </section>
 
-<!-- HOW IT WORKS PREVIEW -->
-<section>
-  <div class="container">
-    <div class="section-head reveal">
-      <span class="eyebrow">How it works</span>
-      <h2>Institutional products flow from providers to end users through one API</h2>
-      <p class="lede">Product providers → the IXS Layer 0 API → distribution partners → end users and AI agents. Bypassing years of legal, compliance and infrastructure setup.</p>
-    </div>
-    <div class="flow reveal">
-      <div class="flow-step">
-        <div class="ic">🏛️</div>
-        <h4>Institutional providers</h4>
-        <p>Top institutions provide RWA products — bonds, treasuries, private credit.</p>
+  <!-- ============ ROW 4 — HOW IT WORKS + VALUE PROP ============ -->
+  <section id="how-it-works">
+    <div class="hiw-grid">
+      <div class="panel reveal">
+        <div class="eyebrow">The IXS Layer 0 API for RWA</div>
+        <h2 style="margin-top:4px;">How It Works</h2>
+        <div class="flow">
+          <div class="flow-step">
+            <div class="ic">🏛️</div>
+            <h4>Institutional Product Providers</h4>
+            <p>Top institutions provide RWA products (bonds, treasuries, private credit, etc.)</p>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step highlight">
+            <div class="ic">⬡</div>
+            <h4>IXS Platform — Layer 0 API</h4>
+            <p>Licensed • Compliant custody, tokenization, distribution • APIs</p>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step">
+            <div class="ic">🔗</div>
+            <h4>Distribution Partners</h4>
+            <p>Exchanges, wallets, websites, AI agents offer to their users</p>
+          </div>
+          <div class="flow-arrow">→</div>
+          <div class="flow-step">
+            <div class="ic">👥</div>
+            <h4>End Users / AI Agents</h4>
+            <p>Access institutional grade RWA products easily and earn yield</p>
+          </div>
+        </div>
+        <div class="flow-note">Bypassing years of legal, compliance and infrastructure setup.</div>
       </div>
-      <div class="flow-arrow">→</div>
-      <div class="flow-step highlight">
-        <div class="ic">⬢</div>
-        <h4>IXS Layer 0 API</h4>
-        <p>Licensed, compliant custody, tokenization, distribution and APIs.</p>
-      </div>
-      <div class="flow-arrow">→</div>
-      <div class="flow-step">
-        <div class="ic">🔗</div>
-        <h4>Distribution partners</h4>
-        <p>Exchanges, wallets, websites and AI agents offer products to their users.</p>
-      </div>
-      <div class="flow-arrow">→</div>
-      <div class="flow-step">
-        <div class="ic">👥</div>
-        <h4>End users &amp; AI agents</h4>
-        <p>Access institutional-grade RWA products easily and earn yield.</p>
-      </div>
-    </div>
-    <div class="btn-row" style="justify-content:center;">
-      <a href="how-it-works.html" class="btn btn-outline">Full breakdown of the buildout →</a>
-    </div>
-  </div>
-</section>
 
-<!-- PARTNER LOGOS -->
-<section class="tight" style="background:var(--bg-alt);">
-  <div class="container">
-    <div class="section-head center reveal">
-      <span class="eyebrow" style="justify-content:center;">Trusted network</span>
-      <h2>Institutions and platforms building with IXS</h2>
-    </div>
-    <div class="logo-strip reveal">
-      <span class="logo-chip">Coinbase Ventures</span>
-      <span class="logo-chip">UOB Venture Management</span>
-      <span class="logo-chip">BitGo</span>
-      <span class="logo-chip">BlackRock</span>
-      <span class="logo-chip">Fidelity</span>
-      <span class="logo-chip">Franklin Templeton</span>
-      <span class="logo-chip">Binance</span>
-      <span class="logo-chip">Flowdesk</span>
-      <span class="logo-chip">Unionchain</span>
-      <span class="logo-chip">agentic.market</span>
-      <span class="logo-chip">circle.agent</span>
-      <span class="logo-chip">Robinhood</span>
-      <span class="logo-chip">Base</span>
-    </div>
-    <div class="btn-row" style="justify-content:center;">
-      <a href="partnerships.html" class="btn btn-outline">See all partnerships →</a>
-    </div>
-  </div>
-</section>
-
-<!-- CTA -->
-<section>
-  <div class="container">
-    <div class="cta-band reveal">
-      <span class="eyebrow" style="justify-content:center;">$IXS</span>
-      <h2>Multi-year survivor. Institutional grade. Massive partnerships.</h2>
-      <p>From the 2021 ICO through two bear markets to a licensed Layer 0 for RWA — IXS is building the infrastructure to make onchain finance real.</p>
-      <div class="btn-row">
-        <a href="tokenomics.html" class="btn btn-primary">View tokenomics</a>
-        <a href="about.html" class="btn btn-outline">Meet the team &amp; journey</a>
+      <div class="panel value-box reveal">
+        <div class="eyebrow">The IXS Value Proposition</div>
+        <ul class="check-list">
+          <li><strong>Licensed & Compliant Rails</strong><br>Full legal, compliance and infrastructure already in place.</li>
+          <li><strong>Institutional Grade</strong><br>Built with top custody and partners that institutions trust.</li>
+          <li><strong>Distribution at Scale</strong><br>Plug in once, access global distribution across apps, exchanges and AI agents.</li>
+          <li><strong>Products That Earn</strong><br>Access to high quality RWA products from the world's leading institutions.</li>
+        </ul>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<footer>
-  <div class="container">
-    <div class="footer-inner">
-      <a href="index.html" class="brand">
-        <span class="brand-mark">
-          <svg viewBox="0 0 24 24" fill="none"><path d="M4 6h16L10 12h10L6 18h12" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </span>
-        <span>IXS</span>
-      </a>
-      <div class="footer-links">
-        <a href="index.html">Home</a>
-        <a href="about.html">About</a>
-        <a href="how-it-works.html">How It Works</a>
-        <a href="partnerships.html">Partnerships</a>
-        <a href="tokenomics.html">Tokenomics</a>
-        <a href="https://www.ixs.finance" target="_blank" rel="noopener">Official Site ↗</a>
+  <!-- ============ ROW 5 — MULTI-PRONGED BUILDOUT ============ -->
+  <section id="buildout">
+    <div class="section-title reveal">
+      <h2>A Multi-Pronged Buildout (2025 – 2026)</h2>
+    </div>
+    <div class="buildout-grid">
+      <div class="buildout-card reveal">
+        <div class="buildout-num">1</div>
+        <h3>Institutional Grade Infrastructure</h3>
+        <ul class="dash-list">
+          <li>Built on top of regulated, institutional grade custody.</li>
+          <li>April 2026: partnered with BitGo — one of the largest institutional custodians of BTC.</li>
+          <li>Level of DD from BitGo shows the institutional grade of IXS.</li>
+        </ul>
+        <div class="logo-row" style="margin-top:2px;"><span class="logo-chip-sm">BitGo</span></div>
+        <div class="callout">
+          <span class="tag tag-orange">BTC Yield Product (with BitGo)</span>
+          <p>Institutions deposit BTC with BitGo and earn yield via IXS RWA products — co-marketed by BitGo to its 1,500+ institutional clients.</p>
+        </div>
+      </div>
+
+      <div class="buildout-card reveal">
+        <div class="buildout-num">2</div>
+        <h3>Institutional Products on the Platform</h3>
+        <ul class="dash-list">
+          <li>Bringing RWA products from top financial institutions onchain.</li>
+          <li>Current & upcoming partners include:</li>
+        </ul>
+        <div class="mini-logo-row">
+          <span class="logo-chip-sm">BlackRock</span>
+          <span class="logo-chip-sm">Fidelity</span>
+          <span class="logo-chip-sm">Franklin Templeton</span>
+          <span class="logo-chip-sm">& more</span>
+        </div>
+      </div>
+
+      <div class="buildout-card reveal">
+        <div class="buildout-num">3</div>
+        <h3>Distribution to Everyone (Including AI Agents)</h3>
+        <ul class="dash-list">
+          <li>Integrating with exchanges, apps, wallets and platforms.</li>
+          <li>Opening access to AI agents via Agentic Vaults.</li>
+        </ul>
+        <div class="callout">
+          <span class="tag tag-purple">Agentic Vaults</span>
+          <p>Any AI agent can integrate with IXS Vaults, deposit funds, and earn yield on institutional RWA products.</p>
+        </div>
+      </div>
+
+      <div class="buildout-card reveal">
+        <div class="buildout-num">4</div>
+        <h3>Expanding the Network</h3>
+        <ul class="dash-list">
+          <li>Advanced talks with multiple major exchanges to integrate IXS tech.</li>
+          <li>Preparing for rollouts on Robinhood, BASE and other major chains.</li>
+          <li>Partnerships with agentic.market (launched by Coinbase), circle.agent (launched by Circle) and many other platforms.</li>
+        </ul>
       </div>
     </div>
-    <p class="footer-note">Independent, informational fan site summarizing publicly shared IXS materials. Not affiliated with or endorsed by IXS. Not financial advice — always verify at ixs.finance.</p>
-  </div>
-</footer>
+  </section>
+
+  <!-- ============ ROW 6 — KEY PARTNERSHIPS / EXISTING INTEGRATIONS ============ -->
+  <section id="partnerships">
+    <div class="announce-grid">
+      <div class="panel announce-panel reveal">
+        <h2>Key Partnerships & Announcements</h2>
+        <div class="announce-items">
+          <div class="announce-item">
+            <span class="tag tag-orange">July 2026</span>
+            <h4>Binance</h4>
+            <p>IXS RWA API is now live on BNB Chain.</p>
+          </div>
+          <div class="announce-item">
+            <span class="tag tag-purple">2026</span>
+            <h4>IXS USA</h4>
+            <p>Launched IXS USA to fully tap into the opening US market.</p>
+          </div>
+          <div class="announce-item">
+            <span class="tag" style="background:var(--blue-soft); color:var(--blue);">Backed</span>
+            <h4>Flowdesk</h4>
+            <p>Secured backing of Flowdesk — who received $100M from BlackRock — for RWA.</p>
+          </div>
+          <div class="announce-item">
+            <span class="tag" style="background:var(--green-soft); color:var(--green);">Advanced Talks</span>
+            <h4>Tier 1 Fund</h4>
+            <p>In advanced talks with a Tier 1 fund with over $1 trillion in assets to bring onboard.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel announce-panel reveal">
+        <h2>Existing Integrations (2025) & Incoming Assets</h2>
+        <div class="announce-items single-col">
+          <div class="announce-item">
+            <span class="tag" style="background:var(--green-soft); color:var(--green);">Live</span>
+            <h4>LINE</h4>
+            <p>The "WhatsApp of Asia." 180M users. Next phase details coming soon.</p>
+          </div>
+          <div class="announce-item">
+            <span class="tag tag-purple">Joint Venture</span>
+            <h4>Unionchain</h4>
+            <p>Joint venture with a 4x regulated CEX + IXS. IXS provides RWA to their 25M KYC'd users. Led by a former CFO of Binance.</p>
+          </div>
+          <div class="announce-item">
+            <span class="tag" style="background:var(--blue-soft); color:var(--blue);">Coming</span>
+            <h4>More to Come</h4>
+            <p>Institutions to integrate IXS tech so users can put their real-world holdings into RWA products and earn on them.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ROW 7 — AI AGENT ECOSYSTEM / FUTURE ROLLOUT ============ -->
+  <section id="ecosystem">
+    <div class="eco-grid">
+      <div class="panel eco-panel reveal">
+        <div class="eyebrow">AI Agent & Ecosystem Partners</div>
+        <div class="logo-strip">
+          <span class="logo-chip">agentic.market <small style="font-weight:600; color:var(--faint);">(launched by Coinbase)</small></span>
+          <span class="logo-chip">circle.agent <small style="font-weight:600; color:var(--faint);">(launched by Circle)</small></span>
+          <span class="logo-chip">& many other platforms and services</span>
+        </div>
+      </div>
+      <div class="panel eco-panel reveal">
+        <div class="eyebrow">Future Rollout</div>
+        <div class="logo-strip">
+          <span class="logo-chip">Robinhood</span>
+          <span class="logo-chip">Base</span>
+          <span class="logo-chip">& other major chains</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ROW 8 — TOKENOMICS / METRICS / WHY $IXS / FUTURE ============ -->
+  <section id="tokenomics">
+    <div class="bottom-grid">
+      <div class="bottom-card reveal">
+        <div class="ic">🔥</div>
+        <h3>Tokenomics</h3>
+        <p><span class="metric">20% Buyback & Burn</span> on fees.</p>
+        <p>Massive supply shock potential as adoption scales across integrations.</p>
+      </div>
+      <div class="bottom-card reveal">
+        <div class="ic">📊</div>
+        <h3>Current Metrics</h3>
+        <p><span class="metric">FDV:</span> $12M</p>
+        <p><span class="metric">Circulating Supply:</span> 100% (Fully Circulating)</p>
+        <code>0x73d7c860998CA3c01Ce8c808F5577d9d545d1b4</code>
+      </div>
+      <div class="bottom-card reveal">
+        <div class="ic">🎯</div>
+        <h3>Why $IXS?</h3>
+        <ul class="dash-list">
+          <li>Real Utility</li>
+          <li>Institutional Grade</li>
+          <li>Massive Distribution Potential</li>
+          <li>Aligned With the Future (AI + RWA)</li>
+          <li>Undervalued Relative to Potential</li>
+        </ul>
+      </div>
+      <div class="bottom-card reveal">
+        <div class="ic">🚀</div>
+        <h3>The Future of Finance Will Be Onchain</h3>
+        <p>IXS is building the infrastructure to make it real.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER BAND ============ -->
+  <section id="footer">
+    <div class="footer-band reveal">
+      <div class="brand">
+        <svg class="brand-mark" viewBox="0 0 40 40" fill="none"><path d="M5 10h30L20 20h15L12 30h15" stroke="#ffffff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span class="brand-word">IXS</span>
+      </div>
+      <div class="footer-tagline">MULTI-YEAR SURVIVOR. INSTITUTIONAL GRADE. MASSIVE PARTNERSHIPS. EXPLOSIVE POTENTIAL.</div>
+      <div class="footer-ticker">$IXS</div>
+    </div>
+  </section>
+
+  <p class="site-footer-note">Independent, informational fan site summarizing publicly shared IXS materials. Not affiliated with or endorsed by IXS. Not financial advice — always verify at <a href="https://www.ixs.finance" target="_blank" rel="noopener">ixs.finance</a>.</p>
+
+</div>
 
 <script src="js/script.js"></script>
 </body>
