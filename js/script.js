@@ -8,7 +8,30 @@ document.addEventListener('DOMContentLoaded', () => {
   initTabs();
   initThemeToggle();
   initBuybackBurnModel();
+  initLastUpdated();
 });
+
+// ---------- Last updated ----------
+// No backend here, so this reads the page's own Last-Modified date (set by
+// the static host from the deployed file's mtime) instead of a hardcoded
+// string — it updates itself on every new deploy to GitHub/Railway without
+// needing a manual edit.
+function initLastUpdated() {
+  const el = document.getElementById('lastUpdated');
+  if (!el) return;
+
+  const raw = document.lastModified; // e.g. "08/09/2026 06:34:00"
+  const d = new Date(raw);
+  if (isNaN(d.getTime())) {
+    el.textContent = 'Last updated recently';
+    return;
+  }
+
+  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const mm = String(d.getUTCMinutes()).padStart(2, '0');
+  const hh = String(d.getUTCHours()).padStart(2, '0');
+  el.textContent = `Last updated ${months[d.getUTCMonth()]} ${d.getUTCDate()}, ${d.getUTCFullYear()} · ${hh}:${mm} UTC`;
+}
 
 // ---------- Dark mode toggle ----------
 // The initial theme is set synchronously in <head> (before first paint) to
