@@ -70,6 +70,11 @@ function initTabs() {
       // .reveal children — reveal them immediately on first switch.
       target.querySelectorAll('.reveal:not(.in)').forEach(el => el.classList.add('in'));
 
+      // Charts rendered while their panel was display:none get a 0x0
+      // canvas and never fix themselves, so tell any listeners this
+      // panel just became visible and needs a resize/redraw.
+      document.dispatchEvent(new CustomEvent('ixs-tabshown', { detail: { id: targetId } }));
+
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   });
@@ -155,11 +160,11 @@ function initBuybackBurnModel() {
   // "Reset to thread scenario" button.
   const SCENARIO_DEFAULTS = {
     ixsPrice: '0.07', ixsSupply: '180000000', buybackPct: '20', burnPct: '10',
-    btc_availablePool: '390000000000', btc_adoptionPct: '1.06', btc_ltv: '75', btc_feePct: '0.75',
-    vaults_tvl: '500000000', vaults_feePct: '0.75',
-    exch_volume: '500000000', exch_feePct: '0.75',
+    btc_availablePool: '390000', btc_adoptionPct: '1.06', btc_ltv: '75', btc_feePct: '0.75',
+    vaults_tvl: '500', vaults_feePct: '0.75',
+    exch_volume: '500', exch_feePct: '0.75',
     line_users: '180000000', line_adoptionPct: '1.11', line_avgDeposit: '150', line_feePct: '0.75',
-    agents_tvl: '100000000', agents_feePct: '0.75',
+    agents_tvl: '100', agents_feePct: '0.75',
   };
 
   const resetBtn = $('resetScenarioBtn');
@@ -173,13 +178,17 @@ function initBuybackBurnModel() {
 
   let chart;
 
+  // Several pool/TVL fields are entered in millions of USD (so users don't
+  // have to type out 9-12 digit dollar figures) — convert to raw USD here.
+  const readMillions = (id) => ((parseFloat($(id).value) || 0) * 1e6);
+
   function recalcAll() {
     const g = readGlobals();
 
     // Stream 1 — BTC Real Yield (via BitGo): BTC in custody -> adoption ->
     // collateral -> % converted to productive RWA exposure -> fee.
     const btc = computeStream({
-      volumeUsd: (parseFloat($('btc_availablePool').value) || 0) * ((parseFloat($('btc_adoptionPct').value) || 0) / 100),
+      volumeUsd: readMillions('btc_availablePool') * ((parseFloat($('btc_adoptionPct').value) || 0) / 100),
       basePct: (parseFloat($('btc_ltv').value) || 0) / 100,
       feePct: (parseFloat($('btc_feePct').value) || 0) / 100,
       buybackPct: g.buybackPct,
@@ -193,7 +202,7 @@ function initBuybackBurnModel() {
 
     // Stream 2 — Institutional RWA Products: TVL -> fee directly
     const vaults = computeStream({
-      volumeUsd: parseFloat($('vaults_tvl').value) || 0,
+      volumeUsd: readMillions('vaults_tvl'),
       basePct: 1,
       feePct: (parseFloat($('vaults_feePct').value) || 0) / 100,
       buybackPct: g.buybackPct,
@@ -206,7 +215,7 @@ function initBuybackBurnModel() {
 
     // Stream 3 — Exchange integrations: deployed volume -> fee directly
     const exch = computeStream({
-      volumeUsd: parseFloat($('exch_volume').value) || 0,
+      volumeUsd: readMillions('exch_volume'),
       basePct: 1,
       feePct: (parseFloat($('exch_feePct').value) || 0) / 100,
       buybackPct: g.buybackPct,
@@ -237,7 +246,7 @@ function initBuybackBurnModel() {
     // Stream 5 — AI Agents (agentic.market, circle.agent, Agentic Vaults):
     // deployed agent-vault TVL -> fee directly.
     const agents = computeStream({
-      volumeUsd: parseFloat($('agents_tvl').value) || 0,
+      volumeUsd: readMillions('agents_tvl'),
       basePct: 1,
       feePct: (parseFloat($('agents_feePct').value) || 0) / 100,
       buybackPct: g.buybackPct,
@@ -325,6 +334,15 @@ function initBuybackBurnModel() {
 
   // Repaint the chart (and re-read every color) whenever the theme flips.
   document.addEventListener('ixs-themechange', recalcAll);
+
+  // The chart is first created while this tab is hidden (display:none),
+  // so Chart.js measures a 0x0 canvas and never draws anything. Force a
+  // resize once the tab is actually shown so it picks up real dimensions.
+  document.addEventListener('ixs-tabshown', (e) => {
+    if (e.detail && e.detail.id === 'tab-model' && chart) {
+      requestAnimationFrame(() => { chart.resize(); chart.update(); });
+    }
+  });
 
   recalcAll();
 }

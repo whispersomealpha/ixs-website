@@ -638,8 +638,8 @@
         </div>
 
         <div class="field">
-          <label for="btc_availablePool">Institutions + wBTC + accredited clients, valued in USD</label>
-          <input type="number" id="btc_availablePool" min="0" step="1000000000" value="390000000000">
+          <label for="btc_availablePool">Institutions + wBTC + accredited clients (millions of USD)</label>
+          <input type="number" id="btc_availablePool" min="0" step="1000" value="390000">
         </div>
         <div class="field-hint">= 3,900,000 BTC across institutions, wBTC and accredited clients at an assumed $100K/BTC. Only a fraction needs to move through IXS to matter.</div>
 
@@ -695,8 +695,8 @@
         </div>
 
         <div class="field">
-          <label for="vaults_tvl">Deployed institutional TVL (USD)</label>
-          <input type="number" id="vaults_tvl" min="0" step="1000000" value="500000000">
+          <label for="vaults_tvl">Deployed institutional TVL (millions of USD)</label>
+          <input type="number" id="vaults_tvl" min="0" step="10" value="500">
         </div>
         <div class="field-hint">Asset managers → IXS infrastructure → distribution. Thread scenario: $500M from this channel alone.</div>
 
@@ -736,8 +736,8 @@
         </div>
 
         <div class="field">
-          <label for="exch_volume">Deployed volume via exchanges (USD)</label>
-          <input type="number" id="exch_volume" min="0" step="1000000" value="500000000">
+          <label for="exch_volume">Deployed volume via exchanges (millions of USD)</label>
+          <input type="number" id="exch_volume" min="0" step="10" value="500">
         </div>
         <div class="field-hint">In advanced talks with multiple major exchanges so users can deploy holdings into IXS vaults; Unionchain tech runs on IXS. Thread scenario: $500M.</div>
 
@@ -829,8 +829,8 @@
         </div>
 
         <div class="field">
-          <label for="agents_tvl">Deployed agent-vault TVL (USD)</label>
-          <input type="number" id="agents_tvl" min="0" step="1000000" value="100000000">
+          <label for="agents_tvl">Deployed agent-vault TVL (millions of USD)</label>
+          <input type="number" id="agents_tvl" min="0" step="10" value="100">
         </div>
         <div class="field-hint">Agents already hold wallets and interact with DeFi. Agentic Vaults give them the same institutional RWA infrastructure as human capital. Thread scenario: $100M.</div>
 
