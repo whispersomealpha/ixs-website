@@ -40,9 +40,10 @@ function initLastUpdated() {
       const d = dateStr ? new Date(dateStr) : null;
       el.textContent = d && !isNaN(d.getTime()) ? format(d) : 'Last updated recently';
     })
-    .catch(() => {
+    .catch((err) => {
       // GitHub API unreachable/rate-limited — fall back to the page's own
       // Last-Modified date rather than showing nothing.
+      console.warn('IXS: GitHub last-commit lookup failed, falling back.', err);
       const d = new Date(document.lastModified);
       el.textContent = !isNaN(d.getTime()) ? format(d) : 'Last updated recently';
     });
