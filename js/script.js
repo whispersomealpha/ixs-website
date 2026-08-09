@@ -315,6 +315,14 @@ function initBuybackBurnModel() {
   function updateChart(streams) {
     const canvas = $('streamChart');
     if (!canvas || typeof Chart === 'undefined') return;
+
+    // Don't construct the chart while its tab is hidden — Chart.js
+    // measures the canvas at creation time, and a display:none ancestor
+    // means a 0x0 canvas that never recovers on its own. Skip until the
+    // tab is actually shown (see the ixs-tabshown handler below), which
+    // calls this again once the canvas has real dimensions.
+    if (!chart && canvas.offsetParent === null) return;
+
     const ctx = canvas.getContext('2d');
     const labels = ['BTC Real Yield', 'Institutional', 'Exchanges', 'Super-apps & Fintech', 'AI Agents'];
     const buybackData = streams.map(s => Math.round(s.buybackUsd));
@@ -369,8 +377,15 @@ function initBuybackBurnModel() {
   // so Chart.js measures a 0x0 canvas and never draws anything. Force a
   // resize once the tab is actually shown so it picks up real dimensions.
   document.addEventListener('ixs-tabshown', (e) => {
-    if (e.detail && e.detail.id === 'tab-model' && chart) {
-      requestAnimationFrame(() => { chart.resize(); chart.update(); });
+    if (e.detail && e.detail.id === 'tab-model') {
+      requestAnimationFrame(() => {
+        // If it already exists, force it to remeasure in case the window
+        // was resized while this tab was hidden; either way, recalcAll()
+        // re-runs updateChart(), which creates the chart for the first
+        // time now that the canvas is actually visible.
+        if (chart) chart.resize();
+        recalcAll();
+      });
     }
   });
 
