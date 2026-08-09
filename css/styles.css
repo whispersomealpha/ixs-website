@@ -1014,6 +1014,18 @@ a.announce-item.interactive:hover .x-icon { color: var(--purple); }
 .model-hero h1 { max-width: 760px; }
 .model-hero .lede { max-width: 620px; margin-top: 8px; }
 
+.calc-badge {
+  display: inline-block;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--purple);
+  background: var(--purple-soft);
+  border: 1px solid rgba(124, 58, 237, 0.3);
+  border-radius: 999px;
+  padding: 8px 16px;
+  margin: 10px 0 4px;
+}
+
 /* Converging streams diagram */
 
 .streams-flow {
