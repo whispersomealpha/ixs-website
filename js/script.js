@@ -58,6 +58,12 @@ function initTabs() {
 }
 
 // ---------- Buyback & Burn revenue-stream model ----------
+//
+// Default figures on this tab reproduce a public, independent back-of-
+// envelope breakdown of five IXS distribution channels (BTC Real Yield,
+// Institutional RWA Products, Exchange Integrations, Super-apps & Fintech,
+// AI Agents) that together land around ~$1.8-2B in modeled RWA TVL. See
+// the in-page disclaimer — these are illustrative, not official figures.
 
 function initBuybackBurnModel() {
   const $ = (id) => document.getElementById(id);
@@ -73,13 +79,13 @@ function initBuybackBurnModel() {
   };
   const fmtPct = (n, digits = 3) => (isFinite(n) ? n.toFixed(digits) : '0') + '%';
 
-  // Generic: volume -> (optional LTV base) -> fee -> buyback/burn split
+  // Generic: volume -> (optional conversion-rate base) -> fee -> buyback/burn split
   function computeStream({ volumeUsd, basePct = 1, feePct, buybackPct, burnPct }) {
     const base = volumeUsd * basePct;
     const fee = base * feePct;
     const buybackUsd = fee * buybackPct;
     const burnUsd = fee * burnPct;
-    return { volumeUsd, fee, buybackUsd, burnUsd };
+    return { volumeUsd, base, fee, buybackUsd, burnUsd };
   }
 
   function readGlobals() {
@@ -91,41 +97,69 @@ function initBuybackBurnModel() {
     };
   }
 
-  function bindRangeDisplay(sliderId, displayId, decimals = 0) {
+  // [sliderId, displayId, decimals] — reused for live updates and for
+  // refreshing labels after a bulk reset.
+  const RANGE_LABELS = [
+    ['buybackPct', 'buybackPctVal', 0],
+    ['burnPct', 'burnPctVal', 0],
+    ['btc_adoptionPct', 'btc_adoptionPctVal', 2],
+    ['btc_ltv', 'btc_ltvVal', 0],
+    ['btc_feePct', 'btc_feePctVal', 2],
+    ['vaults_feePct', 'vaults_feePctVal', 2],
+    ['exch_feePct', 'exch_feePctVal', 2],
+    ['line_adoptionPct', 'line_adoptionPctVal', 2],
+    ['line_feePct', 'line_feePctVal', 2],
+    ['agents_feePct', 'agents_feePctVal', 2],
+  ];
+
+  function refreshRangeLabel(sliderId, displayId, decimals) {
     const el = $(sliderId);
-    if (!el) return;
-    const update = () => {
-      const val = decimals ? Number(el.value).toFixed(decimals) : el.value;
-      if ($(displayId)) $(displayId).textContent = val;
-    };
-    el.addEventListener('input', () => { update(); recalcAll(); });
-    update();
+    if (!el || !$(displayId)) return;
+    const val = decimals ? Number(el.value).toFixed(decimals) : el.value;
+    $(displayId).textContent = val;
   }
 
-  // Wire up all the little "value next to slider" labels
-  bindRangeDisplay('buybackPct', 'buybackPctVal', 0);
-  bindRangeDisplay('burnPct', 'burnPctVal', 0);
-  bindRangeDisplay('btc_adoptionPct', 'btc_adoptionPctVal', 1);
-  bindRangeDisplay('btc_ltv', 'btc_ltvVal', 0);
-  bindRangeDisplay('btc_feePct', 'btc_feePctVal', 2);
-  bindRangeDisplay('vaults_feePct', 'vaults_feePctVal', 2);
-  bindRangeDisplay('exch_feePct', 'exch_feePctVal', 2);
-  bindRangeDisplay('line_adoptionPct', 'line_adoptionPctVal', 2);
-  bindRangeDisplay('line_feePct', 'line_feePctVal', 2);
+  RANGE_LABELS.forEach(([sliderId, displayId, decimals]) => {
+    const el = $(sliderId);
+    if (!el) return;
+    el.addEventListener('input', () => { refreshRangeLabel(sliderId, displayId, decimals); recalcAll(); });
+    refreshRangeLabel(sliderId, displayId, decimals);
+  });
 
   // Number inputs also trigger recalculation
   [
     'ixsPrice', 'ixsSupply',
     'btc_availablePool', 'vaults_tvl', 'exch_volume',
-    'line_users', 'line_avgDeposit',
+    'line_users', 'line_avgDeposit', 'agents_tvl',
   ].forEach(id => { if ($(id)) $(id).addEventListener('input', recalcAll); });
+
+  // Thread-derived scenario defaults, keyed by input id — used by the
+  // "Reset to thread scenario" button.
+  const SCENARIO_DEFAULTS = {
+    ixsPrice: '0.07', ixsSupply: '180000000', buybackPct: '10', burnPct: '10',
+    btc_availablePool: '47000000000', btc_adoptionPct: '1.06', btc_ltv: '75', btc_feePct: '0.75',
+    vaults_tvl: '500000000', vaults_feePct: '0.75',
+    exch_volume: '500000000', exch_feePct: '0.75',
+    line_users: '180000000', line_adoptionPct: '1.11', line_avgDeposit: '150', line_feePct: '0.75',
+    agents_tvl: '100000000', agents_feePct: '0.75',
+  };
+
+  const resetBtn = $('resetScenarioBtn');
+  if (resetBtn) {
+    resetBtn.addEventListener('click', () => {
+      Object.entries(SCENARIO_DEFAULTS).forEach(([id, val]) => { if ($(id)) $(id).value = val; });
+      RANGE_LABELS.forEach(([sliderId, displayId, decimals]) => refreshRangeLabel(sliderId, displayId, decimals));
+      recalcAll();
+    });
+  }
 
   let chart;
 
   function recalcAll() {
     const g = readGlobals();
 
-    // Stream 1 — BTC RWA Yield (via BitGo): pool -> adoption -> loan (LTV) -> fee
+    // Stream 1 — BTC Real Yield (via BitGo): BTC in custody -> adoption ->
+    // collateral -> % converted to productive RWA exposure -> fee.
     const btc = computeStream({
       volumeUsd: (parseFloat($('btc_availablePool').value) || 0) * ((parseFloat($('btc_adoptionPct').value) || 0) / 100),
       basePct: (parseFloat($('btc_ltv').value) || 0) / 100,
@@ -134,11 +168,12 @@ function initBuybackBurnModel() {
       burnPct: g.burnPct,
     });
     $('btc_outVolume').textContent = fmtUSD(btc.volumeUsd);
+    if ($('btc_outRwaExposure')) $('btc_outRwaExposure').textContent = fmtUSD(btc.base);
     $('btc_outFee').textContent = fmtUSD(btc.fee);
     $('btc_outBuyback').textContent = fmtUSD(btc.buybackUsd);
     $('btc_outBurn').textContent = fmtUSD(btc.burnUsd);
 
-    // Stream 2 — RWA Agentic Vaults: TVL -> fee directly
+    // Stream 2 — Institutional RWA Products: TVL -> fee directly
     const vaults = computeStream({
       volumeUsd: parseFloat($('vaults_tvl').value) || 0,
       basePct: 1,
@@ -146,7 +181,7 @@ function initBuybackBurnModel() {
       buybackPct: g.buybackPct,
       burnPct: g.burnPct,
     });
-    $('vaults_outVolume').textContent = fmtUSD(vaults.volumeUsd);
+    $('vaults_outVolume').textContent = fmtUSD(vaults.base);
     $('vaults_outFee').textContent = fmtUSD(vaults.fee);
     $('vaults_outBuyback').textContent = fmtUSD(vaults.buybackUsd);
     $('vaults_outBurn').textContent = fmtUSD(vaults.burnUsd);
@@ -159,12 +194,13 @@ function initBuybackBurnModel() {
       buybackPct: g.buybackPct,
       burnPct: g.burnPct,
     });
-    $('exch_outVolume').textContent = fmtUSD(exch.volumeUsd);
+    $('exch_outVolume').textContent = fmtUSD(exch.base);
     $('exch_outFee').textContent = fmtUSD(exch.fee);
     $('exch_outBuyback').textContent = fmtUSD(exch.buybackUsd);
     $('exch_outBurn').textContent = fmtUSD(exch.burnUsd);
 
-    // Stream 4 — LINE integration: users x adoption x avg deposit -> fee
+    // Stream 4 — Super-apps & Fintech (LINE + fintech/neobank/wallet/PayFi
+    // reach): users x adoption x avg deposit -> fee.
     const lineUsers = parseFloat($('line_users').value) || 0;
     const lineAdoption = (parseFloat($('line_adoptionPct').value) || 0) / 100;
     const lineAvgDeposit = parseFloat($('line_avgDeposit').value) || 0;
@@ -175,14 +211,30 @@ function initBuybackBurnModel() {
       buybackPct: g.buybackPct,
       burnPct: g.burnPct,
     });
-    $('line_outVolume').textContent = fmtUSD(line.volumeUsd);
+    $('line_outVolume').textContent = fmtUSD(line.base);
     $('line_outFee').textContent = fmtUSD(line.fee);
     $('line_outBuyback').textContent = fmtUSD(line.buybackUsd);
     $('line_outBurn').textContent = fmtUSD(line.burnUsd);
 
-    // Aggregate
-    const streams = [btc, vaults, exch, line];
-    const aggTVL = streams.reduce((s, x) => s + x.volumeUsd, 0);
+    // Stream 5 — AI Agents (agentic.market, circle.agent, Agentic Vaults):
+    // deployed agent-vault TVL -> fee directly.
+    const agents = computeStream({
+      volumeUsd: parseFloat($('agents_tvl').value) || 0,
+      basePct: 1,
+      feePct: (parseFloat($('agents_feePct').value) || 0) / 100,
+      buybackPct: g.buybackPct,
+      burnPct: g.burnPct,
+    });
+    $('agents_outVolume').textContent = fmtUSD(agents.base);
+    $('agents_outFee').textContent = fmtUSD(agents.fee);
+    $('agents_outBuyback').textContent = fmtUSD(agents.buybackUsd);
+    $('agents_outBurn').textContent = fmtUSD(agents.burnUsd);
+
+    // Aggregate — TVL is summed on `base` (the post-conversion RWA
+    // exposure), not raw collateral, so the BTC channel's $ figure lines
+    // up with how the source thread defines "RWA TVL" for that channel.
+    const streams = [btc, vaults, exch, line, agents];
+    const aggTVL = streams.reduce((s, x) => s + x.base, 0);
     const aggFee = streams.reduce((s, x) => s + x.fee, 0);
     const aggBuyback = streams.reduce((s, x) => s + x.buybackUsd, 0);
     const aggBurn = streams.reduce((s, x) => s + x.burnUsd, 0);
@@ -202,7 +254,7 @@ function initBuybackBurnModel() {
     const canvas = $('streamChart');
     if (!canvas || typeof Chart === 'undefined') return;
     const ctx = canvas.getContext('2d');
-    const labels = ['BTC RWA Yield', 'RWA Agentic Vaults', 'Exchange Integrations', 'LINE Phase 2'];
+    const labels = ['BTC Real Yield', 'Institutional', 'Exchanges', 'Super-apps & Fintech', 'AI Agents'];
     const buybackData = streams.map(s => Math.round(s.buybackUsd));
     const burnData = streams.map(s => Math.round(s.burnUsd));
 

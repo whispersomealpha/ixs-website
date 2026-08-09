@@ -435,6 +435,102 @@ a.advisor-link:hover .name { color: var(--purple); }
 }
 .check-list li strong { color: var(--ink); }
 
+/* ---------- Row 4.5: The Bigger Picture (thesis) ---------- */
+
+.quote-card {
+  border-color: var(--purple);
+  background: var(--purple-soft);
+}
+
+.quote-text {
+  font-size: clamp(1.05rem, 1.8vw, 1.3rem);
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.5;
+  font-style: italic;
+}
+
+.quote-attr {
+  margin-top: 12px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--purple);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.funnel {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.funnel-step {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  border: 1.5px solid var(--border-soft);
+  border-radius: var(--radius-sm);
+  padding: 14px 18px;
+  background: var(--bg);
+}
+
+.funnel-step.highlight {
+  border-color: var(--purple);
+  background: var(--purple-soft);
+}
+
+.funnel-step .ic { font-size: 1.5rem; flex-shrink: 0; }
+.funnel-step strong { display: block; font-size: 0.9rem; color: var(--ink); margin-bottom: 2px; }
+.funnel-step p { font-size: 0.8rem; color: var(--dim); }
+
+.funnel-arrow {
+  text-align: center;
+  color: var(--purple);
+  font-size: 1.1rem;
+  padding: 2px 0;
+}
+
+/* ---------- Row 7: Distribution gateways ---------- */
+
+.gateway-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.gateway-chip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1.5px solid var(--border-soft);
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--ink);
+  background: var(--bg);
+}
+
+.gateway-chip .ic { font-size: 1rem; flex-shrink: 0; }
+
+.gateway-chip .soon {
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: var(--purple);
+  background: var(--purple-soft);
+  padding: 2px 7px;
+  border-radius: 999px;
+  margin-left: auto;
+}
+
+@media (max-width: 1000px) {
+  .gateway-grid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 620px) {
+  .gateway-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
 /* ---------- Row 5: Buildout ---------- */
 
 .buildout-grid {
@@ -442,6 +538,8 @@ a.advisor-link:hover .name { color: var(--purple); }
   grid-template-columns: repeat(4, 1fr);
   gap: 14px;
 }
+
+.buildout-grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
 
 .buildout-card {
   background: var(--white);
@@ -843,6 +941,37 @@ a.announce-item.interactive:hover .x-icon { color: var(--purple); }
   letter-spacing: 0.01em;
 }
 
+.streams-flow-5 { grid-template-columns: repeat(5, 1fr); }
+.stream-arrows-5 { grid-template-columns: repeat(5, 1fr); }
+
+.scenario-note {
+  margin-top: 14px;
+  border: 1.5px solid var(--purple);
+  background: var(--purple-soft);
+  border-radius: var(--radius-sm);
+  padding: 16px 20px;
+  font-size: 0.86rem;
+  color: var(--ink);
+  line-height: 1.6;
+}
+.scenario-note strong { color: var(--purple); }
+
+.btn-reset {
+  appearance: none;
+  border: 1.5px solid var(--border);
+  background: var(--white);
+  color: var(--ink);
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 0.78rem;
+  padding: 8px 16px;
+  border-radius: 999px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: border-color 0.15s ease, background 0.15s ease, color 0.15s ease;
+}
+.btn-reset:hover { border-color: var(--purple); color: var(--purple); background: var(--purple-soft); }
+
 /* Aggregate summary */
 
 .aggregate-grid {
@@ -994,15 +1123,18 @@ a.announce-item.interactive:hover .x-icon { color: var(--purple); }
 .model-disclaimer p { font-size: 0.8rem; }
 
 @media (max-width: 1000px) {
-  .streams-flow { grid-template-columns: repeat(2, 1fr); }
-  .stream-arrows { display: none; }
+  .streams-flow, .streams-flow-5 { grid-template-columns: repeat(2, 1fr); }
+  .stream-arrows, .stream-arrows-5 { display: none; }
   .aggregate-grid { grid-template-columns: repeat(2, 1fr); }
   .assumptions-bar { grid-template-columns: repeat(2, 1fr); }
   .stream-grid { grid-template-columns: 1fr; }
+  .funnel { flex-direction: column; }
+  .funnel-arrow { transform: rotate(0deg); }
+  .buildout-grid.cols-2 { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 620px) {
-  .streams-flow { grid-template-columns: 1fr; }
+  .streams-flow, .streams-flow-5 { grid-template-columns: 1fr; }
   .aggregate-grid { grid-template-columns: 1fr; }
   .assumptions-bar { grid-template-columns: 1fr; }
   .stream-results { grid-template-columns: 1fr; }
