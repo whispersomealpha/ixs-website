@@ -352,6 +352,7 @@ function initBuybackBurnModel() {
 
     const options = {
       responsive: true,
+      maintainAspectRatio: false,
       plugins: {
         legend: { position: 'bottom', labels: { color: inkColor, font: { size: 11 } } },
       },

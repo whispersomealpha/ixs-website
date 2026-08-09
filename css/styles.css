@@ -1279,6 +1279,14 @@ a.announce-item.interactive:hover .x-icon { color: var(--purple); }
   border: 1.5px solid var(--border);
   border-radius: var(--radius-sm);
   padding: 16px;
+  height: 280px;
+  position: relative;
+}
+
+.chart-wrap canvas { max-height: 100%; }
+
+@media (max-width: 620px) {
+  .chart-wrap { height: 220px; }
 }
 
 .model-disclaimer p { font-size: 0.8rem; }
