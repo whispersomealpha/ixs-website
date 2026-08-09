@@ -1088,6 +1088,37 @@ a.announce-item.interactive:hover .x-icon { color: var(--purple); }
 }
 .btn-reset:hover { border-color: var(--purple); color: var(--purple); background: var(--purple-soft); }
 
+/* Model dashboard — fixed aggregate header + scrollable body beneath it,
+   so "Aggregate: all streams combined" stays in view while the stream
+   calculators, chart and disclaimer scroll independently underneath. */
+
+.model-dashboard {
+  margin-top: 8px;
+  border: 1.5px solid var(--border);
+  border-radius: 20px;
+  background: var(--bg);
+  overflow: hidden;
+}
+
+.model-dashboard-header {
+  background: var(--bg);
+  padding: 24px 24px 0;
+  border-bottom: 1.5px solid var(--border);
+}
+
+.model-dashboard-header .aggregate-grid { margin-bottom: 24px; }
+
+.model-dashboard-body {
+  max-height: 72vh;
+  overflow-y: auto;
+  padding: 8px 24px 32px;
+  -webkit-overflow-scrolling: touch;
+}
+
+@media (max-width: 720px) {
+  .model-dashboard-body { max-height: 65vh; }
+}
+
 /* Aggregate summary */
 
 .aggregate-grid {
