@@ -146,6 +146,20 @@ p { color: var(--dim); font-size: 0.95rem; }
   letter-spacing: -0.02em;
 }
 
+.last-updated {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--faint);
+  padding-left: 10px;
+  margin-left: 2px;
+  border-left: 1px solid var(--border-soft);
+  white-space: nowrap;
+}
+
+@media (max-width: 720px) {
+  .last-updated { display: none; }
+}
+
 .ticker-badge {
   display: inline-flex;
   align-items: center;
