@@ -154,7 +154,7 @@ function initBuybackBurnModel() {
   // Thread-derived scenario defaults, keyed by input id — used by the
   // "Reset to thread scenario" button.
   const SCENARIO_DEFAULTS = {
-    ixsPrice: '0.07', ixsSupply: '180000000', buybackPct: '10', burnPct: '10',
+    ixsPrice: '0.07', ixsSupply: '180000000', buybackPct: '20', burnPct: '10',
     btc_availablePool: '47000000000', btc_adoptionPct: '1.06', btc_ltv: '75', btc_feePct: '0.75',
     vaults_tvl: '500000000', vaults_feePct: '0.75',
     exch_volume: '500000000', exch_feePct: '0.75',
