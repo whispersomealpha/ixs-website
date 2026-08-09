@@ -12,25 +12,40 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // ---------- Last updated ----------
-// No backend here, so this reads the page's own Last-Modified date (set by
-// the static host from the deployed file's mtime) instead of a hardcoded
-// string — it updates itself on every new deploy to GitHub/Railway without
-// needing a manual edit.
+// No backend here, so relying on the static host's Last-Modified header
+// (document.lastModified) proved unreliable across GitHub Pages/Railway.
+// Instead, ask GitHub directly for the latest commit on this repo, which
+// is a true source of "when was this actually last deployed."
+const GITHUB_REPO = 'whispersomealpha/ixs-website';
+
 function initLastUpdated() {
   const el = document.getElementById('lastUpdated');
   if (!el) return;
 
-  const raw = document.lastModified; // e.g. "08/09/2026 06:34:00"
-  const d = new Date(raw);
-  if (isNaN(d.getTime())) {
-    el.textContent = 'Last updated recently';
-    return;
-  }
-
   const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-  const mm = String(d.getUTCMinutes()).padStart(2, '0');
-  const hh = String(d.getUTCHours()).padStart(2, '0');
-  el.textContent = `Last updated ${months[d.getUTCMonth()]} ${d.getUTCDate()}, ${d.getUTCFullYear()} · ${hh}:${mm} UTC`;
+  const format = (d) => {
+    const mm = String(d.getUTCMinutes()).padStart(2, '0');
+    const hh = String(d.getUTCHours()).padStart(2, '0');
+    return `Last updated ${months[d.getUTCMonth()]} ${d.getUTCDate()}, ${d.getUTCFullYear()} · ${hh}:${mm} UTC`;
+  };
+
+  fetch(`https://api.github.com/repos/${GITHUB_REPO}/commits?per_page=1`, {
+    headers: { Accept: 'application/vnd.github+json' },
+  })
+    .then((res) => (res.ok ? res.json() : Promise.reject(res.status)))
+    .then((commits) => {
+      const dateStr = commits && commits[0] && commits[0].commit && commits[0].commit.committer
+        ? commits[0].commit.committer.date
+        : null;
+      const d = dateStr ? new Date(dateStr) : null;
+      el.textContent = d && !isNaN(d.getTime()) ? format(d) : 'Last updated recently';
+    })
+    .catch(() => {
+      // GitHub API unreachable/rate-limited — fall back to the page's own
+      // Last-Modified date rather than showing nothing.
+      const d = new Date(document.lastModified);
+      el.textContent = !isNaN(d.getTime()) ? format(d) : 'Last updated recently';
+    });
 }
 
 // ---------- Dark mode toggle ----------
