@@ -1135,7 +1135,7 @@ a.announce-item.interactive:hover .x-icon { color: var(--purple); }
 
 .aggregate-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 1px;
   background: var(--border-soft);
   border: 1.5px solid var(--border);

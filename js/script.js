@@ -99,8 +99,6 @@ function initBuybackBurnModel() {
     if (abs >= 1e3) return '$' + (n / 1e3).toFixed(1) + 'K';
     return '$' + n.toFixed(2);
   };
-  const fmtPct = (n, digits = 3) => (isFinite(n) ? n.toFixed(digits) : '0') + '%';
-
   // Plain-integer fields (pool sizes, user counts) are entered as text so
   // they can show thousands separators — parse by stripping commas first.
   const readNum = (id) => parseFloat(String($(id).value || '').replace(/,/g, '')) || 0;
@@ -293,14 +291,9 @@ function initBuybackBurnModel() {
     const aggTVL = streams.reduce((s, x) => s + x.base, 0);
     const aggFee = streams.reduce((s, x) => s + x.fee, 0);
     const aggBuyback = streams.reduce((s, x) => s + x.buybackUsd, 0);
-    const aggBurn = streams.reduce((s, x) => s + x.burnUsd, 0);
-    const totalIxsRemoved = (aggBuyback + aggBurn) / g.ixsPrice;
-    const supplyPct = g.ixsSupply > 0 ? (Math.min(totalIxsRemoved, g.ixsSupply) / g.ixsSupply) * 100 : 0;
-
     $('aggTVL').textContent = fmtUSD(aggTVL);
     $('aggFee').textContent = fmtUSD(aggFee);
     $('aggBuyback').textContent = fmtUSD(aggBuyback);
-    $('aggSupplyPct').textContent = fmtPct(supplyPct);
 
     updateChart(streams);
   }
