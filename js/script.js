@@ -196,9 +196,9 @@ function initBuybackBurnModel() {
     ixsPrice: '0.07', ixsSupply: '180,000,000', buybackPct: '20', burnPct: '10',
     btc_availablePool: '390,000', btc_adoptionPct: '0.50', btc_ltv: '75', btc_feePct: '0.75',
     vaults_tvl: '1,000', vaults_feePct: '0.75',
-    exch_volume: '1,000', exch_feePct: '0.75',
-    line_users: '180,000,000', line_adoptionPct: '1.50', line_avgDeposit: '150', line_feePct: '0.75',
-    agents_tvl: '1,000', agents_feePct: '0.75',
+    exch_volume: '2,000', exch_feePct: '0.75',
+    line_users: '750,000,000', line_adoptionPct: '1.00', line_avgDeposit: '150', line_feePct: '0.75',
+    agents_tvl: '5,000', agents_feePct: '0.75',
   };
 
   const resetBtn = $('resetScenarioBtn');
