@@ -258,6 +258,14 @@ p { color: var(--dim); font-size: 0.95rem; }
   gap: 14px;
 }
 
+.hero-disclaimer {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--faint);
+  margin: 0 0 -6px 0;
+  max-width: 480px;
+}
+
 .hero-left .kicker {
   font-weight: 800;
   font-size: 0.95rem;
