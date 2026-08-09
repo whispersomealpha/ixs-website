@@ -262,7 +262,6 @@ function initBuybackBurnModel() {
     $('aggTVL').textContent = fmtUSD(aggTVL);
     $('aggFee').textContent = fmtUSD(aggFee);
     $('aggBuyback').textContent = fmtUSD(aggBuyback);
-    $('aggBurn').textContent = fmtUSD(aggBurn);
     $('aggSupplyPct').textContent = fmtPct(supplyPct);
 
     updateChart(streams);
