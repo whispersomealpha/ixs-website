@@ -102,6 +102,33 @@ function initBuybackBurnModel() {
   };
   const fmtPct = (n, digits = 3) => (isFinite(n) ? n.toFixed(digits) : '0') + '%';
 
+  // Plain-integer fields (pool sizes, user counts) are entered as text so
+  // they can show thousands separators — parse by stripping commas first.
+  const readNum = (id) => parseFloat(String($(id).value || '').replace(/,/g, '')) || 0;
+
+  // Live comma-formatting for a text input: reformats as the user types
+  // while keeping the cursor in a sensible spot.
+  function attachThousandsFormatting(id) {
+    const el = $(id);
+    if (!el) return;
+    const format = (raw) => {
+      const clean = String(raw).replace(/,/g, '').replace(/[^0-9.]/g, '');
+      if (clean === '') return '';
+      const [intPart, ...rest] = clean.split('.');
+      const withCommas = intPart.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+      return rest.length ? withCommas + '.' + rest.join('') : withCommas;
+    };
+    el.value = format(el.value);
+    el.addEventListener('input', () => {
+      const before = el.value;
+      const cursorFromEnd = before.length - (el.selectionStart ?? before.length);
+      const formatted = format(before);
+      el.value = formatted;
+      const pos = Math.max(0, formatted.length - cursorFromEnd);
+      el.setSelectionRange(pos, pos);
+    });
+  }
+
   // Generic: volume -> (optional conversion-rate base) -> fee -> buyback/burn split
   function computeStream({ volumeUsd, basePct = 1, feePct, buybackPct, burnPct }) {
     const base = volumeUsd * basePct;
@@ -114,7 +141,7 @@ function initBuybackBurnModel() {
   function readGlobals() {
     return {
       ixsPrice: parseFloat($('ixsPrice').value) || 0.0000001,
-      ixsSupply: parseFloat($('ixsSupply').value) || 0,
+      ixsSupply: readNum('ixsSupply'),
       buybackPct: (parseFloat($('buybackPct').value) || 0) / 100,
       burnPct: (parseFloat($('burnPct').value) || 0) / 100,
     };
@@ -149,6 +176,14 @@ function initBuybackBurnModel() {
     refreshRangeLabel(sliderId, displayId, decimals);
   });
 
+  // These fields show thousands separators as you type (390,000 instead
+  // of 390000) — attach before the recalc listener below so formatting
+  // happens first on every keystroke.
+  [
+    'ixsSupply', 'btc_availablePool', 'vaults_tvl',
+    'exch_volume', 'line_users', 'line_avgDeposit', 'agents_tvl',
+  ].forEach(attachThousandsFormatting);
+
   // Number inputs also trigger recalculation
   [
     'ixsPrice', 'ixsSupply',
@@ -159,11 +194,11 @@ function initBuybackBurnModel() {
   // Thread-derived scenario defaults, keyed by input id — used by the
   // "Reset to thread scenario" button.
   const SCENARIO_DEFAULTS = {
-    ixsPrice: '0.07', ixsSupply: '180000000', buybackPct: '20', burnPct: '10',
-    btc_availablePool: '390000', btc_adoptionPct: '1.06', btc_ltv: '75', btc_feePct: '0.75',
+    ixsPrice: '0.07', ixsSupply: '180,000,000', buybackPct: '20', burnPct: '10',
+    btc_availablePool: '390,000', btc_adoptionPct: '1.06', btc_ltv: '75', btc_feePct: '0.75',
     vaults_tvl: '500', vaults_feePct: '0.75',
     exch_volume: '500', exch_feePct: '0.75',
-    line_users: '180000000', line_adoptionPct: '1.11', line_avgDeposit: '150', line_feePct: '0.75',
+    line_users: '180,000,000', line_adoptionPct: '1.11', line_avgDeposit: '150', line_feePct: '0.75',
     agents_tvl: '100', agents_feePct: '0.75',
   };
 
@@ -180,7 +215,7 @@ function initBuybackBurnModel() {
 
   // Several pool/TVL fields are entered in millions of USD (so users don't
   // have to type out 9-12 digit dollar figures) — convert to raw USD here.
-  const readMillions = (id) => ((parseFloat($(id).value) || 0) * 1e6);
+  const readMillions = (id) => readNum(id) * 1e6;
 
   function recalcAll() {
     const g = readGlobals();
@@ -198,7 +233,6 @@ function initBuybackBurnModel() {
     if ($('btc_outRwaExposure')) $('btc_outRwaExposure').textContent = fmtUSD(btc.base);
     $('btc_outFee').textContent = fmtUSD(btc.fee);
     $('btc_outBuyback').textContent = fmtUSD(btc.buybackUsd);
-    $('btc_outBurn').textContent = fmtUSD(btc.burnUsd);
 
     // Stream 2 — Institutional RWA Products: TVL -> fee directly
     const vaults = computeStream({
@@ -211,7 +245,6 @@ function initBuybackBurnModel() {
     $('vaults_outVolume').textContent = fmtUSD(vaults.base);
     $('vaults_outFee').textContent = fmtUSD(vaults.fee);
     $('vaults_outBuyback').textContent = fmtUSD(vaults.buybackUsd);
-    $('vaults_outBurn').textContent = fmtUSD(vaults.burnUsd);
 
     // Stream 3 — Exchange integrations: deployed volume -> fee directly
     const exch = computeStream({
@@ -224,13 +257,12 @@ function initBuybackBurnModel() {
     $('exch_outVolume').textContent = fmtUSD(exch.base);
     $('exch_outFee').textContent = fmtUSD(exch.fee);
     $('exch_outBuyback').textContent = fmtUSD(exch.buybackUsd);
-    $('exch_outBurn').textContent = fmtUSD(exch.burnUsd);
 
     // Stream 4 — Super-apps & Fintech (LINE + fintech/neobank/wallet/PayFi
     // reach): users x adoption x avg deposit -> fee.
-    const lineUsers = parseFloat($('line_users').value) || 0;
+    const lineUsers = readNum('line_users');
     const lineAdoption = (parseFloat($('line_adoptionPct').value) || 0) / 100;
-    const lineAvgDeposit = parseFloat($('line_avgDeposit').value) || 0;
+    const lineAvgDeposit = readNum('line_avgDeposit');
     const line = computeStream({
       volumeUsd: lineUsers * lineAdoption * lineAvgDeposit,
       basePct: 1,
@@ -241,7 +273,6 @@ function initBuybackBurnModel() {
     $('line_outVolume').textContent = fmtUSD(line.base);
     $('line_outFee').textContent = fmtUSD(line.fee);
     $('line_outBuyback').textContent = fmtUSD(line.buybackUsd);
-    $('line_outBurn').textContent = fmtUSD(line.burnUsd);
 
     // Stream 5 — AI Agents (agentic.market, circle.agent, Agentic Vaults):
     // deployed agent-vault TVL -> fee directly.
@@ -255,7 +286,6 @@ function initBuybackBurnModel() {
     $('agents_outVolume').textContent = fmtUSD(agents.base);
     $('agents_outFee').textContent = fmtUSD(agents.fee);
     $('agents_outBuyback').textContent = fmtUSD(agents.buybackUsd);
-    $('agents_outBurn').textContent = fmtUSD(agents.burnUsd);
 
     // Aggregate — TVL is summed on `base` (the post-conversion RWA
     // exposure), not raw collateral, so the BTC channel's $ figure lines

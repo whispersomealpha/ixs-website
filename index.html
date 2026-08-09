@@ -603,7 +603,7 @@
         </div>
         <div class="field">
           <label for="ixsSupply">$IXS circulating supply</label>
-          <input type="number" id="ixsSupply" min="0" step="1000000" value="180000000">
+          <input type="text" inputmode="numeric" id="ixsSupply" value="180,000,000">
         </div>
         <div class="field">
           <label for="buybackPct">Buyback share of fees <span class="val" id="buybackPctVal">20</span>%</label>
@@ -639,7 +639,7 @@
 
         <div class="field">
           <label for="btc_availablePool">Institutions + wBTC + accredited clients (millions of USD)</label>
-          <input type="number" id="btc_availablePool" min="0" step="1000" value="390000">
+          <input type="text" inputmode="numeric" id="btc_availablePool" value="390,000">
         </div>
         <div class="field-hint">= 3,900,000 BTC across institutions, wBTC and accredited clients at an assumed $100K/BTC. Only a fraction needs to move through IXS to matter.</div>
 
@@ -674,12 +674,8 @@
             <span class="result-value" id="btc_outFee">$0</span>
           </div>
           <div class="result highlight">
-            <span class="result-label">Buyback (USD)</span>
+            <span class="result-label">Buyback &amp; Burn (USD)</span>
             <span class="result-value" id="btc_outBuyback">$0</span>
-          </div>
-          <div class="result highlight-burn">
-            <span class="result-label">Burn (USD)</span>
-            <span class="result-value" id="btc_outBurn">$0</span>
           </div>
         </div>
       </div>
@@ -696,7 +692,7 @@
 
         <div class="field">
           <label for="vaults_tvl">Deployed institutional TVL (millions of USD)</label>
-          <input type="number" id="vaults_tvl" min="0" step="10" value="500">
+          <input type="text" inputmode="numeric" id="vaults_tvl" value="500">
         </div>
         <div class="field-hint">Asset managers → IXS infrastructure → distribution. Thread scenario: $500M from this channel alone.</div>
 
@@ -714,13 +710,9 @@
             <span class="result-label">Fee revenue</span>
             <span class="result-value" id="vaults_outFee">$0</span>
           </div>
-          <div class="result highlight">
-            <span class="result-label">Buyback (USD)</span>
+          <div class="result highlight span-2">
+            <span class="result-label">Buyback &amp; Burn (USD)</span>
             <span class="result-value" id="vaults_outBuyback">$0</span>
-          </div>
-          <div class="result highlight-burn">
-            <span class="result-label">Burn (USD)</span>
-            <span class="result-value" id="vaults_outBurn">$0</span>
           </div>
         </div>
       </div>
@@ -737,7 +729,7 @@
 
         <div class="field">
           <label for="exch_volume">Deployed volume via exchanges (millions of USD)</label>
-          <input type="number" id="exch_volume" min="0" step="10" value="500">
+          <input type="text" inputmode="numeric" id="exch_volume" value="500">
         </div>
         <div class="field-hint">In advanced talks with multiple major exchanges so users can deploy holdings into IXS vaults; Unionchain tech runs on IXS. Thread scenario: $500M.</div>
 
@@ -755,13 +747,9 @@
             <span class="result-label">Fee revenue</span>
             <span class="result-value" id="exch_outFee">$0</span>
           </div>
-          <div class="result highlight">
-            <span class="result-label">Buyback (USD)</span>
+          <div class="result highlight span-2">
+            <span class="result-label">Buyback &amp; Burn (USD)</span>
             <span class="result-value" id="exch_outBuyback">$0</span>
-          </div>
-          <div class="result highlight-burn">
-            <span class="result-label">Burn (USD)</span>
-            <span class="result-value" id="exch_outBurn">$0</span>
           </div>
         </div>
       </div>
@@ -778,7 +766,7 @@
 
         <div class="field">
           <label for="line_users">Reachable users (LINE + fintech/neobank/wallet partners)</label>
-          <input type="number" id="line_users" min="0" step="1000000" value="180000000">
+          <input type="text" inputmode="numeric" id="line_users" value="180,000,000">
         </div>
         <div class="field-hint">LINE (the "WhatsApp of Asia," 180M users) is the flagship named integration; this represents blended reach across the broader super-app/fintech/PayFi category.</div>
 
@@ -790,7 +778,7 @@
         <div class="field two-col">
           <div>
             <label for="line_avgDeposit">Avg. deposit / user (USD)</label>
-            <input type="number" id="line_avgDeposit" min="0" step="10" value="150">
+            <input type="text" inputmode="numeric" id="line_avgDeposit" value="150">
           </div>
           <div>
             <label for="line_feePct">Fee on deposits <span class="val" id="line_feePctVal">0.75</span>%</label>
@@ -807,13 +795,9 @@
             <span class="result-label">Fee revenue</span>
             <span class="result-value" id="line_outFee">$0</span>
           </div>
-          <div class="result highlight">
-            <span class="result-label">Buyback (USD)</span>
+          <div class="result highlight span-2">
+            <span class="result-label">Buyback &amp; Burn (USD)</span>
             <span class="result-value" id="line_outBuyback">$0</span>
-          </div>
-          <div class="result highlight-burn">
-            <span class="result-label">Burn (USD)</span>
-            <span class="result-value" id="line_outBurn">$0</span>
           </div>
         </div>
       </div>
@@ -830,7 +814,7 @@
 
         <div class="field">
           <label for="agents_tvl">Deployed agent-vault TVL (millions of USD)</label>
-          <input type="number" id="agents_tvl" min="0" step="10" value="100">
+          <input type="text" inputmode="numeric" id="agents_tvl" value="100">
         </div>
         <div class="field-hint">Agents already hold wallets and interact with DeFi. Agentic Vaults give them the same institutional RWA infrastructure as human capital. Thread scenario: $100M.</div>
 
@@ -848,13 +832,9 @@
             <span class="result-label">Fee revenue</span>
             <span class="result-value" id="agents_outFee">$0</span>
           </div>
-          <div class="result highlight">
-            <span class="result-label">Buyback (USD)</span>
+          <div class="result highlight span-2">
+            <span class="result-label">Buyback &amp; Burn (USD)</span>
             <span class="result-value" id="agents_outBuyback">$0</span>
-          </div>
-          <div class="result highlight-burn">
-            <span class="result-label">Burn (USD)</span>
-            <span class="result-value" id="agents_outBurn">$0</span>
           </div>
         </div>
       </div>

@@ -1268,6 +1268,8 @@ a.announce-item.interactive:hover .x-icon { color: var(--purple); }
 .result.highlight { border-color: rgba(91,63,240,0.35); background: var(--purple-soft); }
 .result.highlight .result-value { color: var(--purple); }
 
+.result.span-2 { grid-column: 1 / -1; }
+
 .result.highlight-burn { border-color: rgba(217,96,15,0.35); background: var(--orange-soft); }
 .result.highlight-burn .result-value { color: var(--orange); }
 
