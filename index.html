@@ -25,6 +25,16 @@
   </div>
 </div>
 
+<!-- TAB NAV -->
+<div class="tabbar">
+  <div class="tabbar-inner">
+    <button type="button" class="tab-btn active" data-tab="tab-overview">Overview</button>
+    <button type="button" class="tab-btn" data-tab="tab-model">Buyback &amp; Burn Model</button>
+    <button type="button" class="tab-btn disabled" disabled title="Coming soon">X Posts &amp; Threads</button>
+  </div>
+</div>
+
+<div id="tab-overview" class="tab-panel">
 <div class="container">
 
   <!-- ============ ROW 1 — HEADER / WHAT IS IXS ============ -->
@@ -368,7 +378,329 @@
   <p class="site-footer-note">Independent, informational fan site summarizing publicly shared IXS materials. Not affiliated with or endorsed by IXS. Not financial advice — always verify at <a href="https://www.ixs.finance" target="_blank" rel="noopener">ixs.finance</a>.</p>
 
 </div>
+</div>
+<!-- /tab-overview -->
 
+<!-- ============================================================
+     TAB 2 — BUYBACK & BURN MODEL
+     ============================================================ -->
+<div id="tab-model" class="tab-panel" hidden>
+<div class="container">
+
+  <!-- MODEL HERO -->
+  <section class="model-hero">
+    <span class="eyebrow reveal in">IXS Finance — Model</span>
+    <h1 class="reveal in">Revenue Streams → 20% Buyback &amp; Burn</h1>
+    <p class="lede reveal in">Four distribution channels feed fees into the same mechanism: 10% buyback + 10% burn of $IXS. Adjust any assumption below to estimate the USD buying pressure and the total RWA TVL IXS could reach.</p>
+  </section>
+
+  <!-- CONVERGING STREAMS DIAGRAM -->
+  <section>
+    <div class="panel reveal">
+      <div class="streams-flow">
+        <div class="stream-box">
+          <div class="ic">₿</div>
+          <h4>BTC RWA Yield <span style="color:var(--faint); font-weight:600;">(via BitGo)</span></h4>
+          <p>$400B in institutions · BitGo pitching to its 1,500 clients · $8.5B in wBTC available to deploy with IXS</p>
+        </div>
+        <div class="stream-box">
+          <div class="ic">🏦</div>
+          <h4>RWA Agentic Vaults</h4>
+          <p>Products from Fidelity, BlackRock et al — rolling out across BNB, BASE, Robinhood &amp; more chains</p>
+        </div>
+        <div class="stream-box">
+          <div class="ic">🔗</div>
+          <h4>Exchange Integrations</h4>
+          <p>Advanced talks with multiple major exchanges + Unionchain developments to deploy holdings into IXS vaults</p>
+        </div>
+        <div class="stream-box">
+          <div class="ic">💬</div>
+          <h4>LINE Integration — Phase 2</h4>
+          <p>Offering these products to 180M people in Asia via the LINE app</p>
+        </div>
+      </div>
+      <div class="stream-arrows"><span>↓</span><span>↓</span><span>↓</span><span>↓</span></div>
+      <div class="burn-banner">20% of fees collected → Buyback &amp; Burn of $IXS</div>
+    </div>
+  </section>
+
+  <!-- AGGREGATE SUMMARY -->
+  <section>
+    <div class="section-title reveal">
+      <h2>Aggregate — all streams combined</h2>
+      <div class="sub">Live totals, recalculated as you adjust any assumption below</div>
+    </div>
+    <div class="aggregate-grid reveal">
+      <div class="agg-stat on-purple">
+        <div class="label">Est. Total RWA TVL / Volume</div>
+        <div class="value" id="aggTVL">$0</div>
+      </div>
+      <div class="agg-stat">
+        <div class="label">Implied Fee Revenue</div>
+        <div class="value" id="aggFee">$0</div>
+      </div>
+      <div class="agg-stat on-purple">
+        <div class="label">Buyback (USD)</div>
+        <div class="value" id="aggBuyback">$0</div>
+      </div>
+      <div class="agg-stat on-orange">
+        <div class="label">Burn (USD)</div>
+        <div class="value" id="aggBurn">$0</div>
+      </div>
+      <div class="agg-stat">
+        <div class="label">$IXS Supply Reduction</div>
+        <div class="value" id="aggSupplyPct">0%</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GLOBAL ASSUMPTIONS -->
+  <section class="tight">
+    <div class="panel reveal">
+      <div class="eyebrow">Global assumptions</div>
+      <h2 style="margin-top:4px; margin-bottom:14px;">Applied to every stream below</h2>
+      <div class="assumptions-bar">
+        <div class="field">
+          <label for="ixsPrice">$IXS price (USD)</label>
+          <input type="number" id="ixsPrice" min="0.0001" step="0.001" value="0.07">
+        </div>
+        <div class="field">
+          <label for="ixsSupply">$IXS circulating supply</label>
+          <input type="number" id="ixsSupply" min="0" step="1000000" value="180000000">
+        </div>
+        <div class="field">
+          <label for="buybackPct">Buyback share of fees <span class="val" id="buybackPctVal">10</span>%</label>
+          <input type="range" id="buybackPct" min="0" max="50" step="1" value="10">
+        </div>
+        <div class="field">
+          <label for="burnPct">Burn share of fees <span class="val" id="burnPctVal">10</span>%</label>
+          <input type="range" id="burnPct" min="0" max="50" step="1" value="10">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STREAM CALCULATORS -->
+  <section>
+    <div class="section-title reveal">
+      <h2>Model each revenue stream</h2>
+      <div class="sub">Every field below is editable — defaults are rough, order-of-magnitude placeholders</div>
+    </div>
+
+    <div class="stream-grid">
+
+      <!-- STREAM 1 — BTC RWA YIELD -->
+      <div class="panel stream-card reveal" data-stream="btc">
+        <div class="stream-head">
+          <span class="ic">₿</span>
+          <div>
+            <h3>BTC RWA Yield (via BitGo)</h3>
+            <div class="stream-sub">BTC collateral → loan → RWA vault → fee</div>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="btc_availablePool">wBTC available to deploy with IXS (USD)</label>
+          <input type="number" id="btc_availablePool" min="0" step="100000000" value="8500000000">
+        </div>
+        <div class="field-hint">Context: ≈$400B in BTC held across institutions BitGo pitches to (1,500 clients). This pool is the actual addressable amount.</div>
+
+        <div class="field">
+          <label for="btc_adoptionPct">Adoption — % of that pool deployed <span class="val" id="btc_adoptionPctVal">10</span>%</label>
+          <input type="range" id="btc_adoptionPct" min="0" max="100" step="0.5" value="10">
+        </div>
+
+        <div class="field two-col">
+          <div>
+            <label for="btc_ltv">Loan-to-Value <span class="val" id="btc_ltvVal">50</span>%</label>
+            <input type="range" id="btc_ltv" min="10" max="80" step="1" value="50">
+          </div>
+          <div>
+            <label for="btc_feePct">Vault fee on loan <span class="val" id="btc_feePctVal">0.75</span>%</label>
+            <input type="range" id="btc_feePct" min="0.1" max="2" step="0.05" value="0.75">
+          </div>
+        </div>
+
+        <div class="stream-results">
+          <div class="result">
+            <span class="result-label">Deposit volume</span>
+            <span class="result-value" id="btc_outVolume">$0</span>
+          </div>
+          <div class="result">
+            <span class="result-label">Fee revenue</span>
+            <span class="result-value" id="btc_outFee">$0</span>
+          </div>
+          <div class="result highlight">
+            <span class="result-label">Buyback (USD)</span>
+            <span class="result-value" id="btc_outBuyback">$0</span>
+          </div>
+          <div class="result highlight-burn">
+            <span class="result-label">Burn (USD)</span>
+            <span class="result-value" id="btc_outBurn">$0</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- STREAM 2 — RWA AGENTIC VAULTS -->
+      <div class="panel stream-card reveal" data-stream="vaults">
+        <div class="stream-head">
+          <span class="ic">🏦</span>
+          <div>
+            <h3>RWA Agentic Vaults</h3>
+            <div class="stream-sub">Fidelity, BlackRock et al · BNB / BASE / Robinhood</div>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="vaults_tvl">Deployed vault TVL (USD)</label>
+          <input type="number" id="vaults_tvl" min="0" step="1000000" value="75000000">
+        </div>
+        <div class="field-hint">Rolling out across all chains — BNB, BASE, Robinhood — with institutional products from Fidelity, BlackRock and others.</div>
+
+        <div class="field">
+          <label for="vaults_feePct">Vault fee / yield spread <span class="val" id="vaults_feePctVal">0.75</span>%</label>
+          <input type="range" id="vaults_feePct" min="0.1" max="2" step="0.05" value="0.75">
+        </div>
+
+        <div class="stream-results">
+          <div class="result">
+            <span class="result-label">TVL</span>
+            <span class="result-value" id="vaults_outVolume">$0</span>
+          </div>
+          <div class="result">
+            <span class="result-label">Fee revenue</span>
+            <span class="result-value" id="vaults_outFee">$0</span>
+          </div>
+          <div class="result highlight">
+            <span class="result-label">Buyback (USD)</span>
+            <span class="result-value" id="vaults_outBuyback">$0</span>
+          </div>
+          <div class="result highlight-burn">
+            <span class="result-label">Burn (USD)</span>
+            <span class="result-value" id="vaults_outBurn">$0</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- STREAM 3 — EXCHANGE INTEGRATIONS -->
+      <div class="panel stream-card reveal" data-stream="exchange">
+        <div class="stream-head">
+          <span class="ic">🔗</span>
+          <div>
+            <h3>Exchange Integrations</h3>
+            <div class="stream-sub">Major exchange talks · Unionchain</div>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="exch_volume">Deployed volume via exchanges (USD)</label>
+          <input type="number" id="exch_volume" min="0" step="1000000" value="40000000">
+        </div>
+        <div class="field-hint">In advanced talks with multiple major exchanges so users can deploy holdings into IXS vaults; Unionchain tech runs on IXS.</div>
+
+        <div class="field">
+          <label for="exch_feePct">Fee on deployed volume <span class="val" id="exch_feePctVal">0.75</span>%</label>
+          <input type="range" id="exch_feePct" min="0.1" max="2" step="0.05" value="0.75">
+        </div>
+
+        <div class="stream-results">
+          <div class="result">
+            <span class="result-label">Volume</span>
+            <span class="result-value" id="exch_outVolume">$0</span>
+          </div>
+          <div class="result">
+            <span class="result-label">Fee revenue</span>
+            <span class="result-value" id="exch_outFee">$0</span>
+          </div>
+          <div class="result highlight">
+            <span class="result-label">Buyback (USD)</span>
+            <span class="result-value" id="exch_outBuyback">$0</span>
+          </div>
+          <div class="result highlight-burn">
+            <span class="result-label">Burn (USD)</span>
+            <span class="result-value" id="exch_outBurn">$0</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- STREAM 4 — LINE INTEGRATION -->
+      <div class="panel stream-card reveal" data-stream="line">
+        <div class="stream-head">
+          <span class="ic">💬</span>
+          <div>
+            <h3>LINE Integration — Phase 2</h3>
+            <div class="stream-sub">180M users across Asia</div>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="line_users">Total LINE users (Asia)</label>
+          <input type="number" id="line_users" min="0" step="1000000" value="180000000">
+        </div>
+
+        <div class="field">
+          <label for="line_adoptionPct">Adoption — % of users depositing <span class="val" id="line_adoptionPctVal">0.05</span>%</label>
+          <input type="range" id="line_adoptionPct" min="0" max="1" step="0.01" value="0.05">
+        </div>
+
+        <div class="field two-col">
+          <div>
+            <label for="line_avgDeposit">Avg. deposit / user (USD)</label>
+            <input type="number" id="line_avgDeposit" min="0" step="10" value="150">
+          </div>
+          <div>
+            <label for="line_feePct">Fee on deposits <span class="val" id="line_feePctVal">0.75</span>%</label>
+            <input type="range" id="line_feePct" min="0.1" max="2" step="0.05" value="0.75">
+          </div>
+        </div>
+
+        <div class="stream-results">
+          <div class="result">
+            <span class="result-label">Deposit volume</span>
+            <span class="result-value" id="line_outVolume">$0</span>
+          </div>
+          <div class="result">
+            <span class="result-label">Fee revenue</span>
+            <span class="result-value" id="line_outFee">$0</span>
+          </div>
+          <div class="result highlight">
+            <span class="result-label">Buyback (USD)</span>
+            <span class="result-value" id="line_outBuyback">$0</span>
+          </div>
+          <div class="result highlight-burn">
+            <span class="result-label">Burn (USD)</span>
+            <span class="result-value" id="line_outBurn">$0</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CHART -->
+  <section>
+    <div class="panel reveal">
+      <div class="eyebrow">Revenue &amp; burn mix</div>
+      <h2 style="margin-top:4px; margin-bottom:4px;">Fee revenue and buyback+burn by stream</h2>
+      <div class="chart-wrap">
+        <canvas id="streamChart" height="300"></canvas>
+      </div>
+    </div>
+  </section>
+
+  <!-- DISCLAIMER -->
+  <section class="tight">
+    <div class="panel model-disclaimer reveal">
+      <h2 style="margin-bottom:8px;">Disclaimer</h2>
+      <p>This tool models the mechanical flow of fees, buyback and burn based on the assumptions you set — it does not predict IXS price, market cap, or actual adoption. TVL/volume figures mix stock (deployed TVL) and flow (loan/deposit volume) across streams for illustration; treat the aggregate as an order-of-magnitude estimate, not a forecast. Fee percentages, buyback/burn splits, and pool sizes are editable placeholders and are not official IXS figures — always verify against ixs.finance.</p>
+    </div>
+  </section>
+
+</div>
+</div>
+<!-- /tab-model -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.4/chart.umd.min.js"></script>
 <script src="js/script.js"></script>
 </body>
 </html>
