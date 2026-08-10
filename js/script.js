@@ -631,23 +631,22 @@ function initMcComparison() {
 
 // ---------- IXS Thesis — 2027-2031 model chart ----------
 //
-// Illustrative scenario model from the community "IXS Thesis" write-up:
-// a gradual 0.04% -> 0.17% share of a ~$9.4T (2030) / ~$13T (2031) RWA
-// market, an illustrative 0.5x-TVL market cap, and agents' share of that
-// TVL growing from 7% to 30% over the same period. 2027-2029 and 2031
-// were nudged up for a more bullish ramp (steeper early capture, steeper
-// out-year), 2030 stays fixed at exactly 0.10%/$9.4B since that "one
-// tenth of one percent" figure is the tab's headline anchor and is
-// referenced by name in several other sections. Not a forecast, see the
-// in-page disclaimer for sourcing.
+// Illustrative scenario model from the community "IXS Thesis" write-up,
+// rebuilt to land on the same TVL scenarios used in the "TVL scenarios"
+// section: roughly the Buyback & Burn Calculator's default scenario
+// ($10B) by 2028 and the 5x-scaled scenario (~$50B) by 2030. RWA-market
+// figures (2030's ~$9.4T anchored to BCG/Ripple, other years scenario-
+// modeled) are unchanged from before, only IXS's assumed share of that
+// market was raised, so 2030's share is now ~0.53% rather than 0.10%.
+// Not a forecast, see the in-page disclaimer for sourcing.
 function initIxsThesisChart() {
   const canvas = document.getElementById('ixsThesisChart');
   if (!canvas || typeof Chart === 'undefined') return;
 
   const YEARS = [2027, 2028, 2029, 2030, 2031];
-  const TVL_B = [0.6, 1.89, 4.5, 9.4, 22.1];
-  const MC_B = [0.3, 0.945, 2.25, 4.7, 11.05];
-  const AGENTIC_B = [0.042, 0.189, 0.63, 1.7, 6.63];
+  const TVL_B = [2, 10, 25, 50, 90];
+  const MC_B = [1, 5, 12.5, 25, 45];
+  const AGENTIC_B = [0.14, 1.0, 3.75, 10.0, 27.0];
 
   function cssVar(name) {
     return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
