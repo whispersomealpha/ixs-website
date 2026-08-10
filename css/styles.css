@@ -1410,6 +1410,72 @@ a.announce-item.interactive:hover .x-icon { color: var(--purple); }
 .ama-turn.ama-team .ama-turn p { color: var(--ink); }
 .ama-turn .dash-list { margin: 4px 0 10px; }
 
+/* ===== MC / FDV / TVL Comparison tab ===== */
+
+.mc-compare-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 14px;
+}
+
+.mc-card {
+  display: block;
+  padding: 16px 16px 14px;
+  border-radius: 14px;
+  border: 1.5px solid var(--border-soft);
+  border-top: 3px solid var(--proj-color, var(--purple));
+  background: var(--bg);
+  text-decoration: none;
+  transition: border-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.mc-card:hover {
+  border-color: var(--proj-color, var(--purple));
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.mc-card-baseline { background: var(--purple-soft); }
+
+.mc-card-head { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+
+.mc-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--proj-color, var(--purple));
+  flex-shrink: 0;
+}
+
+.mc-card-head h3 {
+  font-size: 0.92rem;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--ink);
+}
+
+.mc-card .x-icon { font-size: 0.68rem; color: var(--faint); }
+.mc-card:hover h3, .mc-card:hover .x-icon { color: var(--proj-color, var(--purple)); }
+
+.mc-card-tag {
+  display: inline-block;
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  color: var(--proj-color, var(--purple));
+  background: color-mix(in srgb, var(--proj-color, var(--purple)) 14%, transparent);
+  padding: 3px 9px;
+  border-radius: 999px;
+  margin-bottom: 12px;
+}
+
+.mc-card-rows { display: flex; flex-direction: column; gap: 6px; }
+.mc-card-row { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+.mc-card-row span { font-size: 0.74rem; color: var(--faint); }
+.mc-card-row strong { font-size: 0.82rem; color: var(--ink); font-variant-numeric: tabular-nums; }
+
 @media (max-width: 1000px) {
   .streams-flow, .streams-flow-5 { grid-template-columns: repeat(2, 1fr); }
   .stream-arrows, .stream-arrows-5 { display: none; }
@@ -1419,6 +1485,7 @@ a.announce-item.interactive:hover .x-icon { color: var(--purple); }
   .funnel { flex-direction: column; }
   .funnel-arrow { transform: rotate(0deg); }
   .buildout-grid.cols-2 { grid-template-columns: 1fr; }
+  .mc-compare-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 620px) {
@@ -1426,4 +1493,5 @@ a.announce-item.interactive:hover .x-icon { color: var(--purple); }
   .aggregate-grid { grid-template-columns: 1fr; }
   .assumptions-bar { grid-template-columns: 1fr; }
   .stream-results { grid-template-columns: 1fr; }
+  .mc-compare-grid { grid-template-columns: 1fr; }
 }
