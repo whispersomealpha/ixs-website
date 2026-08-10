@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initThemeToggle();
   initBuybackBurnModel();
   initMcComparison();
+  initIxsThesisChart();
   initLastUpdated();
 });
 
@@ -620,6 +621,118 @@ function initMcComparison() {
   document.addEventListener('ixs-themechange', buildChart);
   document.addEventListener('ixs-tabshown', (e) => {
     if (e.detail && e.detail.id === 'tab-comparison') {
+      requestAnimationFrame(() => {
+        if (chart) chart.resize();
+        buildChart();
+      });
+    }
+  });
+}
+
+// ---------- IXS Thesis — 2027-2031 model chart ----------
+//
+// Illustrative scenario model from the community "IXS Thesis" write-up:
+// a gradual 0.03% -> 0.13% share of a ~$9.4T (2030) / ~$12T (2031) RWA
+// market, an illustrative 0.5x-TVL market cap, and agents' share of that
+// TVL growing from 5% to 25% over the same period. Not a forecast, see
+// the in-page disclaimer for sourcing.
+function initIxsThesisChart() {
+  const canvas = document.getElementById('ixsThesisChart');
+  if (!canvas || typeof Chart === 'undefined') return;
+
+  const YEARS = [2027, 2028, 2029, 2030, 2031];
+  const TVL_B = [0.45, 1.35, 3.5, 9.4, 15.6];
+  const MC_B = [0.225, 0.675, 1.75, 4.7, 7.8];
+  const AGENTIC_B = [0.023, 0.108, 0.42, 1.7, 3.9];
+
+  function cssVar(name) {
+    return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+  }
+
+  let chart;
+
+  function buildChart() {
+    // Same lazy-construction guard used by the other charts on this site:
+    // don't measure/build a canvas that's still inside a hidden tab.
+    if (!chart && canvas.offsetParent === null) return;
+
+    const ctx = canvas.getContext('2d');
+    const inkColor = cssVar('--ink') || '#14141c';
+    const dimColor = cssVar('--dim') || '#52525f';
+    const gridColor = cssVar('--border-soft') || '#dedee8';
+    const greenColor = cssVar('--green') || '#16915c';
+
+    const data = {
+      labels: YEARS,
+      datasets: [
+        {
+          label: 'Modeled IXS TVL',
+          data: TVL_B,
+          borderColor: '#1D4ED8',
+          backgroundColor: '#1D4ED8',
+          pointBackgroundColor: '#1D4ED8',
+          pointRadius: 4,
+          tension: 0.25,
+          borderWidth: 2.5,
+        },
+        {
+          label: 'Illustrative MC @ 0.5x TVL',
+          data: MC_B,
+          borderColor: '#FF6600',
+          backgroundColor: '#FF6600',
+          pointBackgroundColor: '#FF6600',
+          pointRadius: 4,
+          tension: 0.25,
+          borderWidth: 2.5,
+        },
+        {
+          label: 'Agentic TVL within IXS',
+          data: AGENTIC_B,
+          borderColor: greenColor,
+          backgroundColor: greenColor,
+          pointBackgroundColor: greenColor,
+          pointRadius: 4,
+          tension: 0.25,
+          borderWidth: 2.5,
+        },
+      ],
+    };
+
+    const options = {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { position: 'bottom', labels: { color: inkColor, font: { size: 11 } } },
+        tooltip: {
+          callbacks: {
+            label: (c) => `${c.dataset.label}: $${c.parsed.y.toFixed(2)}B`,
+          },
+        },
+      },
+      scales: {
+        x: { ticks: { color: dimColor, font: { size: 11 } }, grid: { display: false } },
+        y: {
+          ticks: { color: dimColor, callback: (val) => '$' + val + 'B' },
+          grid: { color: gridColor },
+          title: { display: true, text: '$ billions', color: dimColor, font: { size: 11 } },
+        },
+      },
+    };
+
+    if (chart) {
+      chart.data = data;
+      chart.options = options;
+      chart.update();
+    } else {
+      chart = new Chart(ctx, { type: 'line', data, options });
+    }
+  }
+
+  buildChart();
+
+  document.addEventListener('ixs-themechange', buildChart);
+  document.addEventListener('ixs-tabshown', (e) => {
+    if (e.detail && e.detail.id === 'tab-ixs-thesis') {
       requestAnimationFrame(() => {
         if (chart) chart.resize();
         buildChart();
