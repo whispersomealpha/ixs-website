@@ -575,6 +575,8 @@ a.advisor-link:hover .name { color: var(--purple); }
   letter-spacing: 0.03em;
 }
 
+.quote-card a:hover { text-decoration: underline; }
+
 .funnel {
   display: flex;
   flex-direction: column;
