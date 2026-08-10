@@ -1476,6 +1476,21 @@ a.announce-item.interactive:hover .x-icon { color: var(--purple); }
 .mc-card-row span { font-size: 0.74rem; color: var(--faint); }
 .mc-card-row strong { font-size: 0.82rem; color: var(--ink); font-variant-numeric: tabular-nums; }
 
+.mc-card-divider {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: 0.64rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--faint);
+  border-top: 1px dashed var(--border-soft);
+  margin: 12px 0 8px;
+  padding-top: 10px;
+}
+.mc-card-divider span { font-weight: 700; text-transform: none; letter-spacing: 0; }
+
 @media (max-width: 1000px) {
   .streams-flow, .streams-flow-5 { grid-template-columns: repeat(2, 1fr); }
   .stream-arrows, .stream-arrows-5 { display: none; }

@@ -443,12 +443,18 @@ function initBuybackBurnModel() {
 // own reported figure for its TVL — see the in-page disclaimer for why).
 // Pulled Aug 10, 2026 — a snapshot, not a live feed.
 
+// ATH MC/FDV are approximations: ATH price × today's circulating/total
+// supply (not the actual supply on the historical ATH date, which isn't
+// reliably available for all five). This overstates the real historical
+// figure for any token whose supply has grown since its ATH, most notably
+// Ondo, whose circulating supply has roughly tripled since its Dec 2024
+// ATH — see the in-page methodology note.
 const MC_COMPARE_DATA = [
-  { name: 'IXS', url: 'https://www.coingecko.com/en/coins/ixs', color: 'var(--purple)', mc: 11.61e6, fdv: 11.61e6, tvl: 88.45e6, baseline: true },
-  { name: 'Ondo', url: 'https://www.coingecko.com/en/coins/ondo', color: '#1b6fd6', mc: 1699.18e6, fdv: 3489.55e6, tvl: 3484e6 },
-  { name: 'Centrifuge', url: 'https://www.coingecko.com/en/coins/centrifuge', color: '#0d9488', mc: 60.93e6, fdv: 109.22e6, tvl: 1628e6 },
-  { name: 'Syrup', url: 'https://www.coingecko.com/en/coins/maple-finance', color: '#e0507a', mc: 180.48e6, fdv: 192.46e6, tvl: 2476e6 },
-  { name: 'Securitize', url: 'https://www.coingecko.com/en/coins/securitize', color: '#475569', mc: 22.79e6, fdv: 191.28e6, tvl: 5008e6 },
+  { name: 'IXS', url: 'https://www.coingecko.com/en/coins/ixs', color: 'var(--purple)', mc: 11.61e6, fdv: 11.61e6, tvl: 88.45e6, athPrice: 0.8310, athDate: 'Mar 2024', athMc: 149.58e6, athFdv: 149.58e6, baseline: true },
+  { name: 'Ondo', url: 'https://www.coingecko.com/en/coins/ondo', color: '#1b6fd6', mc: 1699.18e6, fdv: 3489.55e6, tvl: 3484e6, athPrice: 2.14, athDate: 'Dec 2024', athMc: 10486e6, athFdv: 21400e6 },
+  { name: 'Centrifuge', url: 'https://www.coingecko.com/en/coins/centrifuge', color: '#0d9488', mc: 60.93e6, fdv: 109.22e6, tvl: 1628e6, athPrice: 2.52, athDate: 'Oct 2021', athMc: 957.6e6, athFdv: 1718.64e6 },
+  { name: 'Syrup', url: 'https://www.coingecko.com/en/coins/maple-finance', color: '#e0507a', mc: 180.48e6, fdv: 192.46e6, tvl: 2476e6, athPrice: 0.6557, athDate: 'Jun 2025', athMc: 786.84e6, athFdv: 839.3e6 },
+  { name: 'Securitize', url: 'https://www.coingecko.com/en/coins/securitize', color: '#475569', mc: 22.79e6, fdv: 191.28e6, tvl: 5008e6, athPrice: 7.72, athDate: 'Aug 2026', athMc: 22.85e6, athFdv: 191.53e6 },
 ];
 
 function initMcComparison() {
@@ -481,6 +487,11 @@ function initMcComparison() {
             <div class="mc-card-row"><span>Market Cap</span><strong>${formatUsdCompact(p.mc)}</strong></div>
             <div class="mc-card-row"><span>FDV</span><strong>${formatUsdCompact(p.fdv)}</strong></div>
             <div class="mc-card-row"><span>TVL</span><strong>${formatUsdCompact(p.tvl)}</strong></div>
+          </div>
+          <div class="mc-card-divider">All-Time High <span>${p.athDate}</span></div>
+          <div class="mc-card-rows">
+            <div class="mc-card-row"><span>ATH Market Cap</span><strong>${formatUsdCompact(p.athMc)}</strong></div>
+            <div class="mc-card-row"><span>ATH FDV</span><strong>${formatUsdCompact(p.athFdv)}</strong></div>
           </div>
         </a>`;
     }).join('');
