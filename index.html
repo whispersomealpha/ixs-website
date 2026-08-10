@@ -17,7 +17,7 @@
 <meta name="description" content="IXS is the compliant rails, infrastructure and distribution layer that lets anyone, apps, exchanges, companies or AI agents, offer institutional-grade RWA products to their users. Licensed. Compliant. Institutional Grade.">
 <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
 <link rel="apple-touch-icon" href="assets/favicon-256.png">
-<link rel="stylesheet" href="css/styles.css?v=54">
+<link rel="stylesheet" href="css/styles.css?v=84">
 </head>
 <body>
 
@@ -30,6 +30,11 @@
       <span class="brand-tag">Unofficial community hub</span>
       <span class="last-updated" id="lastUpdated">Last updated…</span>
     </div>
+    <button type="button" id="contractCopyBtn" class="contract-chip" data-contract="0x73d7c860998CA3c01Ce8c808F5577d9d545d1b4" title="Click to copy the $IXS token contract address">
+      <span class="contract-chip-label">Token contract:</span>
+      <span class="contract-chip-addr">0x73d7c8…5d1b4</span>
+      <span class="contract-chip-icon" aria-hidden="true">📋</span>
+    </button>
     <div style="display:flex; align-items:center; gap:10px;">
       <span class="ticker-badge">$IXS</span>
       <a href="https://www.ixs.finance" target="_blank" rel="noopener" class="topbar-link">ixs.finance ↗</a>
@@ -46,8 +51,10 @@
   <div class="tabbar-inner">
     <button type="button" class="tab-btn active" data-tab="tab-overview">Overview</button>
     <button type="button" class="tab-btn" data-tab="tab-model">Buyback &amp; Burn Calculator</button>
-    <button type="button" class="tab-btn" data-tab="tab-posts">X Posts &amp; Threads</button>
+    <button type="button" class="tab-btn" data-tab="tab-ixs-thesis">IXS Market Size Thesis</button>
+    <button type="button" class="tab-btn" data-tab="tab-comparison">MC Comparison</button>
     <button type="button" class="tab-btn" data-tab="tab-ama">AMA</button>
+    <button type="button" class="tab-btn" data-tab="tab-posts">X Posts &amp; Threads</button>
   </div>
 </div>
 
@@ -995,6 +1002,13 @@
     <span class="eyebrow reveal in">Community AMA</span>
     <h1 class="reveal in">Telegram AMA, July 22, 2026</h1>
     <p class="lede reveal in">The team's latest Ask Me Anything, hosted live in IXS's official Telegram community. Reproduced in full below exactly as it happened, only lightly formatted for readability.</p>
+    <div class="reveal in" style="margin-top:10px;">
+      <div class="field-hint" style="margin:0 0 8px;">AMA summaries available by community members</div>
+      <div class="logo-row">
+        <a class="logo-chip-sm interactive" href="https://x.com/Crypto_Nolt/status/2079907229155635337" target="_blank" rel="noopener">@Crypto_Nolt <span class="x-icon" aria-hidden="true">𝕏</span></a>
+        <a class="logo-chip-sm interactive" href="https://x.com/ragenut/status/2080888260134633486" target="_blank" rel="noopener">@ragenut <span class="x-icon" aria-hidden="true">𝕏</span></a>
+      </div>
+    </div>
   </section>
 
   <section>
@@ -1257,7 +1271,396 @@
 </div>
 <!-- /tab-ama -->
 
+<!-- ============================================================
+     TAB 5 — MC COMPARISON
+     ============================================================ -->
+<div id="tab-comparison" class="tab-panel" hidden>
+<div class="container">
+
+  <section class="model-hero">
+    <span class="eyebrow reveal in">Competitive Benchmark</span>
+    <h1 class="reveal in">MC / FDV / TVL: IXS vs the Market</h1>
+    <p class="lede reveal in">How IXS's token size stacks up against other real-world-asset platforms today, and the multiple IXS would need to grow by to reach where each of them already stands. Click any bar or card to open its live data source.</p>
+  </section>
+
+  <section>
+    <div class="panel reveal">
+      <div class="eyebrow">Market Cap · ATH Market Cap · FDV · ATH FDV · TVL</div>
+      <h2 style="margin-top:4px; margin-bottom:4px;">Six RWA / institutional platforms, side by side (log scale)</h2>
+      <div class="chart-wrap mc-chart-wrap">
+        <canvas id="mcCompareChart" height="300"></canvas>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-title reveal">
+      <h2>The gap to close</h2>
+      <div class="sub">How many times bigger each competitor's FDV and TVL are than IXS's, right now</div>
+    </div>
+    <div class="mc-compare-grid" id="mcCompareGrid"></div>
+  </section>
+
+  <section class="tight">
+    <div class="panel model-disclaimer reveal">
+      <h2 style="margin-bottom:8px;">Data & methodology</h2>
+      <p>Market cap and FDV for all six tokens are sourced from CoinGecko / DefiLlama token pages. Competitor TVL for the four RWA protocols (Ondo, Centrifuge, Syrup/Maple, Securitize) is each platform's DefiLlama protocol TVL, real-world assets tokenized or deployed through them. IXS's TVL here uses the $88M figure the team itself has reported (capital raised and deployed through its primary deals and fundraising rounds, as shared in the July 22, 2026 community AMA), not DefiLlama's ~$118K figure for "IXS," which only counts on-chain DEX liquidity because DefiLlama tracks IXS under the DEX/AMM category rather than as an RWA-issuance protocol; that on-chain figure isn't measuring the same thing as the other five and would misrepresent the comparison. Stellar/XLM's TVL here uses Stellar's own reported ~$1.4B tokenized RWA footprint (its March 2026 institutional report), not a general DeFi-TVL figure, since XLM is a Layer 1 token, not an RWA protocol token, and a generic chain-TVL number wouldn't measure the same thing as the other five. ATH Market Cap and ATH FDV are each token's all-time-high price multiplied by today's circulating and total supply, not the actual supply on the historical ATH date, which isn't reliably available for all six, so these are approximations that can overstate the real historical figure for a token whose supply has grown since its ATH. That's most significant for Ondo (circulating supply has roughly tripled since its Dec 2024 ATH of $2.14) and Stellar (XLM's supply was cut roughly in half by a 2019 burn, so its Jan 2018 ATH circulated far fewer tokens than exist today), so their ATH MC/FDV here should be read as a rough upper bound, not a verified historical figure. IXS (fully circulating, unchanged since its Mar 2024 ATH) and Securitize (ATH was days ago, supply essentially unchanged) are the most reliable of the six. This is a snapshot, not a live feed, all figures move with the market, always verify at the linked sources before relying on them.</p>
+    </div>
+  </section>
+
+  <p class="site-footer-note">Independent, informational fan site summarizing publicly shared IXS materials. Not affiliated with or endorsed by IXS. Not financial advice, always verify at <a href="https://www.ixs.finance" target="_blank" rel="noopener">ixs.finance</a>.</p>
+
+</div>
+</div>
+<!-- /tab-comparison -->
+
+<!-- ============================================================
+     TAB — IXS THESIS
+     ============================================================ -->
+<div id="tab-ixs-thesis" class="tab-panel" hidden>
+<div class="container">
+
+  <section class="model-hero">
+    <span class="eyebrow reveal in">Community Thesis</span>
+    <div class="calc-badge reveal in">📊 Independent analysis &amp; scenario modeling, not a forecast or official IXS content</div>
+    <h1 class="reveal in">IXS Market Size Thesis</h1>
+    <p class="lede reveal in">If tokenized real-world assets become a multi-trillion-dollar market, what fraction of it could flow through IXS's licensed distribution infrastructure, and how much additional demand could autonomous AI agents create for the exact yield infrastructure IXS is building?</p>
+  </section>
+
+  <!-- 1. The market, not IXS -->
+  <section>
+    <div class="section-title reveal">
+      <span class="eyebrow" style="justify-content:center; display:inline-flex;">1 · Start with the market, not IXS</span>
+      <h2 style="margin-top:6px;">How big could tokenized real-world assets actually get?</h2>
+      <div class="sub">RWA.xyz tracks roughly $27.7B of distributed asset value today; its broader represented-asset figure is already above $440B. Those use different methodologies and shouldn't be added together, but they show how fast the tokenization universe is broadening.</div>
+    </div>
+    <div class="panel reveal" style="overflow-x:auto;">
+      <table class="data-table">
+        <thead><tr><th>Forecast</th><th>2030 estimate</th><th>Scope</th></tr></thead>
+        <tbody>
+          <tr><td>McKinsey (conservative)</td><td>~$2T</td><td>Tokenized financial assets, ex-crypto/stablecoins</td></tr>
+          <tr><td>McKinsey (bullish)</td><td>~$4T</td><td>Tokenized financial assets, ex-crypto/stablecoins</td></tr>
+          <tr><td>BCG</td><td>$600B+ AUM</td><td>Tokenized funds only, a narrower slice</td></tr>
+          <tr><td>BCG / Ripple</td><td>$9.4T (2030) → $18.9T (2033)</td><td>Broadest recent study: MMFs, bonds, private credit, real estate</td></tr>
+          <tr><td>BCG / ADDX (earlier study)</td><td>~$16.1T</td><td>Broadest historical estimate: equities, bonds, funds, real estate, alternatives</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="panel reveal" style="margin-top:14px;">
+      <p>So the honest framing isn't one number, it's a range: credible institutional forecasts place the 2030 tokenization opportunity anywhere from ~$2T to well above $9T, while broader historical estimates have reached ~$16T. That range is harder to attack, and it's what actually makes the thesis stronger.</p>
+    </div>
+  </section>
+
+  <!-- 2. IXS doesn't need a large percentage -->
+  <section>
+    <div class="section-title reveal">
+      <span class="eyebrow" style="justify-content:center; display:inline-flex;">2 · IXS doesn't need a large percentage</span>
+      <h2 style="margin-top:6px;">What one tenth of one percent of a $9.4T market means</h2>
+    </div>
+    <div class="panel reveal" style="overflow-x:auto;">
+      <table class="data-table">
+        <thead><tr><th>Market share</th><th>IXS TVL at $9.4T</th></tr></thead>
+        <tbody>
+          <tr><td>0.01%</td><td>$940M</td></tr>
+          <tr><td>0.05%</td><td>$4.7B</td></tr>
+          <tr><td>0.10%</td><td class="highlight-cell">$9.4B</td></tr>
+          <tr><td>0.25%</td><td>$23.5B</td></tr>
+          <tr><td>0.50%</td><td>$47B</td></tr>
+        </tbody>
+      </table>
+      <div class="burn-banner" style="margin-top:14px;">0.10% market share = one tenth of one percent</div>
+    </div>
+    <div class="panel reveal" style="margin-top:14px;">
+      <p style="font-size:1.15rem; line-height:1.6;">The bullish IXS thesis doesn't require IXS to dominate global tokenization, it isn't 10%, it isn't 1%, <strong>it's one tenth of one percent.</strong><br><strong>It requires IXS to become one meaningful piece of the market's infrastructure, not the market itself.</strong></p>
+    </div>
+  </section>
+
+  <!-- 3. Why IXS could realistically capture part of it -->
+  <section>
+    <div class="section-title reveal">
+      <span class="eyebrow" style="justify-content:center; display:inline-flex;">3 · Why IXS could realistically capture part of it</span>
+      <h2 style="margin-top:6px;">One network, many capital funnels</h2>
+    </div>
+    <div class="panel reveal">
+      <div class="funnel">
+        <div class="funnel-step"><div class="ic">🏛️</div><div><strong>Institutional asset managers</strong><p>Tokenized bonds, MMFs, Treasuries, private credit &amp; other RWAs</p></div></div>
+        <div class="funnel-arrow">↓</div>
+        <div class="funnel-step highlight"><div class="ic">⬡</div><div><strong>IXS licensed RWA layer</strong></div></div>
+        <div class="funnel-arrow">↓</div>
+        <div class="funnel-step highlight"><div class="ic">🔗</div><div><strong>Distribution</strong><p>BTC collateral, CEXs, fintechs, neobanks, super-apps, wallets, stablecoin holders, institutions, DeFi apps, AI agents</p></div></div>
+        <div class="funnel-arrow">↓</div>
+        <div class="funnel-step"><div class="ic">💰</div><div><strong>RWA TVL</strong></div></div>
+      </div>
+    </div>
+    <div class="panel reveal" style="margin-top:14px;">
+      <p style="font-size:1.15rem; line-height:1.6;">That's the difference between asking "how big can one IXS vault become" and asking <strong>"how much capital can the entire IXS distribution network eventually route into RWA products."</strong><br>The second number can be dramatically larger.</p>
+    </div>
+  </section>
+
+  <!-- 4. Five channels -->
+  <section>
+    <div class="section-title reveal">
+      <span class="eyebrow" style="justify-content:center; display:inline-flex;">4 · Five channels, one network</span>
+      <h2 style="margin-top:6px;">Five distinct capital inlets, not one</h2>
+    </div>
+    <div class="channel-grid reveal">
+      <div class="channel-card">
+        <div class="ic">🏦</div>
+        <h4>Institutional capital</h4>
+        <p>Bonds, MMFs, loans and securitization are the categories McKinsey and BCG/Ripple flag as furthest along. $500M, then $1B, then $3B of institutional allocations moves the numbers enormously without needing explosive retail adoption.</p>
+      </div>
+      <div class="channel-card">
+        <div class="ic">💵</div>
+        <h4>Stablecoin capital</h4>
+        <p>Stablecoins are already a ~$300B market, McKinsey sees forecasts as high as $4T by 2030. That capital constantly asks "where can I earn yield." Even 0.05-0.25% of a future $1T market is $500M-$2.5B, from one channel alone.</p>
+      </div>
+      <div class="channel-card">
+        <div class="ic">₿</div>
+        <h4>Bitcoin</h4>
+        <p>BTC used as collateral, not sold, unlocks a separate pool of capital entirely. 3,000-5,000 BTC as a plausible institutional scenario: at $100K-$200K/BTC, that's $500M-$1B in real yield without ever selling the underlying BTC.</p>
+      </div>
+      <div class="channel-card">
+        <div class="ic">🔗</div>
+        <h4>Exchanges, apps &amp; fintechs</h4>
+        <p>IXS doesn't need to acquire every user itself. As B2B2C infrastructure sitting underneath exchanges, wallets, neobanks and super-apps, one major integration can matter more than hundreds of thousands of directly acquired users.</p>
+      </div>
+      <div class="channel-card">
+        <div class="ic">🤖</div>
+        <h4>AI agents</h4>
+        <p>McKinsey: $3-5T in agentic commerce by 2030. ARK: nearly $9T in agent-influenced online spending. Mastercard now cites $3-5T in agent-assisted consumer spending. What matters for IXS is agents' idle working capital, not their transaction volume.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. TVL scenarios -->
+  <section>
+    <div class="section-title reveal">
+      <span class="eyebrow" style="justify-content:center; display:inline-flex;">5 · TVL scenarios</span>
+      <h2 style="margin-top:6px;">Two outcomes, from calculator defaults to dominant infrastructure</h2>
+      <div class="sub">Scenario A uses the exact five channels and default assumptions from the Buyback &amp; Burn Calculator tab, not a separate hypothetical. Scenario B simply scales every channel by 5x.</div>
+    </div>
+    <div class="stream-grid reveal">
+
+      <div class="panel stream-card reveal">
+        <div class="stream-head"><span class="ic">🅰️</span><div><h3>Scenario A: Calculator defaults</h3><div class="stream-sub">BTC $1.46B · Institutional $1.00B · Exchanges $2.00B · Super-apps/fintech $1.13B · Agents $5.00B</div></div></div>
+        <div class="stream-results">
+          <div class="result"><span class="result-label">BTC</span><span class="result-value">$1.46B</span></div>
+          <div class="result"><span class="result-label">Institutional</span><span class="result-value">$1.00B</span></div>
+          <div class="result"><span class="result-label">Exchanges</span><span class="result-value">$2.00B</span></div>
+          <div class="result"><span class="result-label">Super-apps / fintech</span><span class="result-value">$1.13B</span></div>
+          <div class="result"><span class="result-label">Agents</span><span class="result-value">$5.00B</span></div>
+          <div class="result highlight span-2"><span class="result-label">Total TVL, the calculator's default scenario</span><span class="result-value">$10.59B</span></div>
+        </div>
+      </div>
+
+      <div class="panel stream-card reveal">
+        <div class="stream-head"><span class="ic">🅱️</span><div><h3>Scenario B: Dominant infrastructure (5x)</h3><div class="stream-sub">BTC $7.31B · Institutional $5.00B · Exchanges $10.00B · Super-apps/fintech $5.63B · Agents $25.00B</div></div></div>
+        <div class="stream-results">
+          <div class="result"><span class="result-label">BTC</span><span class="result-value">$7.31B</span></div>
+          <div class="result"><span class="result-label">Institutional</span><span class="result-value">$5.00B</span></div>
+          <div class="result"><span class="result-label">Exchanges</span><span class="result-value">$10.00B</span></div>
+          <div class="result"><span class="result-label">Super-apps / fintech</span><span class="result-value">$5.63B</span></div>
+          <div class="result"><span class="result-label">Agents</span><span class="result-value">$25.00B</span></div>
+          <div class="result highlight span-2"><span class="result-label">Total TVL, 5x the calculator's default scenario</span><span class="result-value">$52.94B</span></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 6. Agents don't need a high conversion rate -->
+  <section>
+    <div class="section-title reveal">
+      <span class="eyebrow" style="justify-content:center; display:inline-flex;">6 · Basis points, not percentage points</span>
+      <h2 style="margin-top:6px;">Agents don't need a high conversion rate either</h2>
+      <div class="sub">McKinsey's $3-5T agentic-commerce estimate is transaction activity, not capital sitting in yield vaults, so it shouldn't be read as a TVL number. The better question: what share of that flow do agents keep productively invested, as idle working capital, between transactions?</div>
+    </div>
+    <div class="panel reveal" style="overflow-x:auto;">
+      <table class="data-table">
+        <thead><tr><th>Share of $3T agentic commerce</th><th>Equivalent capital scale</th></tr></thead>
+        <tbody>
+          <tr><td>2 basis points</td><td>$600M</td></tr>
+          <tr><td>5 basis points</td><td>$1.5B</td></tr>
+          <tr><td>10 basis points</td><td>$3B</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="panel reveal" style="margin-top:14px;">
+      <p>The thesis isn't that agents generate a second $5T RWA market, it's that agents become another distribution mechanism into the existing RWA market. That's a much more defensible argument, and it's exactly where IXS's Agentic Vault thesis becomes interesting: an agent holding $800K idle today, needing $200K tomorrow, can route the idle balance into a regulated money-market or Treasury vault through the IXS API and withdraw automatically when required.</p>
+    </div>
+  </section>
+
+  <!-- 7. Two megatrends converge -->
+  <section>
+    <div class="section-title reveal">
+      <span class="eyebrow" style="justify-content:center; display:inline-flex;">7 · Two megatrends converge</span>
+      <h2 style="margin-top:6px;">Programmable assets meet autonomous capital</h2>
+    </div>
+    <div class="thesis-compare reveal">
+      <div class="thesis-compare-col">
+        <div class="thesis-compare-head">Tokenization</div>
+        <div class="panel" style="height:100%;">
+          <p>Traditional financial assets become programmable. Potentially $2T, $4T, $9T+, even $16T+ over time, as bonds, funds, credit and real estate move onchain.</p>
+        </div>
+      </div>
+      <div class="thesis-compare-col">
+        <div class="thesis-compare-head">Agentic AI</div>
+        <div class="panel" style="height:100%;">
+          <p>Software becomes economically autonomous. Potentially trillions of dollars in agent-mediated transactions, as agents move from recommending actions to executing them.</p>
+        </div>
+      </div>
+    </div>
+    <div class="panel reveal" style="margin-top:14px;">
+      <div class="funnel">
+        <div class="funnel-step highlight"><div class="ic">⬡</div><div><strong>IXS</strong><p>The compliant interface through which machine capital can access institutional real-world assets</p></div></div>
+      </div>
+      <p style="margin-top:12px;">Tokenized assets become programmable. Capital becomes autonomous. IXS is attempting to become financial infrastructure for a world where both assets and economic actors are programmable, a materially bigger framing than "IXS is an RWA project."</p>
+    </div>
+  </section>
+
+  <!-- 8. The 2027-2031 model -->
+  <section>
+    <div class="section-title reveal">
+      <span class="eyebrow" style="justify-content:center; display:inline-flex;">8 · The 2027–2031 model</span>
+      <h2 style="margin-top:6px;">Modeling a gradual 0.13% → 0.69% share of the market</h2>
+      <div class="sub">Anchored broadly around BCG/Ripple's ~$9.4T 2030 scenario, rebuilt to land on the same $10B and $50B scenarios modeled above. Intermediate years are an interpolation/model, not a published forecast.</div>
+    </div>
+    <div class="panel reveal">
+      <div class="chart-wrap">
+        <canvas id="ixsThesisChart" height="300"></canvas>
+      </div>
+    </div>
+    <div class="panel reveal" style="margin-top:14px; overflow-x:auto;">
+      <table class="data-table">
+        <thead><tr><th>Year</th><th>RWA market*</th><th>IXS share</th><th>IXS TVL</th><th>Agentic % of TVL</th><th>Agentic TVL</th></tr></thead>
+        <tbody>
+          <tr><td>2027</td><td>$1.5T</td><td>0.13%</td><td>$2.00B</td><td>7%</td><td>~$140M</td></tr>
+          <tr><td>2028</td><td>$2.7T</td><td>0.37%</td><td>$10.00B</td><td>10%</td><td>~$1.0B</td></tr>
+          <tr><td>2029</td><td>$5.0T</td><td>0.50%</td><td>$25.00B</td><td>15%</td><td>~$3.75B</td></tr>
+          <tr><td>2030</td><td>$9.4T</td><td class="highlight-cell">0.53%</td><td>$50.00B</td><td>20%</td><td>~$10.0B</td></tr>
+          <tr><td>2031</td><td>$13T</td><td>0.69%</td><td>$90.00B</td><td>30%</td><td>~$27.0B</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="panel reveal" style="margin-top:14px;">
+      <p>*2027-29 and 2031 RWA-market figures are scenario-model values, not published forecasts, only 2030's ~$9.4T is anchored to the BCG/Ripple study directly. Even the $50B 2030 figure is still only about half a percent of that market, not 5%, not 10%. Agentic capital starts as a small share of TVL in 2027 and grows to become one of IXS's largest distribution channels by 2031.</p>
+    </div>
+  </section>
+
+  <!-- 9. Where IXS could deserve a premium -->
+  <section>
+    <div class="section-title reveal">
+      <span class="eyebrow" style="justify-content:center; display:inline-flex;">9 · Where IXS could deserve a premium</span>
+      <h2 style="margin-top:6px;">Not all TVL, or all throughput, is worth the same multiple</h2>
+    </div>
+    <div class="thesis-compare reveal">
+      <div class="thesis-compare-col">
+        <div class="panel" style="height:100%;">
+          <div class="letter-badge">A</div>
+          <h3 style="margin:0 0 6px; font-size:0.92rem;">Owns several RWA products</h3>
+          <p style="margin:0; color:var(--dim); font-size:0.85rem;">A single issuer with $2B TVL concentrated in its own products.</p>
+        </div>
+      </div>
+      <div class="thesis-compare-col">
+        <div class="panel" style="height:100%;">
+          <div class="letter-badge">B</div>
+          <h3 style="margin:0 0 6px; font-size:0.92rem;">Distribution infrastructure (IXS-like)</h3>
+          <p style="margin:0; color:var(--dim); font-size:0.85rem;">$2B TVL aggregated from dozens of asset managers distributed into hundreds of platforms.</p>
+        </div>
+      </div>
+    </div>
+    <div class="panel reveal" style="margin-top:14px;">
+      <p>If IXS eventually demonstrates $2B+ TVL alongside these traits, a conservative TVL multiple could become too conservative:</p>
+      <ul class="dash-list" style="margin-top:10px;">
+        <li>High growth</li>
+        <li>Recurring fee generation</li>
+        <li>Institutional counterparties</li>
+        <li>Diversified TVL, not concentrated in one product or one chain</li>
+        <li>Distribution network effects</li>
+        <li>Regulatory / licensing moat</li>
+        <li>AI-agent growth</li>
+        <li>A more direct TVL → fees → 20% buyback &amp; burn value-capture path than a general-purpose L1 like Stellar has with XLM</li>
+      </ul>
+      <p style="margin-top:12px; font-size:0.78rem; color:var(--faint);">The buyback &amp; burn is particularly relevant, IXS's own roadmap states 20% of relevant platform revenue feeds the mechanism, but exact fee flows and tokenomics should be independently confirmed before assigning any premium valuation to it.</p>
+    </div>
+  </section>
+
+  <!-- 10. The upside the model doesn't capture -->
+  <section>
+    <div class="section-title reveal">
+      <span class="eyebrow" style="justify-content:center; display:inline-flex;">10 · The upside the model doesn't capture</span>
+      <h2 style="margin-top:6px;">Network effects and the buyback flywheel</h2>
+      <div class="sub">If IXS reaches $9B TVL, that's not the finish line, it's proof institutional onboarding works, asset managers trust the infrastructure, distribution partners generate TVL, regulatory infrastructure scales, cross-chain distribution works, and agents can use the vaults. At that stage, gaining another 0.1% of the global market could become easier than gaining the first 0.1%.</div>
+    </div>
+    <div class="thesis-compare reveal">
+      <div class="thesis-compare-col">
+        <div class="thesis-compare-head">Supply side</div>
+        <div class="panel" style="height:100%;">
+          <p>Asset managers want distribution, liquidity, users and onchain reach.</p>
+        </div>
+      </div>
+      <div class="thesis-compare-col">
+        <div class="thesis-compare-head">Demand side</div>
+        <div class="panel" style="height:100%;">
+          <p>Exchanges, fintechs, agents and wallets want quality assets, yield, compliance and easy APIs.</p>
+        </div>
+      </div>
+    </div>
+    <div class="panel reveal" style="margin-top:14px;">
+      <div class="funnel">
+        <div class="funnel-step"><div class="ic">📈</div><div><strong>More assets</strong></div></div>
+        <div class="funnel-arrow">↓</div>
+        <div class="funnel-step highlight"><div class="ic">🔗</div><div><strong>More attractive to distributors</strong></div></div>
+        <div class="funnel-arrow">↓</div>
+        <div class="funnel-step"><div class="ic">🏛️</div><div><strong>More attractive to asset managers</strong><p>The flywheel compounds from here</p></div></div>
+      </div>
+    </div>
+    <div class="panel reveal" style="margin-top:14px;">
+      <div class="funnel">
+        <div class="funnel-step"><div class="ic">🌐</div><div><strong>RWA market grows</strong></div></div>
+        <div class="funnel-arrow">↓</div>
+        <div class="funnel-step"><div class="ic">🔗</div><div><strong>IXS distribution grows</strong></div></div>
+        <div class="funnel-arrow">↓</div>
+        <div class="funnel-step"><div class="ic">💰</div><div><strong>IXS TVL grows</strong></div></div>
+        <div class="funnel-arrow">↓</div>
+        <div class="funnel-step highlight"><div class="ic">🔥</div><div><strong>Fees grow → 20% buyback &amp; burn</strong><p>Reduced circulating supply while economic activity keeps increasing</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- The complete thesis -->
+  <section class="tight">
+    <div class="section-title reveal">
+      <h2>The complete thesis, in one paragraph</h2>
+    </div>
+    <div class="panel reveal">
+      <p>The bull case for IXS isn't that it needs to become the biggest RWA protocol, it doesn't. The thesis is that the market IXS is building infrastructure for could grow from tens of billions today into trillions of dollars over the next decade, major institutional forecasts range from roughly $2T to $9T+ around 2030, with broader estimates considerably higher. At the same time, a second multi-trillion-dollar market is emerging: autonomous economic activity conducted by AI agents, McKinsey forecasts $3-5T of agentic commerce by 2030, ARK estimates nearly $9T in agent-influenced online spending. IXS sits directly at the intersection of those two transformations, tokenized assets become programmable, capital becomes autonomous, and IXS is building the licensed infrastructure that could let that autonomous capital access institutional real-world yield. Agents are only one distribution channel among many: institutions, BTC, stablecoins, exchanges, fintechs, neobanks, wallets, super-apps and multiple blockchains, it doesn't need one channel to generate $10B, it needs dozens of channels collectively capturing a tiny percentage of an enormous global market. At roughly $9.4T by 2030, the model above puts IXS around $50B TVL on just over half a percent of the market, still a sliver, and if tokenization continues toward the ~$19T scale BCG/Ripple project for 2033, that same modest share could represent well over $100B flowing through IXS infrastructure. That's the asymmetric thesis, not that IXS captures the RWA market, but that the RWA market becomes so enormous IXS only has to capture a fraction of it.</p>
+    </div>
+  </section>
+
+  <!-- BIG CAVEAT -->
+  <section class="tight">
+    <div class="panel model-disclaimer reveal" style="border-color: var(--orange);">
+      <h2 style="margin-bottom:8px;">The big caveat</h2>
+      <p>These are third-party market forecasts (McKinsey, BCG, BCG/Ripple, BCG/ADDX, ARK Invest, Mastercard, RWA.xyz) as cited by the thesis author, not figures this site has independently verified against each primary report, and forecasts for tokenization and agentic commerce vary enormously by methodology and assumptions. The 2027-2031 IXS trajectory, market-share percentages, agentic-TVL share, TVL scenarios, milestone labels, and MC/TVL multiples (including the illustrative "where IXS could deserve a premium" comparison) are illustrative scenario modeling built on top of those third-party forecasts, not predictions, not price targets, and not official IXS guidance. IXS reaching even a small fraction of a multi-trillion-dollar market is not guaranteed, and depends on execution, competition and regulatory conditions that haven't played out yet.</p>
+    </div>
+  </section>
+
+  <!-- DISCLAIMER -->
+  <section class="tight">
+    <div class="panel model-disclaimer reveal">
+      <h2 style="margin-bottom:8px;">Disclaimer</h2>
+      <p>This is an independent, community-written thesis and scenario model, not official IXS content, and not financial advice. Third-party market-size figures (McKinsey, BCG, BCG/Ripple, BCG/ADDX, ARK Invest, Mastercard, RWA.xyz) are as cited by the thesis author and should be verified against each firm's original report before being relied on. The 2027-2031 model (RWA market size, IXS market share, IXS TVL, agentic share of TVL), the TVL scenarios, the TVL milestones, and the MC/TVL valuation multiples and premium reasoning are illustrative scenario modeling, not a forecast or price target, actual outcomes depend on execution that has not happened yet. Always verify at <a href="https://www.ixs.finance" target="_blank" rel="noopener">ixs.finance</a> and do your own research before making any financial decision.</p>
+    </div>
+  </section>
+
+  <p class="site-footer-note">Independent, informational fan site summarizing publicly shared IXS materials and community analysis. Not affiliated with or endorsed by IXS. Not financial advice, always verify at <a href="https://www.ixs.finance" target="_blank" rel="noopener">ixs.finance</a>.</p>
+
+</div>
+</div>
+<!-- /tab-ixs-thesis -->
+
 <script src="assets/chart.umd.js"></script>
-<script src="js/script.js?v=54"></script>
+<script src="js/script.js?v=84"></script>
 </body>
 </html>

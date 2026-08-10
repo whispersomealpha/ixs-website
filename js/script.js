@@ -8,8 +8,65 @@ document.addEventListener('DOMContentLoaded', () => {
   initTabs();
   initThemeToggle();
   initBuybackBurnModel();
+  initMcComparison();
+  initIxsThesisChart();
   initLastUpdated();
+  initContractCopy();
 });
+
+// ---------- Topbar: click-to-copy $IXS contract address ----------
+function initContractCopy() {
+  const btn = document.getElementById('contractCopyBtn');
+  if (!btn) return;
+  const address = btn.dataset.contract;
+
+  function showCopied() {
+    btn.classList.add('copied');
+    btn.setAttribute('title', 'Copied!');
+    setTimeout(() => {
+      btn.classList.remove('copied');
+      btn.setAttribute('title', 'Click to copy the $IXS token contract address');
+    }, 1500);
+  }
+
+  // Fallback for browsers/contexts without the async Clipboard API
+  // (e.g. non-HTTPS previews) — a temporary offscreen textarea + execCommand.
+  function fallbackCopy(text) {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.left = '-9999px';
+    document.body.appendChild(ta);
+    ta.focus();
+    ta.select();
+    try { document.execCommand('copy'); } catch (e) { /* no-op */ }
+    document.body.removeChild(ta);
+  }
+
+  btn.addEventListener('click', () => {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(address).then(showCopied, () => {
+        fallbackCopy(address);
+        showCopied();
+      });
+    } else {
+      fallbackCopy(address);
+      showCopied();
+    }
+  });
+}
+
+// Compact currency formatter shared by cross-tab widgets (e.g. the MC
+// Comparison tab) — top-level so it isn't locked inside another
+// function's closure.
+function formatUsdCompact(n) {
+  if (!isFinite(n)) n = 0;
+  const abs = Math.abs(n);
+  if (abs >= 1e9) return '$' + (n / 1e9).toFixed(2) + 'B';
+  if (abs >= 1e6) return '$' + (n / 1e6).toFixed(2) + 'M';
+  if (abs >= 1e3) return '$' + (n / 1e3).toFixed(1) + 'K';
+  return '$' + n.toFixed(2);
+}
 
 // ---------- Last updated ----------
 // No backend here, so relying on the static host's Last-Modified header
@@ -422,4 +479,310 @@ function initBuybackBurnModel() {
   });
 
   recalcAll();
+}
+
+// ---------- MC / FDV / TVL Comparison ----------
+//
+// Snapshot data (CoinGecko for MC/FDV, DefiLlama for competitor TVL, IXS's
+// own reported figure for its TVL — see the in-page disclaimer for why).
+// Pulled Aug 10, 2026 — a snapshot, not a live feed.
+
+// ATH MC/FDV are approximations: ATH price × today's circulating/total
+// supply (not the actual supply on the historical ATH date, which isn't
+// reliably available for all six). This overstates the real historical
+// figure for any token whose supply has grown since its ATH, most notably
+// Ondo (circulating supply has roughly tripled since its Dec 2024 ATH) and
+// Stellar (XLM's supply was cut roughly in half by a 2019 burn, so its Jan
+// 2018 ATH circulated far fewer tokens than exist today) — see the
+// in-page methodology note.
+//
+// XLM's "TVL" here is Stellar's own reported RWA footprint (~$1.4B tokenized
+// real-world assets, March 2026 institutional report — see the Market Size
+// Thesis tab), not a general DeFi-TVL figure, to stay consistent with what
+// TVL means for the other four platforms in this comparison.
+const MC_COMPARE_DATA = [
+  { name: 'IXS', url: 'https://www.coingecko.com/en/coins/ixs', color: 'var(--purple)', mc: 11.61e6, fdv: 11.61e6, tvl: 88.45e6, athPrice: 0.8310, athDate: 'Mar 2024', athMc: 149.58e6, athFdv: 149.58e6, baseline: true },
+  { name: 'Stellar', url: 'https://www.coingecko.com/en/coins/stellar', color: '#F5A623', mc: 5599.44e6, fdv: 8135.90e6, tvl: 1400e6, athPrice: 0.9381, athDate: 'Jan 2018', athMc: 31895.4e6, athFdv: 46905e6 },
+  { name: 'Ondo', url: 'https://www.coingecko.com/en/coins/ondo', color: '#1b6fd6', mc: 1699.18e6, fdv: 3489.55e6, tvl: 3484e6, athPrice: 2.14, athDate: 'Dec 2024', athMc: 10486e6, athFdv: 21400e6 },
+  { name: 'Centrifuge', url: 'https://www.coingecko.com/en/coins/centrifuge', color: '#0d9488', mc: 60.93e6, fdv: 109.22e6, tvl: 1628e6, athPrice: 2.52, athDate: 'Oct 2021', athMc: 957.6e6, athFdv: 1718.64e6 },
+  { name: 'Syrup', url: 'https://www.coingecko.com/en/coins/maple-finance', color: '#e0507a', mc: 180.48e6, fdv: 192.46e6, tvl: 2476e6, athPrice: 0.6557, athDate: 'Jun 2025', athMc: 786.84e6, athFdv: 839.3e6 },
+  { name: 'Securitize', url: 'https://www.coingecko.com/en/coins/securitize', color: '#475569', mc: 22.79e6, fdv: 191.28e6, tvl: 5008e6, athPrice: 7.72, athDate: 'Aug 2026', athMc: 22.85e6, athFdv: 191.53e6 },
+];
+
+function initMcComparison() {
+  const grid = document.getElementById('mcCompareGrid');
+  const canvas = document.getElementById('mcCompareChart');
+  if (!grid && !canvas) return;
+
+  const baseline = MC_COMPARE_DATA.find(p => p.baseline);
+
+  function formatMultiple(x) {
+    if (x >= 100) return Math.round(x) + 'x';
+    if (x >= 10) return x.toFixed(0) + 'x';
+    return x.toFixed(1) + 'x';
+  }
+
+  function renderCards() {
+    if (!grid) return;
+    grid.innerHTML = MC_COMPARE_DATA.map((p) => {
+      const badge = p.baseline
+        ? '<div class="mc-card-tag">IXS today</div>'
+        : `<div class="mc-card-tag">${formatMultiple(p.fdv / baseline.fdv)} FDV · ${formatMultiple(p.tvl / baseline.tvl)} TVL</div>`;
+      return `
+        <a class="mc-card${p.baseline ? ' mc-card-baseline' : ''} reveal in" href="${p.url}" target="_blank" rel="noopener" style="--proj-color:${p.color}">
+          <div class="mc-card-head">
+            <span class="mc-dot"></span>
+            <h3>${p.name} <span class="x-icon" aria-hidden="true">↗</span></h3>
+          </div>
+          ${badge}
+          <div class="mc-card-rows">
+            <div class="mc-card-row"><span>Market Cap</span><strong>${formatUsdCompact(p.mc)}</strong></div>
+            <div class="mc-card-row"><span>FDV</span><strong>${formatUsdCompact(p.fdv)}</strong></div>
+            <div class="mc-card-row"><span>TVL</span><strong>${formatUsdCompact(p.tvl)}</strong></div>
+          </div>
+          <div class="mc-card-divider">All-Time High <span>${p.athDate}</span></div>
+          <div class="mc-card-rows">
+            <div class="mc-card-row"><span>ATH Market Cap</span><strong>${formatUsdCompact(p.athMc)}</strong></div>
+            <div class="mc-card-row"><span>ATH FDV</span><strong>${formatUsdCompact(p.athFdv)}</strong></div>
+          </div>
+        </a>`;
+    }).join('');
+  }
+
+  renderCards();
+
+  let chart;
+
+  function cssVar(name) {
+    return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+  }
+  function resolveColor(c) {
+    if (c.startsWith('var(')) return cssVar(c.slice(4, -1)) || '#8b7bff';
+    return c;
+  }
+
+  function buildChart() {
+    if (!canvas || typeof Chart === 'undefined') return;
+
+    // Same lazy-construction guard as the buyback/burn chart: don't build
+    // it while the tab is hidden, or Chart.js measures a 0x0 canvas.
+    if (!chart && canvas.offsetParent === null) return;
+
+    const ctx = canvas.getContext('2d');
+    const labels = MC_COMPARE_DATA.map(p => p.name);
+    const projectColors = MC_COMPARE_DATA.map(p => resolveColor(p.color));
+
+    // Three grouped bars per project (Market Cap, FDV, TVL). MC and FDV
+    // are each built from two stacked segments sharing a `stack` id: the
+    // current value on the bottom, then a second-color segment on top
+    // that closes the gap up to the ATH figure — so the full bar height
+    // reads as "today, continuing up to all-time high." TVL has no ATH
+    // figure, so it stays a single solid bar.
+    const athMcGap = MC_COMPARE_DATA.map(p => Math.max(0, p.athMc - p.mc));
+    const athFdvGap = MC_COMPARE_DATA.map(p => Math.max(0, p.athFdv - p.fdv));
+
+    // Fixed (theme-independent) high-contrast palette: MC and ATH-MC share
+    // a blue family but at very different luminosity, same for FDV/ATH-FDV
+    // in the orange/yellow family, so the "today vs ATH" split reads
+    // clearly at a glance rather than blending together.
+    const COLOR_MC = '#1D4ED8';
+    const COLOR_MC_ATH = '#26F7FD';
+    const COLOR_FDV = '#FF6600';
+    const COLOR_FDV_ATH = '#FFEB00';
+
+    const data = {
+      labels,
+      datasets: [
+        { label: 'Market Cap', data: MC_COMPARE_DATA.map(p => p.mc), backgroundColor: COLOR_MC, stack: 'mc', borderRadius: { topLeft: 0, topRight: 0, bottomLeft: 6, bottomRight: 6 } },
+        { label: 'ATH Market Cap', data: athMcGap, backgroundColor: COLOR_MC_ATH, stack: 'mc', borderRadius: 6 },
+        { label: 'FDV', data: MC_COMPARE_DATA.map(p => p.fdv), backgroundColor: COLOR_FDV, stack: 'fdv', borderRadius: { topLeft: 0, topRight: 0, bottomLeft: 6, bottomRight: 6 } },
+        { label: 'ATH FDV', data: athFdvGap, backgroundColor: COLOR_FDV_ATH, stack: 'fdv', borderRadius: 6 },
+        { label: 'TVL', data: MC_COMPARE_DATA.map(p => p.tvl), backgroundColor: cssVar('--green') || '#16915c', stack: 'tvl', borderRadius: 6 },
+      ],
+    };
+
+    const inkColor = cssVar('--ink') || '#14141c';
+    const dimColor = cssVar('--dim') || '#52525f';
+    const gridColor = cssVar('--border-soft') || '#dedee8';
+
+    const options = {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { position: 'bottom', labels: { color: inkColor, font: { size: 11 } } },
+        tooltip: {
+          callbacks: {
+            // The "ATH" datasets plot the gap (ATH minus current), not the
+            // ATH figure itself, so show the real ATH total in the tooltip
+            // instead of that raw gap value.
+            label: (ctx) => {
+              const p = MC_COMPARE_DATA[ctx.dataIndex];
+              if (ctx.dataset.label === 'ATH Market Cap') return `ATH Market Cap: ${formatUsdCompact(p.athMc)}`;
+              if (ctx.dataset.label === 'ATH FDV') return `ATH FDV: ${formatUsdCompact(p.athFdv)}`;
+              return `${ctx.dataset.label}: ${formatUsdCompact(ctx.parsed.y)}`;
+            },
+          },
+        },
+      },
+      scales: {
+        x: {
+          stacked: true,
+          ticks: {
+            color: (ctx) => projectColors[ctx.index] || dimColor,
+            font: { size: 11, weight: '700' },
+          },
+          grid: { display: false },
+        },
+        y: {
+          stacked: true,
+          type: 'logarithmic',
+          ticks: { color: dimColor, callback: (val) => formatUsdCompact(val) },
+          grid: { color: gridColor },
+        },
+      },
+      onHover: (evt, elements) => {
+        if (evt.native && evt.native.target) evt.native.target.style.cursor = elements.length ? 'pointer' : 'default';
+      },
+      onClick: (evt, elements) => {
+        if (!elements.length) return;
+        const proj = MC_COMPARE_DATA[elements[0].index];
+        if (proj) window.open(proj.url, '_blank', 'noopener');
+      },
+    };
+
+    if (chart) {
+      chart.data = data;
+      chart.options = options;
+      chart.update();
+    } else {
+      chart = new Chart(ctx, { type: 'bar', data, options });
+    }
+  }
+
+  buildChart();
+
+  document.addEventListener('ixs-themechange', buildChart);
+  document.addEventListener('ixs-tabshown', (e) => {
+    if (e.detail && e.detail.id === 'tab-comparison') {
+      requestAnimationFrame(() => {
+        if (chart) chart.resize();
+        buildChart();
+      });
+    }
+  });
+}
+
+// ---------- IXS Thesis — 2027-2031 model chart ----------
+//
+// Illustrative scenario model from the community "IXS Thesis" write-up,
+// rebuilt to land on the same TVL scenarios used in the "TVL scenarios"
+// section: roughly the Buyback & Burn Calculator's default scenario
+// ($10B) by 2028 and the 5x-scaled scenario (~$50B) by 2030. RWA-market
+// figures (2030's ~$9.4T anchored to BCG/Ripple, other years scenario-
+// modeled) are unchanged from before, only IXS's assumed share of that
+// market was raised, so 2030's share is now ~0.53% rather than 0.10%.
+// Not a forecast, see the in-page disclaimer for sourcing.
+function initIxsThesisChart() {
+  const canvas = document.getElementById('ixsThesisChart');
+  if (!canvas || typeof Chart === 'undefined') return;
+
+  const YEARS = [2027, 2028, 2029, 2030, 2031];
+  const TVL_B = [2, 10, 25, 50, 90];
+  const MC_B = [1, 5, 12.5, 25, 45];
+  const AGENTIC_B = [0.14, 1.0, 3.75, 10.0, 27.0];
+
+  function cssVar(name) {
+    return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+  }
+
+  let chart;
+
+  function buildChart() {
+    // Same lazy-construction guard used by the other charts on this site:
+    // don't measure/build a canvas that's still inside a hidden tab.
+    if (!chart && canvas.offsetParent === null) return;
+
+    const ctx = canvas.getContext('2d');
+    const inkColor = cssVar('--ink') || '#14141c';
+    const dimColor = cssVar('--dim') || '#52525f';
+    const gridColor = cssVar('--border-soft') || '#dedee8';
+    const greenColor = cssVar('--green') || '#16915c';
+
+    const data = {
+      labels: YEARS,
+      datasets: [
+        {
+          label: 'Modeled IXS TVL',
+          data: TVL_B,
+          borderColor: '#1D4ED8',
+          backgroundColor: '#1D4ED8',
+          pointBackgroundColor: '#1D4ED8',
+          pointRadius: 4,
+          tension: 0.25,
+          borderWidth: 2.5,
+        },
+        {
+          label: 'Illustrative MC @ 0.5x TVL',
+          data: MC_B,
+          borderColor: '#FF6600',
+          backgroundColor: '#FF6600',
+          pointBackgroundColor: '#FF6600',
+          pointRadius: 4,
+          tension: 0.25,
+          borderWidth: 2.5,
+        },
+        {
+          label: 'Agentic TVL within IXS',
+          data: AGENTIC_B,
+          borderColor: greenColor,
+          backgroundColor: greenColor,
+          pointBackgroundColor: greenColor,
+          pointRadius: 4,
+          tension: 0.25,
+          borderWidth: 2.5,
+        },
+      ],
+    };
+
+    const options = {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { position: 'bottom', labels: { color: inkColor, font: { size: 11 } } },
+        tooltip: {
+          callbacks: {
+            label: (c) => `${c.dataset.label}: $${c.parsed.y.toFixed(2)}B`,
+          },
+        },
+      },
+      scales: {
+        x: { ticks: { color: dimColor, font: { size: 11 } }, grid: { display: false } },
+        y: {
+          ticks: { color: dimColor, callback: (val) => '$' + val + 'B' },
+          grid: { color: gridColor },
+          title: { display: true, text: '$ billions', color: dimColor, font: { size: 11 } },
+        },
+      },
+    };
+
+    if (chart) {
+      chart.data = data;
+      chart.options = options;
+      chart.update();
+    } else {
+      chart = new Chart(ctx, { type: 'line', data, options });
+    }
+  }
+
+  buildChart();
+
+  document.addEventListener('ixs-themechange', buildChart);
+  document.addEventListener('ixs-tabshown', (e) => {
+    if (e.detail && e.detail.id === 'tab-ixs-thesis') {
+      requestAnimationFrame(() => {
+        if (chart) chart.resize();
+        buildChart();
+      });
+    }
+  });
 }
