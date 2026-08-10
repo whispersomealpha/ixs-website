@@ -506,7 +506,11 @@ const MC_COMPARE_DATA = [
   { name: 'Ondo', url: 'https://www.coingecko.com/en/coins/ondo', color: '#1b6fd6', mc: 1699.18e6, fdv: 3489.55e6, tvl: 3484e6, athPrice: 2.14, athDate: 'Dec 2024', athMc: 10486e6, athFdv: 21400e6 },
   { name: 'Centrifuge', url: 'https://www.coingecko.com/en/coins/centrifuge', color: '#0d9488', mc: 60.93e6, fdv: 109.22e6, tvl: 1628e6, athPrice: 2.52, athDate: 'Oct 2021', athMc: 957.6e6, athFdv: 1718.64e6 },
   { name: 'Syrup', url: 'https://www.coingecko.com/en/coins/maple-finance', color: '#e0507a', mc: 180.48e6, fdv: 192.46e6, tvl: 2476e6, athPrice: 0.6557, athDate: 'Jun 2025', athMc: 786.84e6, athFdv: 839.3e6 },
-  { name: 'Securitize', url: 'https://www.coingecko.com/en/coins/securitize', color: '#475569', mc: 22.79e6, fdv: 191.28e6, tvl: 5008e6, athPrice: 7.72, athDate: 'Aug 2026', athMc: 22.85e6, athFdv: 191.53e6 },
+  // stockMc: Securitize Corp.'s NYSE market cap (ticker SECZ, post its July
+  // 2026 SPAC merger with Cantor Equity Partners II), not the same thing as
+  // the crypto token MC above — kept separate and called out in its own
+  // color on the card since it's company equity, not a comparable token MC.
+  { name: 'Securitize', url: 'https://www.coingecko.com/en/coins/securitize', color: '#475569', mc: 22.79e6, fdv: 191.28e6, tvl: 5008e6, athPrice: 7.72, athDate: 'Aug 2026', athMc: 22.85e6, athFdv: 191.53e6, stockMc: 1.16e9 },
 ];
 
 function initMcComparison() {
@@ -539,6 +543,7 @@ function initMcComparison() {
             <div class="mc-card-row"><span>Market Cap</span><strong>${formatUsdCompact(p.mc)}</strong></div>
             <div class="mc-card-row"><span>FDV</span><strong>${formatUsdCompact(p.fdv)}</strong></div>
             <div class="mc-card-row"><span>TVL</span><strong>${formatUsdCompact(p.tvl)}</strong></div>
+            ${p.stockMc ? `<div class="mc-card-row"><span>Stock MC (NYSE: SECZ)</span><strong style="color:var(--orange);">${formatUsdCompact(p.stockMc)}</strong></div>` : ''}
           </div>
           <div class="mc-card-divider">All-Time High <span>${p.athDate}</span></div>
           <div class="mc-card-rows">
