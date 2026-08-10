@@ -11,7 +11,50 @@ document.addEventListener('DOMContentLoaded', () => {
   initMcComparison();
   initIxsThesisChart();
   initLastUpdated();
+  initContractCopy();
 });
+
+// ---------- Topbar: click-to-copy $IXS contract address ----------
+function initContractCopy() {
+  const btn = document.getElementById('contractCopyBtn');
+  if (!btn) return;
+  const address = btn.dataset.contract;
+
+  function showCopied() {
+    btn.classList.add('copied');
+    btn.setAttribute('title', 'Copied!');
+    setTimeout(() => {
+      btn.classList.remove('copied');
+      btn.setAttribute('title', 'Click to copy the $IXS token contract address');
+    }, 1500);
+  }
+
+  // Fallback for browsers/contexts without the async Clipboard API
+  // (e.g. non-HTTPS previews) — a temporary offscreen textarea + execCommand.
+  function fallbackCopy(text) {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.left = '-9999px';
+    document.body.appendChild(ta);
+    ta.focus();
+    ta.select();
+    try { document.execCommand('copy'); } catch (e) { /* no-op */ }
+    document.body.removeChild(ta);
+  }
+
+  btn.addEventListener('click', () => {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(address).then(showCopied, () => {
+        fallbackCopy(address);
+        showCopied();
+      });
+    } else {
+      fallbackCopy(address);
+      showCopied();
+    }
+  });
+}
 
 // Compact currency formatter shared by cross-tab widgets (e.g. the MC
 // Comparison tab) — top-level so it isn't locked inside another

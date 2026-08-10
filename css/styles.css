@@ -195,6 +195,34 @@ p { color: var(--dim); font-size: 0.95rem; }
 }
 .topbar-link:hover { border-color: var(--border); color: var(--ink); }
 
+.contract-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 14px;
+  border: 1.5px solid var(--border-soft);
+  border-radius: 999px;
+  background: transparent;
+  cursor: pointer;
+  font-family: inherit;
+  white-space: nowrap;
+}
+.contract-chip:hover { border-color: var(--purple); background: var(--purple-soft); }
+.contract-chip-label { font-size: 0.72rem; font-weight: 700; color: var(--faint); text-transform: uppercase; letter-spacing: 0.03em; }
+.contract-chip-addr { font-size: 0.8rem; font-weight: 700; color: var(--ink); font-variant-numeric: tabular-nums; }
+.contract-chip-icon { font-size: 0.78rem; }
+.contract-chip.copied { border-color: var(--green); background: var(--green-soft, rgba(22, 145, 92, 0.12)); }
+.contract-chip.copied .contract-chip-addr::after { content: "Copied!"; color: var(--green); }
+.contract-chip.copied .contract-chip-addr { font-size: 0; }
+.contract-chip.copied .contract-chip-addr::after { font-size: 0.8rem; }
+
+@media (max-width: 900px) {
+  .contract-chip-label { display: none; }
+}
+@media (max-width: 700px) {
+  .contract-chip { display: none; }
+}
+
 /* Dark-ink logo marks need to flip to light when the page goes dark;
    the footer band stays permanently dark so its light-colored logo
    asset (logo-mark-light.png) never needs inverting. */
