@@ -1337,6 +1337,79 @@ a.announce-item.interactive:hover .x-icon { color: var(--purple); }
 .post-card:hover h3 { color: var(--purple); }
 .post-card:hover .x-icon { color: var(--purple); }
 
+/* ---------- AMA ---------- */
+
+.ama-panel { padding: 28px; }
+
+.ama-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding-bottom: 18px;
+  margin-bottom: 22px;
+  border-bottom: 1.5px solid var(--border-soft);
+}
+
+.ama-meta-item {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--dim);
+  background: var(--bg);
+  border: 1px solid var(--border-soft);
+  border-radius: 999px;
+  padding: 5px 12px;
+}
+
+.ama-thread {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.ama-turn-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.ama-name { font-weight: 800; font-size: 0.88rem; color: var(--ink); }
+
+.ama-role {
+  font-size: 0.62rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 2px 8px;
+  border-radius: 999px;
+}
+
+.ama-role.host { background: var(--bg); color: var(--faint); border: 1px solid var(--border-soft); }
+.ama-role.team { background: var(--purple-soft); color: var(--purple); }
+
+.ama-time { font-size: 0.7rem; color: var(--faint); margin-left: auto; font-variant-numeric: tabular-nums; }
+
+.ama-turn p {
+  font-size: 0.86rem;
+  color: var(--dim);
+  line-height: 1.65;
+  margin-bottom: 8px;
+}
+
+.ama-turn p:last-child { margin-bottom: 0; }
+
+.ama-turn.ama-host { padding-left: 2px; }
+
+.ama-turn.ama-team {
+  background: var(--bg);
+  border-left: 3px solid var(--purple);
+  border-radius: 0 10px 10px 0;
+  padding: 16px 18px;
+}
+
+.ama-turn.ama-team .ama-turn p { color: var(--ink); }
+.ama-turn .dash-list { margin: 4px 0 10px; }
+
 @media (max-width: 1000px) {
   .streams-flow, .streams-flow-5 { grid-template-columns: repeat(2, 1fr); }
   .stream-arrows, .stream-arrows-5 { display: none; }

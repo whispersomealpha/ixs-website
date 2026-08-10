@@ -47,6 +47,7 @@
     <button type="button" class="tab-btn active" data-tab="tab-overview">Overview</button>
     <button type="button" class="tab-btn" data-tab="tab-model">Buyback &amp; Burn Calculator</button>
     <button type="button" class="tab-btn" data-tab="tab-posts">X Posts &amp; Threads</button>
+    <button type="button" class="tab-btn" data-tab="tab-ama">AMA</button>
   </div>
 </div>
 
@@ -983,6 +984,278 @@
 </div>
 </div>
 <!-- /tab-posts -->
+
+<!-- ============================================================
+     TAB 4 — AMA
+     ============================================================ -->
+<div id="tab-ama" class="tab-panel" hidden>
+<div class="container">
+
+  <section class="model-hero">
+    <span class="eyebrow reveal in">Community AMA</span>
+    <h1 class="reveal in">Telegram AMA, July 22, 2026</h1>
+    <p class="lede reveal in">The team's latest Ask Me Anything, hosted live in IXS's official Telegram community. Reproduced in full below exactly as it happened, only lightly formatted for readability.</p>
+  </section>
+
+  <section>
+    <div class="panel ama-panel reveal">
+      <div class="ama-meta">
+        <span class="ama-meta-item">Hosted by Robinweb3</span>
+        <span class="ama-meta-item">Julian Kwan, IXS</span>
+        <span class="ama-meta-item">AO (Aaron), IXS</span>
+        <span class="ama-meta-item">July 22, 2026 · Telegram</span>
+      </div>
+
+      <div class="ama-thread">
+
+        <div class="ama-turn ama-host">
+          <div class="ama-turn-head"><span class="ama-name">Robinweb3</span><span class="ama-role host">Host</span><span class="ama-time">13:01</span></div>
+          <p>I'll be hosting the AMA today</p>
+          <p>@AOIXS also in the house?</p>
+          <p>just a quick house-rules: IXS rules! that's it</p>
+          <p>gm everyone and welcome. this one's been long overdue.</p>
+          <p>when I sat down to prep this AMA I ended up with enough material for a 3 hour session.</p>
+          <p>the team keeps shipping. new site, H2 roadmap, IXS.agent, partnerships, US plans. we're not going to get through all of it...and that's fine.</p>
+          <p>Julian has a swarm of meetings after this, so we've got a hard-ish stop. if we run out of time, don't worry. anything we don't cover either rolls into the next AMA or gets answered right here in the daily chat. nothing gets lost.</p>
+          <p>so let's make the time count. Julian, Aaron, get ready.</p>
+        </div>
+
+        <div class="ama-turn ama-host">
+          <div class="ama-turn-head"><span class="ama-name">Robinweb3</span><span class="ama-role host">Host</span><span class="ama-time">13:04</span></div>
+          <p>...alright Julian, let's start big. you keep talking about the "Third Wave." explain it like I'm new here. what is it, and why is the crossover between real-world assets and AI agents the spot IXS is planting its flag?</p>
+        </div>
+
+        <div class="ama-turn ama-team">
+          <div class="ama-turn-head"><span class="ama-name">Julian Kwan</span><span class="ama-role team">IXS</span><span class="ama-time">13:05</span></div>
+          <p>The first wave was bringing crypto-native primitives on-chain. The second wave, the one we're still in the early innings of, is tokenizing real-world assets at institutional scale. The Third Wave is what happens when those two meet autonomous intelligence. AI agents are rapidly becoming economic actors. They already hold wallets, execute transactions, and manage capital flows. What they don't yet have at scale is a compliant, institutional-grade place to put that capital to work in real yield from real assets without a human in the loop every time. That's the wedge. IXS built the regulated settlement layer, ERC-4626 vaults wrapping institutional RWAs, that both humans and agents can access through the same infrastructure.</p>
+          <p>Institutions come through full compliance rails. Agents come through programmable APIs and session keys. Similar vault,. Accessing the same assets, slightly different format. This isn't a side feature. It's the natural next layer once you've spent years building using licensed custody, issuance, and distribution infrastructure. The agent economy doesn't need another sandbox. It needs the same serious rails institutions are already using, but exposed programmatically.</p>
+          <p>We already have production vaults from BlackRock, Fidelity, and Franklin Templeton live on these rails, with BitGo providing institutional custody. At the same time, we are live with Anthropic through the Claude Partner Program. This is not a separate agent product. It is the same high-quality infrastructure, now made programmable for autonomous capital. That asymmetry, years of licensed infrastructure plus native agent access, is what positions us for the Third Wave. We coined it the Third Wave.</p>
+          <p>The Third Wave isn't about more tokenization per say. It's what happens when tokenized real assets meet autonomous capital at institutional standards. We didn't build a product for agents. We built the missing yield layer the entire agent stack was waiting for. I am a massive proponent of the agentic economy and a trillion agents trading and investing 24 x7. Its early, but that is what you want to be. Next question!</p>
+        </div>
+
+        <div class="ama-turn ama-host">
+          <div class="ama-turn-head"><span class="ama-name">Robinweb3</span><span class="ama-role host">Host</span><span class="ama-time">13:08</span></div>
+          <p>ok that's a very comprehensive answer. Anthropic..👀 You're actually not very outspoken about that but it feels like the right direction if you'd ask me....</p>
+          <p>so follow up question quick: if an agent wants to earn yield today, what's actually stopping it right now, and how does IXS fix that?</p>
+        </div>
+
+        <div class="ama-turn ama-team">
+          <div class="ama-turn-head"><span class="ama-name">Julian Kwan</span><span class="ama-role team">IXS</span><span class="ama-time">13:10</span></div>
+          <p>Securities are highly complex and regulated, LLMs cannot just "do it themselves" there is a huge moat around us, that is definitely not the same for more simple businesses/industries, so they cannot copy and paste there way into RWA, they will have to partner, invest or acquire in specific industries, just saying..</p>
+        </div>
+
+        <div class="ama-turn ama-host">
+          <div class="ama-turn-head"><span class="ama-name">Robinweb3</span><span class="ama-role host">Host</span><span class="ama-time">13:10</span></div>
+          <p>so basically the robots get a savings account before half of crypto twitter does. noted ✍️</p>
+          <p>Julian, you just dropped the new site and the H2 roadmap article. give us the short version: where is IXS going in the next six months, and what's growing on the vault side?</p>
+        </div>
+
+        <div class="ama-turn ama-team">
+          <div class="ama-turn-head"><span class="ama-name">Julian Kwan</span><span class="ama-role team">IXS</span><span class="ama-time">13:12</span></div>
+          <p>Agents can earn defi yield today, no problem, but those yields are crypto, not USD backed like RWA treasuries/MMF, etc, so IXS solves this, agents invest into RWA as easily and quickly frictionless as investing into defi vaults. Simple concept, incredibly difficult to launch, but we did it. The next phase is to spread the word and bring in more partnerships which are in the works as you would know.</p>
+          <p>I want to first start with our BHAG, our BHAG for IXS is: Any real world asset, tokenized for any human or agent, available on IXS + 100's of partner platforms CEX, DEX, Fintech, Payfi, Apps, Neobanks, wallets, credit cards, and then onto wall street, broker dealers, private banks and other financial institutions.</p>
+          <p>H2 is about scaling the regulated agentic settlement layer we've been constructing for years. The new site and vision piece lay out the thesis clearly. We're moving from infrastructure that institutions can use to infrastructure that both institutions and autonomous agents can use natively. On the vault side we're expanding depth and accessibility. More institutional-grade underlying assets are being integrated into the open-ended vault architecture. Tokenized fixed income, private credit exposures, and additional short-duration instruments. We have Blackrock, Fidelity, Franklin Templeton, and adding tokenized stocks SpaceX, Apple, Google and more are coming down the pipeline. We are also live with Funding Societies' private credit vault in Southeast Asia.</p>
+          <p>H2 is focused on turning the foundation we've built into a compounding flywheel. The new site and Third Wave vision piece make the direction clear: we are scaling the regulated settlement layer so the same vaults serve both institutional capital and autonomous agents at growing scale. We are making these same vaults more discoverable and usable by agents while continuing to onboard additional institutional-grade assets. Every new asset or integration increases the utility of the entire platform.</p>
+          <p>The focus is on making these vaults more composable and discoverable while maintaining the same compliance and custody standards. The real expansion is in how these vaults are accessed. We're deepening the programmable interfaces so agents can discover, deposit, earn, and exit with minimal friction, while institutions continue to use the same products through traditional onboarding. This dual-access model is deliberate. It compounds the utility of every asset we onboard.</p>
+          <p>H2 isn't about adding features. It's about making the same regulated vaults work seamlessly for both the largest institutions and the smallest autonomous agents, hit me with the next qu pls</p>
+        </div>
+
+        <div class="ama-turn ama-host">
+          <div class="ama-turn-head"><span class="ama-name">Robinweb3</span><span class="ama-role host">Host</span><span class="ama-time">13:15</span></div>
+          <p>amazing, sounds like you're locked in Julian! here a cheeky question (if you can answer)</p>
+          <p>of everything in H2, what's the one thing you personally can't wait to ship?</p>
+        </div>
+
+        <div class="ama-turn ama-team">
+          <div class="ama-turn-head"><span class="ama-name">Julian Kwan</span><span class="ama-role team">IXS</span><span class="ama-time">13:17</span></div>
+          <p>New distribution partners are probably the most impactful overall, but there is a lot going on and I want to push the team to overachieve on their OKRs. And that is shipping, whole team needs to life, business, legal, tech ops etc to get any of these off the ground and operational</p>
+        </div>
+
+        <div class="ama-turn ama-host">
+          <div class="ama-turn-head"><span class="ama-name">Robinweb3</span><span class="ama-role host">Host</span><span class="ama-time">13:18</span></div>
+          <p>very understandable, with the pace the current world moves!</p>
+          <p>ok, let's move on ...let's get practical. what are you building to make IXS actually useful for AI agents, APIs, data, incentives, all of it. and where is IXS.agent right now: early access, or are people (or bots) already using it for real?</p>
+        </div>
+
+        <div class="ama-turn ama-team">
+          <div class="ama-turn-head"><span class="ama-name">Julian Kwan</span><span class="ama-role team">IXS</span><span class="ama-time">13:19</span></div>
+          <p>Agent vaults are live right now, not a demo or testnet. They are accessible today through our API and through MCP endpoints, which means an agent can discover a vault, read the yield, and allocate into real world assets programmatically. What comes next is making them richer for agents. Cleaner data so an agent can reason about risk and yield, deeper API coverage, and incentives that reward agents for routing real capital. We are in early access and retail first, and that is deliberate. Retail and agent builders prove the rails, then institutions follow. That is how every crypto cycle has adopted, and we are building in that exact order. Our team is working on driving further adoption through some new initiatives which will be released as they come out soon.</p>
+          <p>The plan is to make the entire product surface more agent-native. Machine-readable compliance and vault metadata. Standardized data formats for position reporting and yield attribution. Session-key and wallet abstraction support. Clear incentive alignment so agents can optimize for risk-adjusted yield autonomously. We're not building a separate agent product. We're exposing the same high-quality vaults institutions use, but with the interfaces and primitives agents need to operate at machine speed and scale. Early integrations are already underway with agent frameworks, and we expect more production usage as the agent economy matures, Its kind of only been 3-6 months of the agent economy coming alive, its incredibly exciting to think about the TAM and the speed at which AI develops, we are going to ride that wave at the very front.</p>
+          <p>Next we focus on new partnerships agentic.market (launched by Coinbase) circle.agent (launched by Circle) and many other new platforms and services focused on the agent economy. Verifiable data, identity, controls, etc This new world is a blue ocean opportunity, trillions of agents interacting at light speed, investing/divesting. Several well known investors on social media, have been all over this topic this year, including the Moonshots team lead by Peter Diamandis, the all in podcast with Sacks and co and several of the leading blockchain groups like Sui and CEX groups Binance and OKx all building agents and skill sets. IXS is coming in hot with the first RWA Vaults for agents that everyone above can use and plug into, we are agnostic to agents, agent wallets, all stablecoins and are looking to partner up with everyone above and more</p>
+          <p>Just to reconfirm that we are not building agent-only products. We are exposing the exact same BlackRock, Fidelity, and private credit vaults to autonomous capital through clean APIs. We must drive key partnerships and new channels to grow the platform whilst making sure we are AI ready and AI first.</p>
+        </div>
+
+        <div class="ama-turn ama-host">
+          <div class="ama-turn-head"><span class="ama-name">Robinweb3</span><span class="ama-role host">Host</span><span class="ama-time">13:23</span></div>
+          <p>I think that's a very key element to highlight, you're building not only for agents, so basically there's a whole new blue ocean you're tapping into here? And agents are higly scaleable right?</p>
+        </div>
+
+        <div class="ama-turn ama-team">
+          <div class="ama-turn-head"><span class="ama-name">Julian Kwan</span><span class="ama-role team">IXS</span><span class="ama-time">13:25</span></div>
+          <p>we are expanding and we must, everyone must get AI ready and be AI first in thought and product, yes there are many agent platforms being built and already in market most major CEX all have agents, but the kicker is they can only invest into crypto currently, until they connect with IXS. Our agent friendly RWA vaults are agent agnostic, wallet agnostic, built for easy interaction with all agents today and in the future as many more million go live.</p>
+          <p>These guys all have shared their TAM projections for the agentic economy and its all exponential and hard to even map out, I am a believer of this, watching and building in the space, its very early, but momentum is unstoppable.</p>
+        </div>
+
+        <div class="ama-turn ama-host">
+          <div class="ama-turn-head"><span class="ama-name">Robinweb3</span><span class="ama-role host">Host</span><span class="ama-time">13:27</span></div>
+          <p>yeh unreal when they talk about many many trillions now instead of billlions lol</p>
+        </div>
+
+        <div class="ama-turn ama-team">
+          <div class="ama-turn-head"><span class="ama-name">Julian Kwan</span><span class="ama-role team">IXS</span><span class="ama-time">13:27</span></div>
+          <p>Yes its now T, not B.</p>
+        </div>
+
+        <div class="ama-turn ama-host">
+          <div class="ama-turn-head"><span class="ama-name">Robinweb3</span><span class="ama-role host">Host</span><span class="ama-time">13:27</span></div>
+          <p>ok, next one talking about big..</p>
+          <p>you're up against giants building in-house, JPMorgan, DTCC, BlackRock, and crypto names with big TVL like Ondo and Securitize. why does IXS win? are mid-sized institutions or agent teams using you yet? and if I'm a $5-10B fund, why pick IXS instead of building it myself, and how fast can I go live?</p>
+        </div>
+
+        <div class="ama-turn ama-team">
+          <div class="ama-turn-head"><span class="ama-name">Julian Kwan</span><span class="ama-role team">IXS</span><span class="ama-time">13:29</span></div>
+          <p>Large institutions building in-house optimize for maximum control at enormous scale. That takes years and significant resources. Most participants including CEX, DEX, wallets, Fintech, Payfi and mid-sized institutions, family offices, neobanks, and agent teams, need reliable, compliant access to tokenized RWAs with strong custody and liquidity without rebuilding the entire stack. Some have tech, few have licenses, hardly any have tech + licenses for RWA, we do.</p>
+          <p>Our B2B model is the perfect solution, LINE agreed, as did the 4 CEX behind Union Chain. We have 10-20 more proposals in market now to provide RWA to groups with over 100M users collectively.</p>
+          <p>We have spent seven years building exactly that. We have 60+ institutional deals closed, $88M+ independently verified in deployed capital, live vaults from BlackRock, Fidelity, and Franklin Templeton, institutional custody through BitGo, and distribution already live with partners who have large user bases, including LINE's 200M+ user base.</p>
+          <p>Mid-sized institutions and early agent teams are starting to use the platform. For a $5–10B fund the practical advantages are speed, specialization, and lower operational burden. They can access battle-tested, licensed infrastructure and focus on capital allocation instead of building custody relationships, compliance frameworks, and distribution from scratch. The combination of real blue-chip assets live today, proven custody, and actual distribution reach is what makes the rails credible at scale. Almost all institutions find it very difficult to just switch to onchain securities. Many have had to build parallel platforms or products as existing architecture is embedded and old, we can help them with that, instantly (after onboarding).</p>
+          <p>JP Morgan, DTCC, Blackrock all want to work with platforms like us to expand their reach and distribution, they are not competitors, but future partners. I would say Securitize and Ondo, same same but also different, in that they are US centric but great businesses, in the RWA space, regulations are complex and jurisdictional, so more partners in different parts of the world is high on their wishlists and plans.</p>
+        </div>
+
+        <div class="ama-turn ama-host">
+          <div class="ama-turn-head"><span class="ama-name">Robinweb3</span><span class="ama-role host">Host</span><span class="ama-time">13:34</span></div>
+          <p>that makes a lot of sense, the market is growing so rapidly, and the demand for solutions like IXS is just growing, it feels like everyone wants to get involved with RWAs in one way or another..and offering world-class RWA products is definetely setting IXS apart from some others out there</p>
+          <p>Ok switching to Aaron!</p>
+          <p>it's numbers time, let's talk about a very commonly used word TVL</p>
+          <p>could you share a bit more on the latest regarding our $88M TVL number, how it breaks down, and looking fwd</p>
+        </div>
+
+        <div class="ama-turn ama-team">
+          <div class="ama-turn-head"><span class="ama-name">AO (Aaron)</span><span class="ama-role team">IXS</span><span class="ama-time">13:36</span></div>
+          <p>Our current reported TVL stands at $88M. This figure reflects primarily the capital raised and deployed through our earlier primary deals and fundraising rounds.</p>
+          <p>Beyond the current base, we are actively developing new leveraged structures against our upcoming RWA assets. Most of the new deals we are looking at will be structured in this way to provide both leveraged and unleveraged exposures.</p>
+          <p>These structures will be built on our vault infrastructure, allowing us to connect high-quality tokenized real-world assets (such as private credit, yield-bearing instruments, and other RWAs) to established lending protocols. By enabling efficient Loan-to-Value (LTV) ratios, users and the protocol itself can borrow against these assets while maintaining strong over-collateralization.</p>
+          <p>This creates a powerful multiplier effect:</p>
+          <ul class="dash-list">
+            <li>The same underlying RWA capital can support additional leveraged positions.</li>
+            <li>It attracts both conservative yield seekers (unleveraged) and more capital-efficient leveraged participants.</li>
+            <li>Recycled liquidity flows back into the ecosystem, meaningfully boosting overall TVL in a sustainable, risk-managed way.</li>
+          </ul>
+          <p>We expect these new vaults and leveraged products to drive significant TVL expansion while improving capital efficiency and deepening protocol utility.</p>
+        </div>
+
+        <div class="ama-turn ama-host">
+          <div class="ama-turn-head"><span class="ama-name">Robinweb3</span><span class="ama-role host">Host</span><span class="ama-time">13:40</span></div>
+          <p>that's super interesting Aaron, a shift to other models. Out of curiosity...</p>
+          <p>did this come up from new market developments or new participants in the market?</p>
+        </div>
+
+        <div class="ama-turn ama-team">
+          <div class="ama-turn-head"><span class="ama-name">AO (Aaron)</span><span class="ama-role team">IXS</span><span class="ama-time">13:42</span></div>
+          <p>Crypto has been doing this for a long time already, you see similar leveraged deposits available on platforms like pendle, morpho etc but it has only been recently that these offerings and infra have been available to RWA. These strategies are being deployed daily in the tradfi world. We are finally at the stage to be offering these similar structures onchain</p>
+          <p>This allows RWA yields to compete with crypto on a leveraged basis and provides more utility to these RWA assets</p>
+        </div>
+
+        <div class="ama-turn ama-host">
+          <div class="ama-turn-head"><span class="ama-name">Robinweb3</span><span class="ama-role host">Host</span><span class="ama-time">13:43</span></div>
+          <p>great insight!</p>
+        </div>
+
+        <div class="ama-turn ama-team">
+          <div class="ama-turn-head"><span class="ama-name">Julian Kwan</span><span class="ama-role team">IXS</span><span class="ama-time">13:43</span></div>
+          <p>yes we've been researching this for a while, i think lending and borrowing revenue can far exceed commissions from buying/selling rwa assets + good point on competitive products above too</p>
+        </div>
+
+        <div class="ama-turn ama-host">
+          <div class="ama-turn-head"><span class="ama-name">Robinweb3</span><span class="ama-role host">Host</span><span class="ama-time">13:44</span></div>
+          <p>ok, Julian there's been a run of partnership signals lately: the FD launch, the Compass Labs collab, even a BNB Chain retweet. walk us through what's real there. and where do Robinhood Chain and Base fit into the chain-agnostic, compliance-first approach?</p>
+        </div>
+
+        <div class="ama-turn ama-team">
+          <div class="ama-turn-head"><span class="ama-name">Julian Kwan</span><span class="ama-role team">IXS</span><span class="ama-time">13:45</span></div>
+          <p>These moves all expand access to the same regulated vault infrastructure. The Finance District launch on BNB Chain brings permissionless agentic access to institutional RWA yield. Agents can now put stablecoin capital to work in regulated vaults programmatically. FD is a highly credible stablecoin group with custody and making big moves into the agentic economy with their latest launch PRISM. Excited for this partnership.</p>
+          <p>The Compass Labs work demonstrates the open vault model with real examples. Base is already live as a primary distribution chain for agentic activity, with strong TVL and developer momentum. We remain chain-agnostic by design and will work with all the major groups.</p>
+          <p>We prioritize networks that offer strong liquidity, institutional interest, and agent-friendly environments while keeping the core compliance, custody, and vault logic consistent. Robinhood Chain (RHC) its in our broader distribution pipeline as we expand reach. The strategy is simple: one high-quality regulated layer, accessible through many high-quality front doors. We also like protocols focused on RWA like Stellar who are mostly USA focused.</p>
+          <p>BASE is a unique chain, same as RHC, leveraging a big user base. I believe BASE will remain a key chain whilst Coinbase stays in business, which I think is going to be a very very long time. With our investment from Coinbase Ventures and their focus on RWA, Base will make a big comeback and we are preparing to be ready for that. Coinbase is also extremely bullish on agents and agentic finance, where IXS is positioning for the third wave of growth coming.</p>
+          <p>We are speaking with RHC again tonight, but whats important is to continue to innovate, stay openminded about the possibilities and execute partnerships with great groups who bring real value to IXS and vice versa.</p>
+          <p>RH is a fintech thats well ahead of most fintechs in terms of crypto/stables and rwa desires</p>
+        </div>
+
+        <div class="ama-turn ama-host">
+          <div class="ama-turn-head"><span class="ama-name">Robinweb3</span><span class="ama-role host">Host</span><span class="ama-time">13:49</span></div>
+          <p>yeh, I see often peeps thinking in terms of buckets, where to build, here or there only - but actually when you see how fast things develop and how things can change so rapidly being open to go where the market wants you to be is key for success.</p>
+          <p>we all know examples of chains that looked promising but then died within a year. Good thing is that's very very unlikely with a chain like Base and RobinHood given how strong they already are without chain</p>
+          <p>let me know what RobinHood says tonight! 👀</p>
+        </div>
+
+        <div class="ama-turn ama-host">
+          <div class="ama-turn-head"><span class="ama-name">Robinweb3</span><span class="ama-role host">Host</span><span class="ama-time">13:50</span></div>
+          <p>haha, last big one for you Julian. Mindful of the meeting you've got soon.</p>
+          <p>you're heading to the US in August. what's the mission over there? and what's your read on the latest CLARITY Act news, good for IXS or just noise?</p>
+        </div>
+
+        <div class="ama-turn ama-team">
+          <div class="ama-turn-head"><span class="ama-name">Julian Kwan</span><span class="ama-role team">IXS</span><span class="ama-time">13:51</span></div>
+          <p>August is focused on deepening direct relationships with U.S. institutional participants, allocators, and partners. Several multibillion US institutions have reached out recently showing IXS growing presence and that our marketing efforts are starting to pay off.</p>
+          <p>The regulatory environment continues to move in a constructive direction, with greater clarity around tokenized assets and digital infrastructure. Let's hope clarity act passes soon, thats what the industry needs at this point. Its incredibly important to get the clarity act over the line, it defines all the rules, allows everyone to start building start up to big bank, more builders, more products, more users, more tvl, industry UP</p>
+          <p>Insiders I know say that clarity will come very soon, let us all send positive vibes for that to come to fruition</p>
+        </div>
+
+        <div class="ama-turn ama-team">
+          <div class="ama-turn-head"><span class="ama-name">Julian Kwan</span><span class="ama-role team">IXS</span><span class="ama-time">13:52</span></div>
+          <p>Our U.S. access already operates through established structures. The trip is about accelerating conversations with serious players who want compliant on-chain RWA exposure without building the full stack themselves. Broader regulatory progress benefits the entire space by reducing friction for institutions and creating cleaner rails for the next wave of capital, including agent-driven flows. As one example a $250BN asset manager wants to meet about helping them tokenized Repos. In the USA thats not even considered a really big group.</p>
+          <p>I am cautious of saying too much and making sure we keep our cards close to the chest until anything goes live, but I wanted to finish, as I have to go with a few numbers on my side</p>
+        </div>
+
+        <div class="ama-turn ama-host">
+          <div class="ama-turn-head"><span class="ama-name">Robinweb3</span><span class="ama-role host">Host</span><span class="ama-time">13:53</span></div>
+          <p>go on!</p>
+        </div>
+
+        <div class="ama-turn ama-team">
+          <div class="ama-turn-head"><span class="ama-name">Julian Kwan</span><span class="ama-role team">IXS</span><span class="ama-time">13:54</span></div>
+          <p>We have over 150 meaningful discussions in the pipeline sheets. Live &amp; contracted: two major super-app/exchange distribution channels reaching hundreds of millions of users; four institutional asset-manager vaults live spanning bonds, money market funds, and private credit; a full custody and settlement stack (custodian, OTC rail, banking rail, credit desk) all live; two major EVM chains live; three stablecoins active for vault flows; one AI-lab partner program live with MCP endpoints running.</p>
+          <p>In negotiation / due diligence: two top-tier exchanges as RWA partner, a major stablecoin issuer, a large traditional asset manager, two additional blockchain networks, an institutional DeFi network backed by major banks, a US distribution/licensing partner, and three AI-agent platforms mid-onboarding.</p>
+          <p>Proposal / active discussion: a wide bench of additional exchanges, several new blockchain networks, and a couple of AI-agent platforms, all real conversations.</p>
+          <p>Early pipeline: a broad set of neobanks, payment/float companies, super apps and wallets, stablecoin infrastructure players, AI-agent platforms, and DeFi vault curators, exploratory stage, not going to name names, but team is working 24x7 (to compete with the agents lol), but seriously, time is all we need, I need to jump, big love to our amazing community, keep up the great posts and questions, spread the word and thanks for tuning in and great hosting @robinhill85</p>
+        </div>
+
+        <div class="ama-turn ama-host">
+          <div class="ama-turn-head"><span class="ama-name">Robinweb3</span><span class="ama-role host">Host</span><span class="ama-time">13:58</span></div>
+          <p>That's a list! Julian thanks for this hour, I know your calendar is full throughout the whole evening! But that's what it takes! Great timing by myself as well uhum! Nearing the hour...</p>
+        </div>
+
+        <div class="ama-turn ama-host">
+          <div class="ama-turn-head"><span class="ama-name">Robinweb3</span><span class="ama-role host">Host</span><span class="ama-time">14:00</span></div>
+          <p>so let's go back to Aaron for a close, back to you Aaron.</p>
+          <p>I think I can share this but the BitGo podcast with Julian drops today (so keep your eyes open on the Bitgo channels)</p>
+          <p>but are there any other things you want to share with us as a close?</p>
+        </div>
+
+        <div class="ama-turn ama-team">
+          <div class="ama-turn-head"><span class="ama-name">AO (Aaron)</span><span class="ama-role team">IXS</span><span class="ama-time">14:03</span></div>
+          <p>The most concrete near-term priority is getting our new RWA vault live with full institutional-grade infrastructure. This is the foundation that unlocks scaled BD and new exposures. We are working with a T1 global fund manager (1T+ AUM) to bring an investment-grade (IG) bond fund on-chain along with other infra players in the market to bring this to life. Looking forward to when this goes live 😄</p>
+        </div>
+
+        <div class="ama-turn ama-host">
+          <div class="ama-turn-head"><span class="ama-name">Robinweb3</span><span class="ama-role host">Host</span><span class="ama-time">14:06</span></div>
+          <p>Great last words, I think we covered a lot in this hour, running over already! We're planning to do more of these and as always keep sharing questions with the mods within the community, they will land on Julian's and Aaron's desk - and we're alway will answer them when the opportunity presents.</p>
+          <p>With that said, thank you all for joining! Enjoy the rest of your day, and look out for that podcast!!</p>
+        </div>
+
+        <div class="ama-turn ama-host">
+          <div class="ama-turn-head"><span class="ama-name">Robinweb3</span><span class="ama-role host">Host</span><span class="ama-time">14:07</span></div>
+          <p>back to you @Undine1 - open the gates!</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <p class="site-footer-note">Transcript reproduced from IXS's public Telegram community. Wording preserved as originally posted, not edited for grammar or claims verified independently. Not financial advice, always verify at <a href="https://www.ixs.finance" target="_blank" rel="noopener">ixs.finance</a>.</p>
+
+</div>
+</div>
+<!-- /tab-ama -->
 
 <script src="assets/chart.umd.js"></script>
 <script src="js/script.js?v=54"></script>
