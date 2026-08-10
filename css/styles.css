@@ -1621,3 +1621,17 @@ a.announce-item.interactive:hover .x-icon { color: var(--purple); }
 .channel-card .ic { font-size: 1.4rem; margin-bottom: 8px; }
 .channel-card h4 { font-size: 0.86rem; margin-bottom: 6px; color: var(--ink); }
 .channel-card p { font-size: 0.76rem; color: var(--dim); line-height: 1.55; margin: 0; }
+
+.letter-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1.5px solid var(--purple);
+  color: var(--purple);
+  font-weight: 800;
+  font-size: 0.85rem;
+  margin-bottom: 12px;
+}
