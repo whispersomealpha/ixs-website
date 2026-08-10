@@ -524,7 +524,9 @@ function initMcComparison() {
       labels,
       datasets: [
         { label: 'Market Cap', data: MC_COMPARE_DATA.map(p => p.mc), backgroundColor: cssVar('--purple') || '#8b7bff', borderRadius: 6 },
+        { label: 'ATH Market Cap', data: MC_COMPARE_DATA.map(p => p.athMc), backgroundColor: cssVar('--blue') || '#1b6fd6', borderRadius: 6 },
         { label: 'FDV', data: MC_COMPARE_DATA.map(p => p.fdv), backgroundColor: cssVar('--orange') || '#d9600f', borderRadius: 6 },
+        { label: 'ATH FDV', data: MC_COMPARE_DATA.map(p => p.athFdv), backgroundColor: cssVar('--red') || '#cf3838', borderRadius: 6 },
         { label: 'TVL', data: MC_COMPARE_DATA.map(p => p.tvl), backgroundColor: cssVar('--green') || '#16915c', borderRadius: 6 },
       ],
     };
