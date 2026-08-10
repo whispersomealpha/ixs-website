@@ -632,18 +632,21 @@ function initMcComparison() {
 // ---------- IXS Thesis — 2027-2031 model chart ----------
 //
 // Illustrative scenario model from the community "IXS Thesis" write-up:
-// a gradual 0.03% -> 0.13% share of a ~$9.4T (2030) / ~$12T (2031) RWA
+// a gradual 0.03% -> 0.17% share of a ~$9.4T (2030) / ~$13T (2031) RWA
 // market, an illustrative 0.5x-TVL market cap, and agents' share of that
-// TVL growing from 5% to 25% over the same period. Not a forecast, see
-// the in-page disclaimer for sourcing.
+// TVL growing from 5% to 30% over the same period. 2031 was nudged up
+// from the original 0.13%/$15.6B to 0.17%/$22.1B for a slightly more
+// bullish out-year trajectory, 2027-2030 (including the 0.10%/$9.4B
+// anchor referenced throughout the tab) are unchanged. Not a forecast,
+// see the in-page disclaimer for sourcing.
 function initIxsThesisChart() {
   const canvas = document.getElementById('ixsThesisChart');
   if (!canvas || typeof Chart === 'undefined') return;
 
   const YEARS = [2027, 2028, 2029, 2030, 2031];
-  const TVL_B = [0.45, 1.35, 3.5, 9.4, 15.6];
-  const MC_B = [0.225, 0.675, 1.75, 4.7, 7.8];
-  const AGENTIC_B = [0.023, 0.108, 0.42, 1.7, 3.9];
+  const TVL_B = [0.45, 1.35, 3.5, 9.4, 22.1];
+  const MC_B = [0.225, 0.675, 1.75, 4.7, 11.05];
+  const AGENTIC_B = [0.023, 0.108, 0.42, 1.7, 6.63];
 
   function cssVar(name) {
     return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
