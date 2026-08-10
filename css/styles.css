@@ -1289,6 +1289,12 @@ a.announce-item.interactive:hover .x-icon { color: var(--purple); }
   .chart-wrap { height: 220px; }
 }
 
+/* MC Comparison chart only — 2x the standard chart height */
+.mc-chart-wrap { height: 560px; }
+@media (max-width: 620px) {
+  .mc-chart-wrap { height: 440px; }
+}
+
 .model-disclaimer p { font-size: 0.8rem; }
 
 /* ---------- X Posts & Threads ---------- */

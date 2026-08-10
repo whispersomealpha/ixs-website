@@ -529,13 +529,22 @@ function initMcComparison() {
     const athMcGap = MC_COMPARE_DATA.map(p => Math.max(0, p.athMc - p.mc));
     const athFdvGap = MC_COMPARE_DATA.map(p => Math.max(0, p.athFdv - p.fdv));
 
+    // Fixed (theme-independent) high-contrast palette: MC and ATH-MC share
+    // a blue family but at very different luminosity, same for FDV/ATH-FDV
+    // in the orange/yellow family, so the "today vs ATH" split reads
+    // clearly at a glance rather than blending together.
+    const COLOR_MC = '#1D4ED8';
+    const COLOR_MC_ATH = '#26F7FD';
+    const COLOR_FDV = '#FF6600';
+    const COLOR_FDV_ATH = '#FFEB00';
+
     const data = {
       labels,
       datasets: [
-        { label: 'Market Cap', data: MC_COMPARE_DATA.map(p => p.mc), backgroundColor: cssVar('--purple') || '#8b7bff', stack: 'mc', borderRadius: { topLeft: 0, topRight: 0, bottomLeft: 6, bottomRight: 6 } },
-        { label: 'ATH Market Cap', data: athMcGap, backgroundColor: cssVar('--blue') || '#1b6fd6', stack: 'mc', borderRadius: 6 },
-        { label: 'FDV', data: MC_COMPARE_DATA.map(p => p.fdv), backgroundColor: cssVar('--orange') || '#d9600f', stack: 'fdv', borderRadius: { topLeft: 0, topRight: 0, bottomLeft: 6, bottomRight: 6 } },
-        { label: 'ATH FDV', data: athFdvGap, backgroundColor: cssVar('--red') || '#cf3838', stack: 'fdv', borderRadius: 6 },
+        { label: 'Market Cap', data: MC_COMPARE_DATA.map(p => p.mc), backgroundColor: COLOR_MC, stack: 'mc', borderRadius: { topLeft: 0, topRight: 0, bottomLeft: 6, bottomRight: 6 } },
+        { label: 'ATH Market Cap', data: athMcGap, backgroundColor: COLOR_MC_ATH, stack: 'mc', borderRadius: 6 },
+        { label: 'FDV', data: MC_COMPARE_DATA.map(p => p.fdv), backgroundColor: COLOR_FDV, stack: 'fdv', borderRadius: { topLeft: 0, topRight: 0, bottomLeft: 6, bottomRight: 6 } },
+        { label: 'ATH FDV', data: athFdvGap, backgroundColor: COLOR_FDV_ATH, stack: 'fdv', borderRadius: 6 },
         { label: 'TVL', data: MC_COMPARE_DATA.map(p => p.tvl), backgroundColor: cssVar('--green') || '#16915c', stack: 'tvl', borderRadius: 6 },
       ],
     };
