@@ -520,14 +520,23 @@ function initMcComparison() {
     const labels = MC_COMPARE_DATA.map(p => p.name);
     const projectColors = MC_COMPARE_DATA.map(p => resolveColor(p.color));
 
+    // Three grouped bars per project (Market Cap, FDV, TVL). MC and FDV
+    // are each built from two stacked segments sharing a `stack` id: the
+    // current value on the bottom, then a second-color segment on top
+    // that closes the gap up to the ATH figure — so the full bar height
+    // reads as "today, continuing up to all-time high." TVL has no ATH
+    // figure, so it stays a single solid bar.
+    const athMcGap = MC_COMPARE_DATA.map(p => Math.max(0, p.athMc - p.mc));
+    const athFdvGap = MC_COMPARE_DATA.map(p => Math.max(0, p.athFdv - p.fdv));
+
     const data = {
       labels,
       datasets: [
-        { label: 'Market Cap', data: MC_COMPARE_DATA.map(p => p.mc), backgroundColor: cssVar('--purple') || '#8b7bff', borderRadius: 6 },
-        { label: 'ATH Market Cap', data: MC_COMPARE_DATA.map(p => p.athMc), backgroundColor: cssVar('--blue') || '#1b6fd6', borderRadius: 6 },
-        { label: 'FDV', data: MC_COMPARE_DATA.map(p => p.fdv), backgroundColor: cssVar('--orange') || '#d9600f', borderRadius: 6 },
-        { label: 'ATH FDV', data: MC_COMPARE_DATA.map(p => p.athFdv), backgroundColor: cssVar('--red') || '#cf3838', borderRadius: 6 },
-        { label: 'TVL', data: MC_COMPARE_DATA.map(p => p.tvl), backgroundColor: cssVar('--green') || '#16915c', borderRadius: 6 },
+        { label: 'Market Cap', data: MC_COMPARE_DATA.map(p => p.mc), backgroundColor: cssVar('--purple') || '#8b7bff', stack: 'mc', borderRadius: { topLeft: 0, topRight: 0, bottomLeft: 6, bottomRight: 6 } },
+        { label: 'ATH Market Cap', data: athMcGap, backgroundColor: cssVar('--blue') || '#1b6fd6', stack: 'mc', borderRadius: 6 },
+        { label: 'FDV', data: MC_COMPARE_DATA.map(p => p.fdv), backgroundColor: cssVar('--orange') || '#d9600f', stack: 'fdv', borderRadius: { topLeft: 0, topRight: 0, bottomLeft: 6, bottomRight: 6 } },
+        { label: 'ATH FDV', data: athFdvGap, backgroundColor: cssVar('--red') || '#cf3838', stack: 'fdv', borderRadius: 6 },
+        { label: 'TVL', data: MC_COMPARE_DATA.map(p => p.tvl), backgroundColor: cssVar('--green') || '#16915c', stack: 'tvl', borderRadius: 6 },
       ],
     };
 
@@ -542,12 +551,21 @@ function initMcComparison() {
         legend: { position: 'bottom', labels: { color: inkColor, font: { size: 11 } } },
         tooltip: {
           callbacks: {
-            label: (ctx) => `${ctx.dataset.label}: ${formatUsdCompact(ctx.parsed.y)}`,
+            // The "ATH" datasets plot the gap (ATH minus current), not the
+            // ATH figure itself, so show the real ATH total in the tooltip
+            // instead of that raw gap value.
+            label: (ctx) => {
+              const p = MC_COMPARE_DATA[ctx.dataIndex];
+              if (ctx.dataset.label === 'ATH Market Cap') return `ATH Market Cap: ${formatUsdCompact(p.athMc)}`;
+              if (ctx.dataset.label === 'ATH FDV') return `ATH FDV: ${formatUsdCompact(p.athFdv)}`;
+              return `${ctx.dataset.label}: ${formatUsdCompact(ctx.parsed.y)}`;
+            },
           },
         },
       },
       scales: {
         x: {
+          stacked: true,
           ticks: {
             color: (ctx) => projectColors[ctx.index] || dimColor,
             font: { size: 11, weight: '700' },
@@ -555,6 +573,7 @@ function initMcComparison() {
           grid: { display: false },
         },
         y: {
+          stacked: true,
           type: 'logarithmic',
           ticks: { color: dimColor, callback: (val) => formatUsdCompact(val) },
           grid: { color: gridColor },
