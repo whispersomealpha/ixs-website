@@ -1450,7 +1450,7 @@ a.announce-item.interactive:hover .x-icon { color: var(--purple); }
 
 .mc-compare-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   gap: 14px;
 }
 
